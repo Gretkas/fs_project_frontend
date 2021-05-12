@@ -1,0 +1,5 @@
+const LOGIN = "LOGIN"
+const ERROR = "ERROR"
+const AUTH_USER = "AUTH_USER"
+const LOGOUT = "LOGOUT"
+const NO_SESSION_COOKIE = "NO_SESSION_COOKIE"
