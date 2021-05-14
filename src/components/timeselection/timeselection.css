@@ -3,7 +3,7 @@
   grid-template-columns: repeat(7, 50px);
   grid-template-rows: repeat(11, 50px);
   overflow: hidden;
-  border-radius: 20px;
+
   width: fit-content;
   height: fit-content;
 }
@@ -87,7 +87,8 @@
   color: white;
 }
 .weekday {
-  background: rgba(200, 200, 200, 0.5);
+  background: rgba(48, 55, 161, 0.5);
+  color: white;
   display: flex;
   align-items: center;
 }
