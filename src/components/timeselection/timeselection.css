@@ -1,0 +1,48 @@
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 50px);
+  grid-template-rows: repeat(11, 50px);
+}
+.time-selection-time-unit {
+  height: 50px;
+  width: 50px;
+  list-style: none;
+}
+.time-selection-time-unit-button {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease-out;
+  transition: color 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+.time-selection-time-unit button:hover {
+  transform: scale(1.1);
+  background: rgba(48, 55, 161, 0.5);
+  color: white;
+}
+.time-selection-day {
+  width: 50px;
+  width: max-content;
+  text-align: center;
+  list-style: none;
+  margin: auto;
+}
+.time-selection-list-row {
+  margin: 0;
+  padding: 0;
+  list-style: noe;
+  height: 50px;
+  width: 50px;
+}
+.reserved {
+  background: rgba(138, 138, 138, 0.5);
+}
+.selected {
+  background: rgba(48, 55, 161, 0.5);
+}
