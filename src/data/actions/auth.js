@@ -6,6 +6,7 @@ import {
     LOGOUT,
     NO_SESSION_COOKIE
   } from "../constants"
+
   import {authenticationService} from "../services/auth"
  
   
@@ -16,12 +17,14 @@ import {
   
   export const login = (data) => async (dispatch) => { 
       try {
-        console.log("login");
+        
         const res = await authenticationService.login(data);
+        
         dispatch({
           type: LOGIN,
           payload: res.data,
         });
+        
       } catch (err) {
         dispatch({
           type: ERROR,
