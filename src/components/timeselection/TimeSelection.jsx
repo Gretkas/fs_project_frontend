@@ -33,7 +33,6 @@ function TimeSelection(props) {
       let i;
       let j;
       for (i = 0; i < 7; i++) {
-        console.log(i);
         if (i === position.column) {
         } else {
           for (j = 0; j < 10; j++) {
@@ -43,6 +42,7 @@ function TimeSelection(props) {
             };
             reserved.selected = false;
             reserved.reserved = true;
+            reserved.between = true;
             table[i].hourTable[j] = reserved;
           }
         }
@@ -75,11 +75,11 @@ function TimeSelection(props) {
         for (i = 0; i < 10; i++) {
           if (i === firstSelection.row) {
           } else {
-            console.log(i);
             let betweener = {
               ...reservationTime[firstSelection.column].hourTable[i],
             };
             betweener.selected = false;
+            betweener.between = true;
             table[firstSelection.column].hourTable[i] = betweener;
             console.log(table[firstSelection.column].hourTable[i]);
           }
@@ -116,6 +116,7 @@ function TimeSelection(props) {
             ...reservationTime[firstSelection.column].hourTable[i],
           };
           betweener.selected = true;
+          betweener.between = true;
           table[firstSelection.column].hourTable[i] = betweener;
           console.log(table[firstSelection.column].hourTable[i]);
         }
@@ -179,6 +180,7 @@ const createEmptyTimeArray = () => {
         reserved: false,
         selected: false,
         position: { row: j, column: i },
+        between: false,
       });
     }
 
@@ -212,14 +214,15 @@ function createVisualTimeArray(timeArray, handleTimeSelection) {
           position={timeArray[i].hourTable[j].position}
           selected={timeArray[i].hourTable[j].selected}
           reserved={timeArray[i].hourTable[j].reserved}
+          between={timeArray[i].hourTable[j].between}
         />
       );
     }
 
     timetable.push(
       <ul className="time-selection-list-row">
-        <li className="time-selection-day">
-          {mapNumberToDay(timeArray[i].date.getDay())}
+        <li className="time-selection-time-unit weekday">
+          <p>{mapNumberToDay(timeArray[i].date.getDay())}</p>
         </li>
         {hourTable.map((unit) => unit)}
       </ul>
@@ -253,10 +256,12 @@ function mapNumberToDay(number) {
 function TimeSelectionTimeUnit(props) {
   if (props.reserved) {
     return (
-      <li key={props.id} className="time-selection-time-unit">
+      <li key={props.id} className={`time-selection-time-unit`}>
         <button
           alt={`select ${props.time} o'clock`}
-          className="time-selection-time-unit-button reserved"
+          className={`time-selection-time-unit-button reserved ${
+            props.between ? "between" : ""
+          }`}
           onClick={() => props.handleTimeSelection(props.position)}
         >
           {props.time}
@@ -268,7 +273,9 @@ function TimeSelectionTimeUnit(props) {
       <li key={props.id} className="time-selection-time-unit ">
         <button
           alt={`select ${props.time} o'clock`}
-          className="time-selection-time-unit-button selected"
+          className={`time-selection-time-unit-button availible selected ${
+            props.between ? "between" : ""
+          }`}
           onClick={() => props.handleTimeSelection(props.position)}
         >
           {props.time}
@@ -280,16 +287,12 @@ function TimeSelectionTimeUnit(props) {
       <li key={props.id} className="time-selection-time-unit">
         <button
           alt={`select ${props.time} o'clock`}
-          className="time-selection-time-unit-button"
+          className="time-selection-time-unit-button availible"
           onClick={() => props.handleTimeSelection(props.position)}
         >
-          {props.time}
+          {`${props.time}`}
         </button>
       </li>
     );
   }
 }
-
-const SELECTED = "SELECTED";
-const RESERVED = "RESERVED";
-const UNSELECTED = "UNSELECTED";
