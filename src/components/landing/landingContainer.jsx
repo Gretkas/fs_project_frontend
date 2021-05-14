@@ -5,12 +5,12 @@ import { withRouter } from 'react-router';
 import React, { useEffect } from "react";
 
 function LandingContainer(props) {
-
   useEffect(() => {
     props.getReservations()
     props.getReservationHistory()
     
   }, []) 
+
   return (
     <div className="landingContainer">
       <Landing reservations={props.reservations} reservationHistory={props.reservationHistory}/>
