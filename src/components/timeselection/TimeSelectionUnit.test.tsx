@@ -16,19 +16,19 @@ beforeEach(() => {
 });
 
 describe("TimeSelectionUnit", () => {
-  test("Should create Availible react element", () => {
+  test("Should create Availible time unit react element", () => {
     const visualTimeUnit = defaultTimeSelectionUnit.buildJsxElement();
     render(visualTimeUnit);
     screen.getByTestId("availible");
   });
 
-  test("Should create Reserved react element", () => {
+  test("Should create Reserved time unit react element", () => {
     defaultTimeSelectionUnit.setStatus(TimeSelectionUnit.Status.RESERVED);
     const visualTimeUnit = defaultTimeSelectionUnit.buildJsxElement();
     render(visualTimeUnit);
     screen.getByTestId("reserved");
   });
-  test("Should create Selected react element", () => {
+  test("Should create Selected time unit react element", () => {
     defaultTimeSelectionUnit.setStatus(TimeSelectionUnit.Status.SELECTED);
     const visualTimeUnit = defaultTimeSelectionUnit.buildJsxElement();
     render(visualTimeUnit);

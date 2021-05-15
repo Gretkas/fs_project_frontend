@@ -3,6 +3,12 @@ import React, { FunctionComponent, ReactElement } from "react";
 import "./timeselection.css";
 
 /**
+ * Managing and rendering Time Selection Units
+ *
+ * @author Sigmund Sandring <sigmundsgranaas@gmail.com>
+ */
+
+/**
  * Status enum for TimeUnits
  *
  *  @type AVAILIBLE for units that are selectable
@@ -21,6 +27,7 @@ export enum Status {
  * @remarks
  * Needs to call buildJsxElement() to produce a react element
  *
+ * @author Sigmund Sandring <sigmundsgranaas@gmail.com>
  */
 export class TimeSelectionUnit implements ITimeSelectionUnit {
   id: number;
