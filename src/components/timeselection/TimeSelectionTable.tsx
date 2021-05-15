@@ -1,7 +1,11 @@
 import React, { FunctionComponent, ReactElement } from "react";
 import * as TimeSelectionUnit from "./TimeSelectionUnit";
 
-export default class TimeSelectionTable {}
+export const VisualTimeUnitReserved: FunctionComponent<ITimeSelectionTable> = (
+  props: ITimeSelectionTable
+) => {
+  return <div></div>;
+};
 
 export interface ITimeSelectionTable {}
 

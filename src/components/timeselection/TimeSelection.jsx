@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./timeselection.css";
+import "./timeselection.scss";
 
 /**
  * @author Sigmund Sandring <sigmundsgranaas@gmail.com>
