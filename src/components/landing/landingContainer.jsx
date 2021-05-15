@@ -7,7 +7,7 @@ import React, { useEffect } from "react";
 function LandingContainer(props) {
   useEffect(() => {
     props.getReservations()
-    props.getReservationHistory()
+    //props.getReservationHistory()
     
   }, []) 
 
