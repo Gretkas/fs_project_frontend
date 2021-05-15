@@ -69,8 +69,9 @@
   transform: rotate(-45deg);
 }
 .selected {
-  background: rgba(48, 55, 161, 0.5);
+  background: rgb(143, 149, 228);
   color: white;
+  z-index: 1;
 }
 
 .availible {
@@ -83,8 +84,9 @@
   -webkit-box-shadow: 0px 0px 5px 0px #818181;
   box-shadow: 0px 0px 5px 0px #818181;
   transform: scale(1.1);
-  background: rgba(48, 55, 161, 0.5);
+  background: rgb(143, 149, 228);
   color: white;
+  z-index: 1;
 }
 .weekday {
   background: rgba(48, 55, 161, 0.5);
