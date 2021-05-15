@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./timeselection.css";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 /**
+ * @author Sigmund Sandring <sigmundsgranaas@gmail.com>
+ *
+ * Renders a selectable timetable
  *
  * @deprecated
+ *
  * @param {*} props
- * @returns WeekxHours time selection table
+ * @returns React element time selection table
  */
 function TimeSelection(props) {
   const [reservationTime, setReservationTime] = useState(null);

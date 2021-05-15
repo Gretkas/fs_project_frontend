@@ -30,11 +30,11 @@ export enum Status {
  * @author Sigmund Sandring <sigmundsgranaas@gmail.com>
  */
 export class TimeSelectionUnit implements ITimeSelectionUnit {
-  id: number;
-  time: number;
+  readonly id: number;
+  readonly time: number;
   status: Status;
   between: boolean;
-  position: Position;
+  readonly position: Position;
   onClick: (position: Position) => void;
 
   constructor(
@@ -58,7 +58,7 @@ export class TimeSelectionUnit implements ITimeSelectionUnit {
   }
 
   /**
-   * Renders a react element representation of the class
+   * Renders a react element representation of the object
    *
    *
    * @see Status
