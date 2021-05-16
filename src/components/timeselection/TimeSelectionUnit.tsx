@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement } from "react";
 
-import "./timeselection.css";
+import "./timeselection.scss";
 
 /**
  * Managing and rendering Time Selection Units
@@ -205,7 +205,7 @@ export interface IVisualTimeUnit {
 /**
  * Position interface for creating positions in the week/hour grid
  */
-interface Position {
+export interface Position {
   readonly row: number;
   readonly column: number;
 }
