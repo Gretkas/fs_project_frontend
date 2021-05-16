@@ -21,7 +21,7 @@ export const getReservations = () => async (dispatch) => {
     }
   };
 
-  export const getReservationHistory = () => async (dispatch) => { 
+export const getReservationHistory = () => async (dispatch) => { 
     try {
       
       const res = await reservationService.getReservationHistory();
@@ -39,4 +39,22 @@ export const getReservations = () => async (dispatch) => {
         },
       });
     }
-  };
+};
+
+export const cancelReservation = (reservationId) => async (dispatch) => {
+  try{
+    const res = await reservationService.cancelReservation(reservationId);
+    dispatch(
+      getReservations()
+    );    
+  }
+  catch(err){
+    console.log(err);
+    dispatch({
+      type: ERROR,
+      payload: {
+        error: err,
+      },
+    });
+  }
+}

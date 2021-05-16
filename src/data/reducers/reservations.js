@@ -1,4 +1,4 @@
-import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, ERROR} from "../constants"
+import {GET_RESERVATIONS, GET_RESERVATION_HISTORY,ERROR} from "../constants"
 
 
 const defaultState = {
