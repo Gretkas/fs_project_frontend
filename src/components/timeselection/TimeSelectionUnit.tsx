@@ -193,6 +193,7 @@ export interface ITimeSelectionUnit {
   position: Position;
   onClick: (position: Position) => void;
   buildJsxElement: () => ReactElement<ITimeSelectionUnit>;
+  setStatus(newStatus: Status): void;
 }
 
 export interface IVisualTimeUnit {
