@@ -36,6 +36,8 @@ export class TimeSelectionUnit implements ITimeSelectionUnit {
   between: boolean;
   readonly position: Position;
   onClick: (position: Position) => void;
+  static Status: any;
+  static TimeSelectionUnit: any;
 
   constructor(
     id: number,
