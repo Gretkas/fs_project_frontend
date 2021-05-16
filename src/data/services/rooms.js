@@ -14,22 +14,31 @@ const getSingleRoom = async (id) => {
     return res;
 };
 
-async function getRooms() {
+const getFilteredRooms = async (data) =>{
     let res;
+    
     try{
-        res = await axios.get( `${API_URL}rooms`)
-    }
-    catch(e){
-        return e;
+        res = await axios({
+            method: 'POST',
+            url: `${API_URL}rooms/filter`,
+            
+             data:{                 
+                roomSearchCriteria: data.roomSearchCriteria,                 
+                roomPage: data.roomPage        
+             },
+            })
+
+    }catch(err){
+
     }
     return res;
+
+
+
 }
-
-
-
 
 
 export const roomService = {
   getSingleRoom,
-  getRooms
+  getFilteredRooms
 };

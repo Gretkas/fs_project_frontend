@@ -4,6 +4,7 @@ import RoomCard from './roomCard';
 function Rooms(props) {
 
     const renderRooms = () => {
+        console.log(props)
         return props.rooms.map(room => {
             return <RoomCard room={room}/>
         })

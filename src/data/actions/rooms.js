@@ -2,7 +2,8 @@ import {
     
     ERROR,
     GET_SINGLE_ROOM,
-    GET_ROOMS
+    GET_ROOMS,
+    GET_FILTERED_ROOMS
   } from "../constants"
   import {roomService} from "../services/rooms"
  
@@ -26,12 +27,13 @@ import {
       }
     };
   
-    export const getRooms = () => async (dispatch) => { 
+    export const getFilteredRooms = (data) => async (dispatch) => { 
       try {
       
-        const res = await roomService.getRooms();
+        const res = await roomService.getFilteredRooms(data);
+        console.log(res)
         dispatch({
-          type: GET_ROOMS,
+          type: GET_FILTERED_ROOMS,
           payload: res.data,
         });
       } catch (err) {
