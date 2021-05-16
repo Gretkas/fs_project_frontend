@@ -1,0 +1,9 @@
+
+.pagination-container {
+  display: flex;
+  font-weight: bold;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 0;
+}
+
