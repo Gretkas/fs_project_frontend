@@ -10,3 +10,12 @@ export const GET_SINGLE_ROOM = "GET_SINGLE_ROOM"
 export const GET_ROOMS = "GET_ROOMS"
 export const GET_FILTERED_ROOMS = "GET_FILTERED_ROOMS"
 
+// ERRORS
+export const ADD_ERROR = "ADD_ERROR";
+export const REMOVE_ERROR = "REMOVE_ERROR";
+
+// RESERVATION
+export const NEW_RESERVATION = "NEW_RESERVATION";
+
+
+

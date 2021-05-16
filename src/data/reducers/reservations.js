@@ -1,9 +1,10 @@
-import {GET_RESERVATIONS, GET_RESERVATION_HISTORY,ERROR} from "../constants"
+import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, ERROR, NEW_RESERVATION} from "../constants"
 
 
 const defaultState = {
     reservations: [],
-    reservationHistory: []
+    reservationHistory: [],
+    // newestReservation: null,
 }
 
 export default function reservationReducer(state = defaultState, action) {
@@ -12,13 +13,19 @@ export default function reservationReducer(state = defaultState, action) {
       case GET_RESERVATIONS:
         return {
           ...state,
-          reservations : action.payload
+          reservations : [...action.payload]
         };
       case GET_RESERVATION_HISTORY:
           return {
               ...state,
             reservationHistory : action.payload
         };
+        case NEW_RESERVATION:
+            return {
+                ...state,
+                reservations: [...state.reservations, action.payload],
+                // newestReservation: action.payload,
+            }
       case ERROR:
         return {
           ...state,

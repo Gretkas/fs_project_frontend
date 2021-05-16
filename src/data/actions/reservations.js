@@ -1,5 +1,9 @@
 import {reservationService} from "../services/reservations"
-import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, ERROR} from "../constants"
+import {
+  GET_RESERVATIONS, GET_RESERVATION_HISTORY,
+  ERROR, NEW_RESERVATION
+} from "../constants"
+import {addError} from "./errors";
 
 export const getReservations = () => async (dispatch) => { 
     try {
@@ -56,5 +60,22 @@ export const cancelReservation = (reservationId) => async (dispatch) => {
         error: err,
       },
     });
+  }
+}
+
+export const newReservation = (data) => async (dispatch) => {
+
+  try {
+    const res = await reservationService.postReservation(data)
+    console.log("NEW RESERV OK")
+    await dispatch({
+      type: NEW_RESERVATION,
+      payload: res
+    });
+    return res;
+  } catch (err) {
+    console.log("NEW RESERV FAIL", err)
+    addError(err);
+    return null;
   }
 }
