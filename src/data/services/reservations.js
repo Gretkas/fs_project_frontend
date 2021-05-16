@@ -23,10 +23,21 @@ const getReservationHistory = async () => {
     return res;
 };
 
+const cancelReservation = async (reservationId) => {
+    try{
+        await axios.delete(`${API_URL}reservations/${reservationId}`).then((response)=>{
+            return response;
+        })
+    }catch(error){
+        return error;
+    }
+}
+
 
 
 
 export const reservationService = {
   getReservations,
-  getReservationHistory
+  getReservationHistory,
+  cancelReservation
 };
