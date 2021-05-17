@@ -43,7 +43,7 @@ async function authUser() {
     let res;
     res = await axios({
       url: API_URL + 'auth',
-      method: 'GET',
+      method: 'GET'
     });
     console.log("AUTH USER:")
     console.log(res)

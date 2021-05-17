@@ -1,0 +1,37 @@
+.MuiCard-root{
+    margin: 0 auto;
+}
+  .RecommendedCard {
+    margin-bottom: 1em;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    width: clamp(200px, 350px, 400px);
+  }
+  .RecommendedCardDetails {
+    text-align: left;
+    height: 4rem;
+    margin: 1em;
+    display: flex;
+    overflow: hidden;
+    gap: 2rem;
+  }
+
+  
+  .RecommendedCardDescription {
+    overflow: hidden;
+    margin: 1rem;
+    text-align: left;
+    display: flex;
+  }
+  
+  
+  .RecommendedCardButtonReadMore {
+    margin-left: 0 auto;
+  }
+  @media only screen and (max-width: 400px) {
+    .RecommendedCard {
+      width: 95%;
+    }
+  }
+  

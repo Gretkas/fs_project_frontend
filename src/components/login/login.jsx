@@ -17,7 +17,6 @@ function Login(props) {
 
   let history = useHistory();
   const onSubmit = async (data) => {
-    console.log("I submittet");
     await props.login(data);
   };
 
