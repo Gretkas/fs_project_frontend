@@ -6,7 +6,7 @@ let defaultTimeSelectionUnit: TimeSelectionUnit.TimeSelectionUnit;
 
 beforeEach(() => {
   defaultTimeSelectionUnit = new TimeSelectionUnit.TimeSelectionUnit(
-    1,
+    "1",
     10,
     TimeSelectionUnit.Status.AVAILIBLE,
     true,

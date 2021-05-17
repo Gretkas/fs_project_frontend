@@ -16,9 +16,9 @@ import "./timeselection.scss";
  *  @type SELECTED for units that are selected or between two selected points
  */
 export enum Status {
-  AVAILIBLE,
-  RESERVED,
-  SELECTED,
+  AVAILIBLE = "AVAILIBLE",
+  RESERVED = "RESERVED",
+  SELECTED = "SELECTED",
 }
 
 /**
@@ -30,7 +30,7 @@ export enum Status {
  * @author Sigmund Sandring <sigmundsgranaas@gmail.com>
  */
 export class TimeSelectionUnit implements ITimeSelectionUnit {
-  readonly id: number;
+  readonly id: string;
   readonly time: number;
   status: Status;
   between: boolean;
@@ -40,7 +40,7 @@ export class TimeSelectionUnit implements ITimeSelectionUnit {
   static TimeSelectionUnit: any;
 
   constructor(
-    id: number,
+    id: string,
     time: number,
     status: Status,
     between: boolean,
@@ -72,6 +72,7 @@ export class TimeSelectionUnit implements ITimeSelectionUnit {
       case Status.SELECTED: {
         return (
           <VisualTimeUnitSelected
+            key={this.id}
             id={this.id}
             time={this.time}
             position={this.position}
@@ -83,6 +84,7 @@ export class TimeSelectionUnit implements ITimeSelectionUnit {
       case Status.RESERVED: {
         return (
           <VisualTimeUnitReserved
+            key={this.id}
             id={this.id}
             time={this.time}
             position={this.position}
@@ -93,6 +95,7 @@ export class TimeSelectionUnit implements ITimeSelectionUnit {
       default: {
         return (
           <VisualTimeUnitAvailible
+            key={this.id}
             id={this.id}
             time={this.time}
             position={this.position}
@@ -188,7 +191,7 @@ export const VisualTimeUnitReserved: FunctionComponent<IVisualTimeUnit> = (
 export default TimeSelectionUnit;
 
 export interface ITimeSelectionUnit {
-  id: number;
+  id: string;
   time: number;
   status: Status;
   between: boolean;
@@ -199,7 +202,7 @@ export interface ITimeSelectionUnit {
 }
 
 export interface IVisualTimeUnit {
-  id: number;
+  id: string;
   time: number;
   position: Position;
   onClick: (position: Position) => void;

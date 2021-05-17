@@ -20,9 +20,12 @@ import TimeSelectionUnit, {
  */
 export class DayArray implements IDayArray {
   days: Array<IDay>;
-  constructor(table: Array<IDay> = []) {
+  constructor(onClick: (position: Position) => void, table: Array<IDay> = []) {
     this.days = table;
+    this.onClick = onClick;
   }
+  onClick: (position: Position) => void;
+
   addDay(newDay: IDay): void {
     this.days.push(newDay);
   }
@@ -35,7 +38,7 @@ export class DayArray implements IDayArray {
    * @param position Takes in the postion of the column which should still be enabled
    */
   disableDays(position: Position): void {
-    console.log("Disabling unavailible days");
+    console.info("Disabling unavailible days");
     let i;
     let j;
     for (i = 0; i < NUMBER_OF_AVAILIBLE_WEEKDAYS; i++) {
@@ -166,6 +169,7 @@ export interface IDayArray {
   days: Array<IDay>;
   disableDays(position: Position): void;
   addDay(newDay: IDay): void;
+  onClick: (position: Position) => void;
 }
 
 export interface IVisualDay {
