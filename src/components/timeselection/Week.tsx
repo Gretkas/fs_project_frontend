@@ -4,13 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Button from "@material-ui/core/Button";
 import { Position } from "./TimeSelectionUnit";
 import TextField from "@material-ui/core/TextField";
-import {
-  fade,
-  ThemeProvider,
-  withStyles,
-  makeStyles,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
@@ -41,7 +35,7 @@ export const VisualWeek: FunctionComponent<IVisualWeek> = (
           className={classes.root}
           required={true}
           size="small"
-          id="filled-read-only-input"
+          id="startTime"
           label="Start"
           value={props.selection[0] ? props.selection[0] : ""}
           InputProps={{
@@ -52,7 +46,7 @@ export const VisualWeek: FunctionComponent<IVisualWeek> = (
           className={classes.root}
           size="small"
           required={true}
-          id="filled-read-only-input"
+          id="endTime"
           label="End"
           value={props.selection[1] ? props.selection[1] : ""}
           InputProps={{

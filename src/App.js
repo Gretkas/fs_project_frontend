@@ -7,16 +7,17 @@ import RoomsContainer from "./components/rooms/roomsContainer";
 import PrivateRoute from "./components/routes/privateroute";
 import AdminRoute from "./components/routes/adminroute";
 import Admin from "./components/admin/admin";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
 import TimeSelectionTable from "./components/timeselection/TimeSelectionTable";
 
 const isAdmin = true;
 function App(props) {
+  const { authUser } = props;
   useEffect(() => {
-    props.authUser();
-  }, []);
+    authUser();
+  }, [authUser]);
 
   return props.isLoggedIn !== null ? (
     <BrowserRouter>
