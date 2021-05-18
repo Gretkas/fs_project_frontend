@@ -1,32 +1,29 @@
 import AdminUserList from "./adminUserList";
 import { connect } from "react-redux";
-import { getReservation } from "../../data/actions/reservations";
+import { getUsers } from "../../../data/actions/users";
 import { withRouter } from 'react-router';
 import React, { useEffect } from "react";
 
-function LandingContainer(props) {
+function AdminUserListContainer(props) {
   useEffect(() => {
-    props.getReservations()
-    //props.getReservationHistory()
-    
+    props.getUsers()    
   }, []) 
 
   return (
     <div className="landingContainer">
-      <Landing reservations={props.reservations} reservationHistory={props.reservationHistory}/>
+      <AdminUserList users={props.users}/>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  reservations: state.reservations.reservations,
-  reservationHistory: state.reservations.reservationHistory
+  users: state.users.users
 });
 
 // const mapDispatchToProps = (dispatch) => ({ getCourses });
 
 
 
-export default withRouter(connect(mapStateToProps, { getReservations, getReservationHistory }, null, {
+export default withRouter(connect(mapStateToProps, { getUsers }, null, {
   forwardRef: true,
-})(LandingContainer));
+})(AdminUserListContainer));

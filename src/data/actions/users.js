@@ -7,6 +7,8 @@ import { userService } from "../services/users"
 export const getUsers = () => async (dispatch) => {
     try {
         const res = await userService.getUsers();
+        console.log("brukere:")
+        console.log(res)
         dispatch({
             type: GET_USERS,
             payload: res.data,

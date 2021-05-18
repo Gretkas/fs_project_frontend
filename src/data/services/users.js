@@ -14,6 +14,6 @@ const getUsers = async () => {
     return res;
 }
 
-export const roomService = {
+export const userService = {
     getUsers
 };

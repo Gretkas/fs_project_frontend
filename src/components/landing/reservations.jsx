@@ -6,7 +6,6 @@ function Reservations(props) {
 
 
   const renderReservations = () => {
-      console.log(props.reservations)
       return props.reservations.map(reservation => {
           return <ReservationCard reservation={reservation}/>
       })
