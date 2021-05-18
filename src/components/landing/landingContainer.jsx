@@ -8,7 +8,7 @@ function LandingContainer(props) {
   useEffect(() => {
     props.getReservations()
     //props.getReservationHistory()
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) 
 
   return (

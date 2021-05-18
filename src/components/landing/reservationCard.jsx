@@ -13,7 +13,7 @@ function ReservationCard(props) {
         <p className="reservationCardRoomName">{props.reservation.roomName}</p>
         <p className="reservationCardDate">{props.reservation.startTime.split("T")[1].substring(0,2)} - {props.reservation.endTime.split("T")[1].substring(0,2)} {props.reservation.endTime.split("T")[0]}</p>
         <p className="reservationCardSectionName">{props.reservation.title}</p>
-        <img className="reservationCardCancelButton" src={cancelButton} onClick={()=>{props.cancelReservation(props.reservation.id);}}/>
+        <img className="reservationCardCancelButton" alt="cancel button"src={cancelButton} onClick={()=>{props.cancelReservation(props.reservation.id);}}/>
         
     </div>
     <Divider className="hr"/>
