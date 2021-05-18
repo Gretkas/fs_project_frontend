@@ -14,26 +14,27 @@ const Header = (props) => {
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [userInfoOpen, setuserInfoOpen] = useState(false);
+  // const [userInfoOpen, setuserInfoOpen] = useState(false);
 
   const toggleNavBar = () => {
     setNavbarOpen((previous) => !previous);
   };
-  const toggleUserInfo = () => {
-    setuserInfoOpen((previous) => !previous);
-  };
+
+  //const toggleUserInfo = () => {
+  //  setuserInfoOpen((previous) => !previous);
+  //};
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
-  const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
+  // const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
 
   const renderHeader = () => {
     if (!props.user) {
@@ -48,6 +49,7 @@ const Header = (props) => {
               <div className={navbarOpen ? "bar3 change" : "bar3"}></div>
             </button>
 
+
             <Link to="/">
                 Home
             </Link>
@@ -55,9 +57,9 @@ const Header = (props) => {
                 Rooms
             </Link>
             
+
           </div>
           <ul className={`topbar-navbar ${navbarOpen ? " showMenu" : ""}`}>
-            
             <li>
               <Link to="/" onClick={toggleNavBar}>
                 <h2>Home</h2>
@@ -70,7 +72,6 @@ const Header = (props) => {
               </Link>
               <hr />
             </li>
-            
           </ul>
           <Menu
             id="simple-menu"
@@ -82,7 +83,7 @@ const Header = (props) => {
             <MenuItem onClick={handleClose}>
               <Link to="/">Hjem</Link>
             </MenuItem>
-           
+
             <MenuItem
               onClick={() => {
                 handleClose();
@@ -102,9 +103,11 @@ const Header = (props) => {
               <Link to="/">
                 <h2>Home</h2>
               </Link>
+
               <Link to="/rooms">
                 <h2>Rooms</h2>
               </Link>
+
             </div>
           
           </div>
@@ -137,6 +140,6 @@ const Header = (props) => {
   return <div>{renderHeader()}</div>;
 };
 
-export default connect(null, {  }, null, {
+export default connect(null, {}, null, {
   forwardRef: true,
 })(Header);

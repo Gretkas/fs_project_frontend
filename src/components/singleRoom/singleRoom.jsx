@@ -8,10 +8,26 @@ import CheckIcon from '@material-ui/icons/Check';
 import { Divider } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
+import TimeSelectionTable from "../timeselection/TimeSelectionTable.tsx"
+
+const exampleReservationTable = [
+  [false, true, true, true, true, true, true, true, true, true],
+  [false, true, true, false, false, false, false, true, true, true],
+  [false, true, true, true, true, true, true, true, true, true],
+  [false, true, true, false, true, false, true, true, true, true],
+  [false, true, true, false, false, false, true, false, false, false],
+  [false, true, false, false, false, false, true, true, true, true],
+  [false, false, true, true, true, false, false, false, true, true],
+];
+
+const defaultSelection = [
+  undefined,
+  undefined,
+];
 
 const purple = "#6200EE"
 function SingleRoom(props) {
-  
+  const [reservationTime, setReservationTime] = useState(defaultSelection);
   const [createOwnSectionTitle, setcreateOwnSectionTitle] = useState("");
   const [selectedSection, setSelectedSection] = useState(-1);
   const [isCreatingOwnSection, setCreatingOwnSection] = useState(false);
@@ -41,12 +57,14 @@ function SingleRoom(props) {
       
         </div>
     
-          {renderSections()}
+        {renderSections()}
           
        
         
         
         {renderCreateOwnSection()}
+        <TimeSelectionTable reservedArray={exampleReservationTable} reservationTime={reservationTime} setReservationTime={setReservationTime}/>
+
         <div className="roomReservationReserveButton">
           <Button variant="contained" style={{ background: purple, color: "#FFFFFF" }}>RESERVE</Button>
         </div>

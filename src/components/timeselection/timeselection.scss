@@ -1,0 +1,97 @@
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 50px);
+  grid-template-rows: repeat(11, 50px);
+  overflow: hidden;
+
+  width: fit-content;
+  height: fit-content;
+}
+.time-selection-time-unit {
+  height: 50px;
+  width: 50px;
+  list-style: none;
+}
+.time-selection-time-unit p {
+  border: none;
+  width: 100%;
+  height: 1rem;
+  margin-top: auto;
+  padding: 0;
+  text-align: center;
+  line-height: 1em;
+  align-items: center;
+}
+.time-selection-time-unit-button {
+  border: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.time-selection-day {
+  width: 50px;
+  width: max-content;
+  text-align: center;
+  list-style: none;
+  margin: auto;
+}
+.time-selection-list-row {
+  margin: 0;
+  padding: 0;
+  list-style: noe;
+  height: 50px;
+  width: 50px;
+}
+.reserved {
+  color: rgba(200, 200, 200, 0.5);
+  transform: none;
+  transition: none;
+}
+.reserved:after,
+.reserved:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(200, 200, 200, 0.5);
+}
+.reserved:before {
+  transform: rotate(45deg);
+}
+.reserved:after {
+  transform: rotate(-45deg);
+}
+.selected {
+  background: rgb(143, 149, 228);
+  color: white;
+  z-index: 1;
+}
+
+.availible {
+  cursor: pointer;
+  transition: color 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+  transition: box-shadow 0.2s ease-out;
+}
+.availible:hover {
+  -webkit-box-shadow: 0px 0px 5px 0px #818181;
+  box-shadow: 0px 0px 5px 0px #818181;
+  transform: scale(1.1);
+  background: rgb(143, 149, 228);
+  color: white;
+  z-index: 1;
+}
+.weekday {
+  background: #6200EE;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.time-selectors {
+  max-width: 350px;
+}

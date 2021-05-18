@@ -43,7 +43,7 @@ export const getReservationHistory = () => async (dispatch) => {
 
 export const cancelReservation = (reservationId) => async (dispatch) => {
   try{
-    const res = await reservationService.cancelReservation(reservationId);
+    await reservationService.cancelReservation(reservationId);
     dispatch(
       getReservations()
     );    
