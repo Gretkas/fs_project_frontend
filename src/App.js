@@ -4,6 +4,7 @@ import LandingContainer from "./components/landing/landingContainer";
 import Header from "./components/header/header"
 import LoginContainer from "./components/login/loginContainer"
 import RoomsContainer from "./components/rooms/roomsContainer"
+import RoomContainer from "./components/singleRoom/roomContainer"
 import PrivateRoute from "./components/routes/privateroute";
 import AdminRoute from "./components/routes/adminroute";
 import Admin from './components/admin/admin';
@@ -26,6 +27,7 @@ function App(props) {
       <Route exact path="/login" component={LoginContainer}/>
       <PrivateRoute exact path="/" component={LandingContainer} isLoggedIn={props.isLoggedIn}/>  
       <PrivateRoute exact path="/rooms" component={RoomsContainer} isLoggedIn={props.isLoggedIn}/>    
+      <PrivateRoute exact path="/rooms/:id" component={RoomContainer} isLoggedIn={props.isLoggedIn}/>   
       <AdminRoute exact path="/admin" component={Admin} isAdmin={isAdmin}/>
     </BrowserRouter>
   ): (
