@@ -10,7 +10,6 @@ const prepareReservationTime = (props) => {
                 <div className="create-activity-dato-start">
                     <Controller
                         render={({ field }) => {
-                            console.log(field.value)
                             return (
                                 <TextField
                                     {...field}

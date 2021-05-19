@@ -1,8 +1,5 @@
 import {reservationService} from "../services/reservations"
-import {
-  GET_RESERVATIONS, GET_RESERVATION_HISTORY,
-  ERROR, NEW_RESERVATION
-} from "../constants"
+import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, POST_RESERVATION_SUCCESS, GET_AVAILABLE_TIMETABLE, ERROR, NEW_RESERVATION} from "../constants"
 import {addError} from "./errors";
 
 export const getReservations = () => async (dispatch) => { 
@@ -45,9 +42,46 @@ export const getReservationHistory = () => async (dispatch) => {
     }
 };
 
+export const getAvailableTimeTable = (items) => async (dispatch) => { 
+  try {
+    
+    const res = await reservationService.getAvailableTimeTable(items);
+    console.log(res)
+    dispatch({
+      type: GET_AVAILABLE_TIMETABLE,
+      payload: res.data.timetable,
+    });
+    
+  } catch (err) {
+    dispatch({
+      type: ERROR,
+      payload: {
+        error: err,
+      },
+    });
+  }
+};
+
+export const postReservation = (data) => async (dispatch) => {
+  try{
+    await reservationService.postReservation(data);
+    dispatch({
+      type: POST_RESERVATION_SUCCESS,
+    });    
+  }
+  catch(err){
+    console.log(err);
+    dispatch({
+      type: ERROR,
+      payload: {
+        error: err,
+      },
+    });
+  }
+}
 export const cancelReservation = (reservationId) => async (dispatch) => {
   try{
-    const res = await reservationService.cancelReservation(reservationId);
+    await reservationService.cancelReservation(reservationId);
     dispatch(
       getReservations()
     );    
@@ -66,7 +100,7 @@ export const cancelReservation = (reservationId) => async (dispatch) => {
 export const newReservation = (data) => async (dispatch) => {
 
   try {
-    const res = await reservationService.postReservation(data)
+    const res = await reservationService.postMaintenanceReservation(data)
     await dispatch({
       type: NEW_RESERVATION,
       payload: res.data

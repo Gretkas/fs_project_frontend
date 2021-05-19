@@ -22,7 +22,6 @@ const MaintenanceReservationForm = (props) => {
         register,
         control,
         handleSubmit,
-        reset,
         getValues,
         formState: {
             errors,
@@ -56,10 +55,6 @@ const MaintenanceReservationForm = (props) => {
 
     const onErrors = (errors) => {
         console.log("ERRORS:", errors);
-    };
-
-    const onReset = () => {
-        reset();
     };
 
     const prepareMRForm = () => {
