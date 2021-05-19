@@ -1,7 +1,6 @@
 import {
   AVAILIBLE_HOURS,
   defaultReservationTable,
-  exampleReservationTable,
   NUMBER_OF_AVAILIBLE_WEEKDAYS,
   TimeSelectionTable,
 } from "./TimeSelectionTable";
@@ -101,3 +100,13 @@ describe("convert bit-matrix to TimeSelectionTable", () => {
     ).toEqual({ row: 0, column: 6 });
   });
 });
+
+const exampleReservationTable = [
+  [false, true, true, true, true, true, true, true, true, true],
+  [false, true, true, false, false, false, false, true, true, true],
+  [false, true, true, true, true, true, true, true, true, true],
+  [false, true, true, false, true, false, true, true, true, true],
+  [false, true, true, false, false, false, true, false, false, false],
+  [false, true, false, false, false, false, true, true, true, true],
+  [false, false, true, true, true, false, false, false, true, true],
+];
