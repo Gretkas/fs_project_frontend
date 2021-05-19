@@ -31,14 +31,13 @@ function SingleRoom(props) {
   
   useEffect(() => { 
       props.getAvailableTimeTable(selectedSectionItems)
-      console.log(props.availableTimeTable)
   }, [selectedSectionItems])
 
   const renderSelection = () => {
     return (
       <div className="roomReservationSelectionComponent">
         
-        <div className={selectedSection === -2 ? "roomReservationSelectedSection" : "roomReservationSection"} onClick={() => handleSectionClick(-2, props.room.items)}> 
+        <div className={selectedSection === -2 ? "roomReservationSelectedSection" : "roomReservationSection"} onClick={() => handleSectionClick(-2, props.room.items, "Hele rommet")}> 
         <Paper className="roomReservationPaper" elevation={3}>
               <div className="roomReservationSectionHeader">
                 <Typography variant="h4" component="h4">
@@ -78,7 +77,7 @@ function SingleRoom(props) {
     let elements = [];
     props.room.sections.forEach(section => {
       elements.push(
-        <div key={uuid()} className={selectedSection === section.id ? "roomReservationSelectedSection" : "roomReservationSection"} onClick={() => handleSectionClick(section.id, section.items)}> 
+        <div key={uuid()} className={selectedSection === section.id ? "roomReservationSelectedSection" : "roomReservationSection"} onClick={() => handleSectionClick(section.id, section.items, section.name)}> 
           <Paper className="roomReservationPaper" elevation={3}>
           <div className="roomReservationSectionHeader">
             <Typography variant="h4" component="h4">
@@ -110,6 +109,7 @@ function SingleRoom(props) {
         setCreatingOwnSection(true)
         setSelectedSectionItems([])
         setSelectedSection(-1)
+        setcreateOwnSectionTitle("")
       }
       }>
         <div className="roomReservationSectionHeader">
@@ -158,13 +158,14 @@ function SingleRoom(props) {
     
   }
 
-  const handleSectionClick = (id, items) => {
+  const handleSectionClick = (id, items, name) => {
     setSelectedSection((selectedSection) => {
       return selectedSection===id ? -1: id
     })
     setSelectedSectionItems((selectedSectionItems) => {
       return selectedSection===id ? []: items
     })
+    setcreateOwnSectionTitle(name)
     setCreatingOwnSection(false)
   }
 
@@ -179,13 +180,19 @@ function SingleRoom(props) {
   
 
   const handleReservationPost = () => {
+    const startDate = new Date(reservationTime[2])
+    startDate.setHours(reservationTime[0],0,0)
+    const endDate = new Date(reservationTime[2])
+    endDate.setHours(reservationTime[1],0,0)
+
+  
     const data = {
-      startTime: reservationTime[0],                 
-      endTime: reservationTime[1],
+      startTime: startDate,                 
+      endTime: endDate,
       items: selectedSectionItems,
-      type: "Reservation"
+      type: "RESERVATION"
     }
-    props.postReservation()
+    props.postReservation(data)
   }
 
   return (
