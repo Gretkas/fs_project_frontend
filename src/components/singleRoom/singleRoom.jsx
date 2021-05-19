@@ -26,6 +26,7 @@ function SingleRoom(props) {
     props.room.items
   );
   const [TimeSelectionKey, setTimeSelectionKey] = useState(uuidv4());
+  const [isReserved, setReserved] = useState(false);
 
   useEffect(() => {
     props.getAvailableTimeTable(selectedSectionItems);
@@ -240,11 +241,11 @@ function SingleRoom(props) {
       return selectedSection === id ? -1 : id;
     });
     setSelectedSectionItems((selectedSectionItems) => {
-      return selectedSection===id ? []: items
-    })
-    setcreateOwnSectionTitle(name)
-    setCreatingOwnSection(false)
-  }
+      return selectedSection === id ? [] : items;
+    });
+    setcreateOwnSectionTitle(name);
+    setCreatingOwnSection(false);
+  };
 
   const handleItemSelection = (item) => {
     setSelectedSectionItems((selectedSectionItems) => {
@@ -255,21 +256,20 @@ function SingleRoom(props) {
   };
 
   const handleReservationPost = async () => {
-    const startDate = new Date(reservationTime[2])
-    startDate.setHours(reservationTime[0],0,0)
-    const endDate = new Date(reservationTime[2])
-    endDate.setHours(reservationTime[1],0,0)
+    const startDate = new Date(reservationTime[2]);
+    startDate.setHours(reservationTime[0], 0, 0);
+    const endDate = new Date(reservationTime[2]);
+    endDate.setHours(reservationTime[1], 0, 0);
 
-  
     const data = {
-      startTime: startDate,                 
+      startTime: startDate,
       endTime: endDate,
       items: selectedSectionItems,
-      type: "RESERVATION"
-    }
-    await props.postReservation(data)
-    setReserved(true)
-  }
+      type: "RESERVATION",
+    };
+    await props.postReservation(data);
+    setReserved(true);
+  };
 
   return (
     <div className="singleRoom">
@@ -288,9 +288,8 @@ function SingleRoom(props) {
       </div>
 
       {renderSelection()}
-       {isReserved? <Redirect to="/"/>: "" }
+      {isReserved ? <Redirect to="/" /> : ""}
     </div>
-   
   );
 }
 
