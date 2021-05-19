@@ -3,17 +3,17 @@
 }
 
 .singleRoom{
-    max-width: 400px;
+    max-width: 350px;
     margin: 0 auto;
 }
 
 .roomReservationSelectionComponent{
-    max-width: 400px;
+    max-width: 350px;
     margin: 0 auto;
 }
 
 .roomReservationCreateOwnSectionItems{
-    max-width: 400px;
+    max-width: 350px;
     
     display:flex;
     flex-direction: row;
@@ -32,10 +32,10 @@
 
 .roomReservationCreateOwnSectionTitle{
     margin-top: 10px;
-    max-width: 400px;
+    max-width: 350px;
 }
 .roomReservationSectionHeader{
-    max-width: 400px;
+    max-width: 350px;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
@@ -47,7 +47,7 @@
 
 .roomReservationSelectedSection{
     margin: 10px auto;
-    max-width: 400px;
+    max-width: 350px;
     border: 1px solid var(--main--color);;
 }
 .roomReservationPaper{
@@ -55,9 +55,11 @@
 }
 .roomReservationSection{
     margin: 10px auto;
-    max-width: 400px;
+    max-width: 350px;
     
 }
+
+
 
 .roomReservationSectionItems{
     display:flex;

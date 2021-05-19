@@ -23,13 +23,18 @@ export const VisualTimeSelectionTable: FunctionComponent<IVisualTimeSelectionTab
   (props: IVisualTimeSelectionTable) => {
     const [reservationTable, setReservationTable] = useState(
       new TimeSelectionTable(
-        props.reservedArray ? props.reservedArray : defaultReservationTable,
+        props.reservedArray,
         handleOnClick
       )
     );
   
-
-    useEffect(() => {}, [reservationTable.selectionArray]);
+    const {reservedArray} = props;
+    useEffect(() => {
+      setReservationTable(new TimeSelectionTable(
+        props.reservedArray,
+        handleOnClick
+      ))
+    }, [reservedArray]);
 
     function handleOnClick(position: Position): void {
       setReservationTable(reservationTable.handleInputSelection(position));
@@ -222,7 +227,8 @@ export class TimeSelectionTable implements ITimeSelectionTable {
    *
    * @returns touple of selected time ranges. Values will be undefined if selection is empty
    */
-  calculateselection(): [number | undefined, number | undefined] {
+  calculateselection(): [number | undefined, number | undefined, Date| undefined] {
+    
     if (this.firstSelection && this.secondSelection) {
       const firstseslection: TimeSelectionUnit =
         this.selectionArray.days[this.firstSelection.column].hourTable[
@@ -234,9 +240,9 @@ export class TimeSelectionTable implements ITimeSelectionTable {
         ];
 
       if (firstseslection.time < secondSelection.time) {
-        return [firstseslection.time, secondSelection.time + 1];
+        return [firstseslection.time, secondSelection.time + 1, this.selectionArray.days[this.firstSelection.column].date];
       } else {
-        return [secondSelection.time, firstseslection.time + 1];
+        return [secondSelection.time, firstseslection.time + 1, this.selectionArray.days[this.firstSelection.column].date];
       }
     } else {
       if (this.firstSelection) {
@@ -244,12 +250,14 @@ export class TimeSelectionTable implements ITimeSelectionTable {
           this.selectionArray.days[this.firstSelection.column].hourTable[
             this.firstSelection.row
           ];
-        return [firstSelection.time, firstSelection.time + 1];
+        return [firstSelection.time, firstSelection.time + 1, this.selectionArray.days[this.firstSelection.column].date];
       } else {
-        return [undefined, undefined];
+        return [undefined, undefined, undefined];
       }
     }
   }
+
+  
 
   updateTimeTable(newTimeTable: DayArray) {
     this.selectionArray = newTimeTable;
@@ -261,13 +269,13 @@ export interface ITimeSelectionTable {
   selectionArray: IDayArray;
   onClick(position: Position): void;
   handleInputSelection(position: Position): TimeSelectionTable;
-  calculateselection(): [number | undefined, number | undefined];
+  calculateselection(): [number | undefined, number | undefined, Date| undefined];
   removeSelection(): void;
 }
 export interface IVisualTimeSelectionTable {
   reservedArray?: boolean[][];
-  reservationTime: [number | undefined, number | undefined];
-  setReservationTime: (selection:[number | undefined, number | undefined])=> void;
+  reservationTime: [number | undefined, number | undefined, Date| undefined];
+  setReservationTime: (selection:[number | undefined, number | undefined, Date| undefined])=> void;
 }
 
 export const AVAILIBLE_HOURS: number = 10;

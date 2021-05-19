@@ -3,7 +3,7 @@
   grid-template-columns: repeat(7, 50px);
   grid-template-rows: repeat(11, 50px);
   overflow: hidden;
-
+  margin:  auto;
   width: fit-content;
   height: fit-content;
 }
@@ -16,11 +16,9 @@
   border: none;
   width: 100%;
   height: 1rem;
-  margin-top: auto;
-  padding: 0;
   text-align: center;
   line-height: 1em;
-  align-items: center;
+  
 }
 .time-selection-time-unit-button {
   border: none;
@@ -93,5 +91,6 @@
   align-items: center;
 }
 .time-selectors {
+  margin: 0 auto;
   max-width: 350px;
 }

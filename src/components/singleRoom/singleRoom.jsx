@@ -1,7 +1,7 @@
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import React, { useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import "./singleRoom.css"
 import CheckIcon from '@material-ui/icons/Check';
@@ -9,29 +9,31 @@ import { Divider } from '@material-ui/core';
 import { Paper } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import TimeSelectionTable from "../timeselection/TimeSelectionTable.tsx"
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 
-const exampleReservationTable = [
-  [false, true, true, true, true, true, true, true, true, true],
-  [false, true, true, false, false, false, false, true, true, true],
-  [false, true, true, true, true, true, true, true, true, true],
-  [false, true, true, false, true, false, true, true, true, true],
-  [false, true, true, false, false, false, true, false, false, false],
-  [false, true, false, false, false, false, true, true, true, true],
-  [false, false, true, true, true, false, false, false, true, true],
-];
 
-const defaultSelection = [
-  undefined,
-  undefined,
-];
+
+
 
 const purple = "#6200EE"
 function SingleRoom(props) {
-  const [reservationTime, setReservationTime] = useState(defaultSelection);
+  const [reservationTime, setReservationTime] = useState([
+    undefined,
+    undefined,
+    undefined
+  ]);
   const [createOwnSectionTitle, setcreateOwnSectionTitle] = useState("");
   const [selectedSection, setSelectedSection] = useState(-1);
   const [isCreatingOwnSection, setCreatingOwnSection] = useState(false);
   const [selectedSectionItems, setSelectedSectionItems] = useState([]);
+
+
+  
+  useEffect(() => { 
+      props.getAvailableTimeTable(selectedSectionItems)
+      console.log(props.availableTimeTable)
+  }, [selectedSectionItems])
+
   const renderSelection = () => {
     return (
       <div className="roomReservationSelectionComponent">
@@ -47,26 +49,26 @@ function SingleRoom(props) {
               <div className="roomReservationSectionItems">
                 {renderSectionItems(props.room.items, (selectedSection === -2))} 
               </div>
-              
-              
-              <div className="hr">
-                <Divider flexItem/>
-              </div>
-              
+          
         </Paper>
       
         </div>
     
         {renderSections()}
-          
-       
-        
-        
-        {renderCreateOwnSection()}
-        <TimeSelectionTable reservedArray={exampleReservationTable} reservationTime={reservationTime} setReservationTime={setReservationTime}/>
+        <Paper className="roomReservationPaper" elevation={3}>
+          {renderCreateOwnSection()}
+        </Paper>
 
+        <div className="roomReservationPaper">
+          
+          <Typography variant="h4" component="h4">
+                  Velg tidspunkt:
+        </Typography>
+        </div>
+        
+        <TimeSelectionTable  reservedArray={props.availableTimeTable} reservationTime={reservationTime} setReservationTime={setReservationTime}/>
         <div className="roomReservationReserveButton">
-          <Button variant="contained" style={{ background: purple, color: "#FFFFFF" }}>RESERVE</Button>
+          <Button onClick={() => handleReservationPost()} variant="contained" style={{ background: purple, color: "#FFFFFF" }}>RESERVE</Button>
         </div>
         
       </div>
@@ -110,17 +112,22 @@ function SingleRoom(props) {
         setSelectedSection(-1)
       }
       }>
-        <Typography variant="h4" component="h4">
-        Lag egen seksjon
-        </Typography>
+        <div className="roomReservationSectionHeader">
+          <Typography variant="h4" component="h4">
+            Lag egen seksjon
+          </Typography>
+        <ArrowDropDownCircleIcon/>
+        </div>
+        
         </div>
     }
     else return (
       <div className="roomReservationSection">
-        <div onClick={() => setCreatingOwnSection(false)}>
+        <div className="roomReservationSectionHeader" onClick={() => setCreatingOwnSection(false)}>
           <Typography variant="h4" component="h4">
             Lag egen seksjon
         </Typography>
+        <ArrowDropDownCircleIcon/>
         </div>
         <div className="roomReservationCreateOwnSectionItems">
           {renderCreateOwnSectionItems()}
@@ -167,8 +174,19 @@ function SingleRoom(props) {
     setSelectedSectionItems((selectedSectionItems) => {
       return selectedSectionItems.includes(item) ? selectedSectionItems.filter(selectedItem => selectedItem!= item): [...selectedSectionItems, item]
     })
+    
   }
   
+
+  const handleReservationPost = () => {
+    const data = {
+      startTime: reservationTime[0],                 
+      endTime: reservationTime[1],
+      items: selectedSectionItems,
+      type: "Reservation"
+    }
+    props.postReservation()
+  }
 
   return (
       <div className="singleRoom">

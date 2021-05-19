@@ -1,9 +1,19 @@
-import {GET_RESERVATIONS, GET_RESERVATION_HISTORY,ERROR} from "../constants"
+import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, POST_RESERVATION_SUCCESS, GET_AVAILABLE_TIMETABLE,  ERROR} from "../constants"
 
+const defaultReservationTable = [
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+  [false, false, false, false, false, false, false, false, false, false],
+];
 
 const defaultState = {
     reservations: [],
-    reservationHistory: []
+    reservationHistory: [],
+    availableTimeTable: defaultReservationTable
 }
 
 export default function reservationReducer(state = defaultState, action) {
@@ -19,9 +29,20 @@ export default function reservationReducer(state = defaultState, action) {
               ...state,
             reservationHistory : action.payload
         };
-      case ERROR:
+      case POST_RESERVATION_SUCCESS: 
+        return {
+          ...state
+        }
+
+      case GET_AVAILABLE_TIMETABLE:
         return {
           ...state,
+          availableTimeTable : action.payload
+        }
+      case ERROR:
+        return {
+          ...state
+          
         };
   
       default:
