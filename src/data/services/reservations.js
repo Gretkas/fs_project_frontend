@@ -80,6 +80,18 @@ const cancelReservation = async (reservationId) => {
     }
 }
 
+const postMaintenanceReservation = (data) => {
+    return new Promise((resolve, reject) => {
+        return axios.post(`${API_URL}reservations/`, data)
+            .then(res => {
+                return resolve(res)
+            })
+            .catch(err => {
+                return reject({...err})
+            });
+    })
+}
+
 
 
 
@@ -89,5 +101,6 @@ export const reservationService = {
   getReservationHistory,
   cancelReservation,
   postReservation,
-  getAvailableTimeTable
+  getAvailableTimeTable,
+  postMaintenanceReservation,
 };

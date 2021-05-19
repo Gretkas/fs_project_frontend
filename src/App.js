@@ -21,20 +21,10 @@ function App(props) {
 
   return props.isLoggedIn !== null ? (
     <BrowserRouter>
-      <Header user={props.user} />
-      <Route exact path="/login" component={LoginContainer} />
-      <PrivateRoute
-        exact
-        path="/"
-        component={LandingContainer}
-        isLoggedIn={props.isLoggedIn}
-      />
-      <PrivateRoute
-        exact
-        path="/rooms"
-        component={RoomsContainer}
-        isLoggedIn={props.isLoggedIn}
-      />
+      <Header user={props.user}/>
+      <Route exact path="/login" component={LoginContainer}/>
+      <PrivateRoute exact path="/" component={LandingContainer} isLoggedIn={props.isLoggedIn}/>  
+      <PrivateRoute exact path="/rooms" component={RoomsContainer} isLoggedIn={props.isLoggedIn}/>    
       <PrivateRoute
         exact
         path="/rooms/:id"
