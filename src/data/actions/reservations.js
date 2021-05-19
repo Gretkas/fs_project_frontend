@@ -67,15 +67,13 @@ export const newReservation = (data) => async (dispatch) => {
 
   try {
     const res = await reservationService.postReservation(data)
-    console.log("NEW RESERV OK")
     await dispatch({
       type: NEW_RESERVATION,
-      payload: res
+      payload: res.data
     });
-    return res;
+    return res.data;
   } catch (err) {
-    console.log("NEW RESERV FAIL", err)
-    addError(err);
+    dispatch(addError(err));
     return null;
   }
 }

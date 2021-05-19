@@ -10,7 +10,7 @@ const createRootReducer = () =>
     auth: auth,
     rooms: rooms,
     reservations: reservations,
-    errors,
+    errors: errors,
 
   });
   

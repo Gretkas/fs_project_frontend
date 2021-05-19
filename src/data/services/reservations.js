@@ -35,15 +35,11 @@ const cancelReservation = async (reservationId) => {
 
 const postReservation = (data) => {
     return new Promise((resolve, reject) => {
-        console.log("POSTING NEW RESERV")
-        console.log(data)
         return axios.post(`${API_URL}reservations/`, data)
             .then(res => {
-                console.log(res)
                 return resolve(res)
             })
             .catch(err => {
-                console.log( {...err})
                 return reject({...err})
             });
     })

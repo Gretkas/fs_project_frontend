@@ -1,8 +1,8 @@
 import { ADD_ERROR, REMOVE_ERROR } from "../constants";
 
 const mapErrorMessage = (err) => {
-    return (err.response && err.response.data && err.response.data.description) ?
-        err.response.data.description : "Something went wrong";
+    return (err.response && err.response.data && err.response.data.message) ?
+        err.response.data.message : "Something went wrong";
 }
 
 export const addError = error => ({
@@ -10,6 +10,8 @@ export const addError = error => ({
     error: mapErrorMessage(error),
 });
 
-export const removeError = () => ({
-    type: REMOVE_ERROR
-});
+export const removeError = () => (dispatch) => {
+    dispatch({
+        type: REMOVE_ERROR
+    })
+};

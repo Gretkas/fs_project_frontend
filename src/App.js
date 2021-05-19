@@ -26,7 +26,7 @@ function App(props) {
       <Route exact path="/login" component={LoginContainer}/>
       <PrivateRoute exact path="/" component={LandingContainer} isLoggedIn={props.isLoggedIn}/>  
       <PrivateRoute exact path="/rooms" component={RoomsContainer} isLoggedIn={props.isLoggedIn}/>    
-      <AdminRoute exact path="/admin" component={Admin} isAdmin={isAdmin}/>
+      <AdminRoute exact path="/admin" component={Admin} isAdmin={isAdmin} isLoggedIn={props.isLoggedIn}/>
     </BrowserRouter>
   ): (
     ""

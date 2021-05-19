@@ -1,54 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import {newReservation} from "../../../data/actions/reservations";
 import {removeError} from "../../../data/actions/errors";
 import {useForm} from "react-hook-form";
-import {Link, Redirect} from "react-router-dom";
 import ReservationTitle from "./ReservationTitle";
 import ReservationTime from "./ReservationTime";
 import ReservationItems from "./ReservationItems";
-import { format, parse } from "date-fns";
-import {CircularProgress} from "@material-ui/core";
-
-
-// const mapStateToProps = (state) => {
-//     return {
-//
-//     };
-// };
+import {Backdrop, CircularProgress} from "@material-ui/core";
 
 const MaintenanceReservationForm = (props) => {
+    // todo remove when rooms are implemented
+    const defaultItems = [
+        {itemId: 1, name: "Koke2", roomId: 1},
+        {itemId: 2, name: "Koke3", roomId: 1},
+        {itemId: 3, name: "Koke4", roomId: 1},
+        {itemId: 4, name: "Koke5", roomId: 1},
+        {itemId: 5, name: "Koke", roomId: 1},
+    ]
+
     const {
         register,
         control,
         handleSubmit,
         reset,
+        getValues,
         formState: {
             errors,
-            isValid,
             isSubmitting,
-            isSubmitSuccessful,
-            isSubmitted,
         },
     } = useForm({
         mode: "onBlur",
         criteriaMode: "firstError",
         shouldFocusError: true,
         reValidateMode: "onSubmit",
-        shouldUnregister: true, // todo keep ???
+        // shouldUnregister: true, // todo keep ???
+        defaultValues: {
+            items: defaultItems
+        }
     });
 
-    const onSubmit = (data, e) => {
+    const onSubmit = async (data, e) => {
         e.preventDefault();
-        console.log("NEW MR DATA");
-        console.log(data);
 
-        let reserv = props.newReservation({
-            startTime: `${format(parse(data.startTime, "yyyy-MM-dd HH:mm", new Date()), "yyyy-MM-dd HH:mm")}`,
-            endTime: `${format(parse(data.endTime, "yyyy-MM-dd HH:mm", new Date()), "yyyy-MM-dd HH:mm")}`,
+        props.removeError();
+
+        let reserv = await props.newReservation({
+            startTime: data.startTime,
+            endTime: data.endTime,
             items: data.items,
             type: "MAINTENANCE"
         })
+
         props.onNewReservation(reserv);
     };
 
@@ -60,15 +62,7 @@ const MaintenanceReservationForm = (props) => {
         reset();
     };
 
-    const prepareMRForm = (props) => {
-
-        // useEffect(() => {
-        //
-        //     // before unmount
-        //     return () => {
-        //         props.removeError();
-        //     };
-        // }, []);
+    const prepareMRForm = () => {
 
         return (
             <div>
@@ -91,23 +85,22 @@ const MaintenanceReservationForm = (props) => {
                     />
 
                     <ReservationItems
-                        items={
-                            [
-                                {itemId: 1, roomId: 1, name: "Koke"},
-                                // {itemId: 123, roomId: 123, name: "Dunno2"}
-                            ]
-                        }
+                        items={defaultItems}
                         register={register}
                         errors={errors}
                         control={control}
+                        getValues={getValues}
                     />
 
                     <button className="maintenanceFormSubmit" type="submit">
-                        {isSubmitting ?
-                            <CircularProgress color="inherit" /> :
-                            "Reserve"
-                        }
+                        Reserve
                     </button>
+
+                    {isSubmitting &&
+                    <Backdrop open>
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
+                    }
                 </form>
 
             </div>
@@ -118,4 +111,4 @@ const MaintenanceReservationForm = (props) => {
     return prepareMRForm();
 }
 
-export default connect(null, {newReservation})(MaintenanceReservationForm);
+export default connect(null, {newReservation, removeError})(MaintenanceReservationForm);

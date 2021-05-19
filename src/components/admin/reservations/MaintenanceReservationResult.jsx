@@ -1,17 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-
-// const mapStateToProps = (state) => {
-//     return {
-//
-//     };
-// };
+import React from "react";
+import {Accordion, AccordionDetails, AccordionSummary} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {Alert} from "@material-ui/lab";
+import ReservationDetails from "./ReservationDetails";
 
 const prepareMRResult = (props) => {
     return (
-        <div>
-            <p>MAINTENANCE RESERV RESULT</p>
-        </div>
+        <Accordion>
+            <Alert severity="success">
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel3bh-content"
+                    id="panel3bh-header"
+                >
+                    <Typography >Created </Typography>
+                    <Typography >
+                         View details
+                    </Typography>
+                </AccordionSummary>
+            </Alert>
+            <AccordionDetails>
+                <ReservationDetails
+                    reservation={props.reservation}
+                />
+            </AccordionDetails>
+        </Accordion>
     );
 }
 
@@ -20,5 +34,3 @@ const MaintenanceReservationResult = (props) => {
 }
 
 export default MaintenanceReservationResult;
-
-// export default connect(mapStateToProps, {})(MaintenanceReservationContainer);

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import MaintenanceReservationForm from "./MaintenanceReservationForm";
 import MaintenanceReservationResult from "./MaintenanceReservationResult";
 import {removeError} from "../../../data/actions/errors";
+import {Alert, AlertTitle} from "@material-ui/lab";
 
 const mapStateToProps = (state) => {
     return {
@@ -15,20 +16,18 @@ const MaintenanceReservationContainer = (props) => {
     const [newReservation, setNewReservation] = useState(null);
 
     useEffect(() => {
-        console.log(newReservation);
-        removeError();
         // before unmount
         return () => {
             setNewReservation(null);
         };
-    }, [newReservation]);
+    }, []);
 
     const prepareMRContainer = () => {
         return (
             <div>
-                <p>MAINTENANCE RESERV CONTAINER</p>
                 <MaintenanceReservationForm
-                    onNewReservation = {setNewReservation}/>
+                    onNewReservation = {setNewReservation}
+                />
 
                 {newReservation &&
                 <MaintenanceReservationResult
@@ -36,7 +35,12 @@ const MaintenanceReservationContainer = (props) => {
                 />
                 }
 
-                {props.error && <div>ERROR: ${props.error}</div>}
+                {props.error &&
+                <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    {props.error}
+                </Alert>
+                }
             </div>
         );
     }

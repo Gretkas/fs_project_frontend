@@ -4,7 +4,6 @@ import MaintenanceReservationContainer from "./reservations/MaintenanceReservati
 function Admin() {
   return (
     <div className="App">
-      Hello
         <MaintenanceReservationContainer />
     </div>
   );
