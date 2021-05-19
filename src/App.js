@@ -8,6 +8,7 @@ import PrivateRoute from "./components/routes/privateroute";
 import AdminRoute from "./components/routes/adminroute";
 import Admin from './components/admin/admin';
 import AdminUserListContainer from './components/admin/adminUserList/adminUserListContainer';
+import AdminRoomListContainer from './components/admin/adminRoomList/adminRoomListContainer';
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
@@ -29,6 +30,7 @@ function App(props) {
       <PrivateRoute exact path="/rooms" component={RoomsContainer} isLoggedIn={props.isLoggedIn}/>    
       <AdminRoute exact path="/admin" component={Admin} isAdmin={isAdmin}/>
       <AdminRoute exact path="/admin/users" component={AdminUserListContainer} isAdmin={isAdmin}/>
+      <AdminRoute exact path="/admin/rooms" component={AdminRoomListContainer} isAdmin={isAdmin}/>
     </BrowserRouter>
   ): (
     ""

@@ -14,6 +14,20 @@ const getUsers = async () => {
     return res;
 }
 
+const deleteUser = async (userId) => {
+    try{
+        await axios.delete( `${API_URL}users/${userId}`).then(
+            response => {
+                return response;
+            }
+        );
+    }
+    catch(e){
+        return e;
+    }
+}
+
 export const userService = {
-    getUsers
+    getUsers,
+    deleteUser
 };

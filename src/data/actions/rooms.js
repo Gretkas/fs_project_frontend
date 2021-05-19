@@ -45,6 +45,24 @@ import {
         });
       }
     };
+
+
+export const getRooms = () => async (dispatch) => {
+	try{
+		const res = await roomService.getRooms();
+		dispatch({
+			type: GET_ROOMS,
+			payload: res.data,
+		});
+	} catch(err){
+        dispatch({
+            type: ERROR,
+            payload: {
+              error: err,
+            },
+        });
+    }
+}
   
   
   

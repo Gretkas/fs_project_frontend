@@ -4,6 +4,7 @@ import { Divider } from '@material-ui/core';
 import { withRouter } from 'react-router';
 import { connect } from "react-redux";
 import { cancelReservation } from "../../data/actions/reservations";
+import IconButton from '@material-ui/core/IconButton';
 
 function ReservationCard(props) {
 
@@ -13,8 +14,9 @@ function ReservationCard(props) {
         <p className="reservationCardRoomName">{props.reservation.roomName}</p>
         <p className="reservationCardDate">{props.reservation.startTime.split("T")[1].substring(0,2)} - {props.reservation.endTime.split("T")[1].substring(0,2)} {props.reservation.endTime.split("T")[0]}</p>
         <p className="reservationCardSectionName">{props.reservation.title}</p>
-        <img className="reservationCardCancelButton" src={cancelButton} onClick={()=>{props.cancelReservation(props.reservation.id);}}/>
-        
+        <IconButton className="reservationCardCancelButton" aria-label="Slett reservasjon" onClick={()=>{props.cancelReservation(props.reservation.id);}}>
+          <img src={cancelButton}/>
+        </IconButton>        
     </div>
     <Divider className="hr"/>
    </div>

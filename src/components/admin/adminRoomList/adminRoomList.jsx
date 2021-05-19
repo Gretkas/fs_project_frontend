@@ -1,4 +1,4 @@
-import './adminUserList.css';
+import './adminRoomList.css';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,9 +11,8 @@ import { withStyles } from '@material-ui/core/styles';
 import cancelButton from "../../../assets/cancelButton.svg"
 import IconButton from '@material-ui/core/IconButton';
 
-function AdminUserList(props) {
-    const renderUsers = () => {
-
+function AdminRoomList(props) {
+    const renderRooms = () => {
         const StyledTableCell = withStyles((theme) => ({
             head: {
                 background: "#6200EE",
@@ -24,6 +23,8 @@ function AdminUserList(props) {
                 fontSize: 15,
             },
         }))(TableCell);
+
+        console.log(props);
           
 
         return (
@@ -31,25 +32,23 @@ function AdminUserList(props) {
               <Table aria-label="tabell med brukere">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>Bruker nummer</StyledTableCell>
+                    <StyledTableCell>Rom nummer</StyledTableCell>
                     <StyledTableCell align="right">Brukernavn</StyledTableCell>
                     <StyledTableCell align="right">Rolle</StyledTableCell>
                     <StyledTableCell align="right">
                         <Button variant="contained" color="secondary">
-                            Ny bruker
+                            Nytt rom
                         </Button>
                     </StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.users.map((user,index) => (
+                  {props.rooms.map((room,index) => (
                     <TableRow key={index}>
                         <StyledTableCell component="th" scope="row">
                             {index + 1}
                         </StyledTableCell>
-                        <StyledTableCell align="right">{user.userName}</StyledTableCell>
-                        <StyledTableCell align="right">{user.role}</StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell>
                             Slett bruker:
                             <IconButton aria-label="Slett bruker" onClick={()=>{console.log(index)}}>
                                 <img src={cancelButton}/>
@@ -64,10 +63,10 @@ function AdminUserList(props) {
     }
 
     return (
-        <div className="userListContainer">
-            {renderUsers()}
+        <div className="roomListContainer">
+            {renderRooms()}
         </div>
     );
 }
 
-export default AdminUserList;
+export default AdminRoomList;
