@@ -11,6 +11,7 @@ import Admin from "./components/admin/admin";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
+import AddUserContainer from "./components/admin/users/AddUserContainer";
 
 const isAdmin = true;
 function App(props) {
@@ -32,6 +33,7 @@ function App(props) {
         isLoggedIn={props.isLoggedIn}
       />
       <AdminRoute exact path="/admin" component={Admin} isAdmin={isAdmin} />
+      <AdminRoute exact path="/admin/new-user" component={AddUserContainer} isAdmin={isAdmin} />
     </BrowserRouter>
   ) : (
     ""
