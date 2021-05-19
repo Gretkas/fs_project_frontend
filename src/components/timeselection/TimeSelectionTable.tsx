@@ -4,7 +4,7 @@
  * Managing and rendering timetables of reserved and availible a hours
  */
 
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { DayArray, IDayArray, Day } from "./Day";
 import TimeSelectionUnit, { Position, Status } from "./TimeSelectionUnit";
 import { VisualWeek } from "./Week";
@@ -22,24 +22,18 @@ import { v4 as uuidv4 } from "uuid";
 export const VisualTimeSelectionTable: FunctionComponent<IVisualTimeSelectionTable> =
   (props: IVisualTimeSelectionTable) => {
     const [reservationTable, setReservationTable] = useState(
-      new TimeSelectionTable(
-        props.reservedArray ? props.reservedArray : exampleReservationTable,
-        handleOnClick
-      )
+      new TimeSelectionTable(props.reservedArray, handleOnClick)
     );
-    const [reservationTime, setReservationTime] = useState(defaultSelection);
-
-    useEffect(() => {}, [reservationTable.selectionArray]);
 
     function handleOnClick(position: Position): void {
       setReservationTable(reservationTable.handleInputSelection(position));
-      setReservationTime(reservationTable.calculateselection());
+      props.setReservationTime(reservationTable.calculateselection());
     }
 
     return (
       <VisualWeek
         week={reservationTable.selectionArray}
-        selection={reservationTime}
+        selection={props.reservationTime}
         firstSelection={reservationTable.firstSelection}
       />
     );
@@ -222,7 +216,11 @@ export class TimeSelectionTable implements ITimeSelectionTable {
    *
    * @returns touple of selected time ranges. Values will be undefined if selection is empty
    */
-  calculateselection(): [number | undefined, number | undefined] {
+  calculateselection(): [
+    number | undefined,
+    number | undefined,
+    Date | undefined
+  ] {
     if (this.firstSelection && this.secondSelection) {
       const firstseslection: TimeSelectionUnit =
         this.selectionArray.days[this.firstSelection.column].hourTable[
@@ -234,9 +232,17 @@ export class TimeSelectionTable implements ITimeSelectionTable {
         ];
 
       if (firstseslection.time < secondSelection.time) {
-        return [firstseslection.time, secondSelection.time + 1];
+        return [
+          firstseslection.time,
+          secondSelection.time + 1,
+          this.selectionArray.days[this.firstSelection.column].date,
+        ];
       } else {
-        return [secondSelection.time, firstseslection.time + 1];
+        return [
+          secondSelection.time,
+          firstseslection.time + 1,
+          this.selectionArray.days[this.firstSelection.column].date,
+        ];
       }
     } else {
       if (this.firstSelection) {
@@ -244,9 +250,13 @@ export class TimeSelectionTable implements ITimeSelectionTable {
           this.selectionArray.days[this.firstSelection.column].hourTable[
             this.firstSelection.row
           ];
-        return [firstSelection.time, firstSelection.time + 1];
+        return [
+          firstSelection.time,
+          firstSelection.time + 1,
+          this.selectionArray.days[this.firstSelection.column].date,
+        ];
       } else {
-        return [undefined, undefined];
+        return [undefined, undefined, undefined];
       }
     }
   }
@@ -261,25 +271,23 @@ export interface ITimeSelectionTable {
   selectionArray: IDayArray;
   onClick(position: Position): void;
   handleInputSelection(position: Position): TimeSelectionTable;
-  calculateselection(): [number | undefined, number | undefined];
+  calculateselection(): [
+    number | undefined,
+    number | undefined,
+    Date | undefined
+  ];
   removeSelection(): void;
 }
 export interface IVisualTimeSelectionTable {
   reservedArray?: boolean[][];
+  reservationTime: [number | undefined, number | undefined, Date | undefined];
+  setReservationTime: (
+    selection: [number | undefined, number | undefined, Date | undefined]
+  ) => void;
 }
 
 export const AVAILIBLE_HOURS: number = 10;
 export const NUMBER_OF_AVAILIBLE_WEEKDAYS: number = 7;
-
-export const exampleReservationTable = [
-  [false, true, true, true, true, true, true, true, true, true],
-  [false, true, true, false, false, false, false, true, true, true],
-  [false, true, true, true, true, true, true, true, true, true],
-  [false, true, true, false, true, false, true, true, true, true],
-  [false, true, true, false, false, false, true, false, false, false],
-  [false, true, false, false, false, false, true, true, true, true],
-  [false, false, true, true, true, false, false, false, true, true],
-];
 
 export const defaultReservationTable = [
   [false, false, false, false, false, false, false, false, false, false],
@@ -289,9 +297,4 @@ export const defaultReservationTable = [
   [false, false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false, false],
   [false, false, false, false, false, false, false, false, false, false],
-];
-
-const defaultSelection: [number | undefined, number | undefined] = [
-  undefined,
-  undefined,
 ];

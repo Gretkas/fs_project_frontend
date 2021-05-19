@@ -74,6 +74,6 @@ export const VisualWeek: FunctionComponent<IVisualWeek> = (
 
 export interface IVisualWeek {
   week: IDayArray;
-  selection: [number | undefined, number | undefined];
+  selection: [number | undefined, number | undefined , Date| undefined];
   firstSelection: Position | undefined;
 }

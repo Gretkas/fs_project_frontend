@@ -13,6 +13,53 @@ const getReservations = async () => {
     return res;
 };
 
+const postReservation = async (data) =>{
+    let res;
+    
+    try{
+        res = await axios({
+            method: 'POST',
+            url: `${API_URL}reservations`,
+            
+             data:{                 
+                startTime: data.startTime,                 
+                endTime: data.endTime,
+                items: data.items,
+                type: data.type
+             },
+            })
+
+    }catch(err){
+        return err;
+    }
+    return res;
+
+}
+
+
+
+const getAvailableTimeTable = async (items) => {
+    let res;
+    
+    try{
+        res = await axios({
+            method: 'POST',
+            url: `${API_URL}reservations/available`,
+            
+             data:{                 
+                
+                items: items,
+                
+             },
+            })
+        }
+    catch(e){
+        console.log(e)
+        return e;
+    }
+    return res;
+};
+
 const getReservationHistory = async () => {
     let res;
     try{
@@ -37,7 +84,10 @@ const cancelReservation = async (reservationId) => {
 
 
 export const reservationService = {
+
   getReservations,
   getReservationHistory,
-  cancelReservation
+  cancelReservation,
+  postReservation,
+  getAvailableTimeTable
 };

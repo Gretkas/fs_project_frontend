@@ -14,6 +14,7 @@ function RoomCard(props) {
 
   return (
     <Card
+      variant="outlined"
       elevation={5}
       className="RecommendedCard"
       key={uuid()}
@@ -38,7 +39,7 @@ function RoomCard(props) {
         <Link
             className = "cardLink"
             to={{
-              pathname: `/rooms/${props.room.roomId}`,
+              pathname: `/rooms/${props.room.id}`,
               state: {
                 userStatus: null,
               },

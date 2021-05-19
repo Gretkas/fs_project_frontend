@@ -49,12 +49,26 @@ const Header = (props) => {
               <div className={navbarOpen ? "bar3 change" : "bar3"}></div>
             </button>
 
-            <Link to="/">Home</Link>
+
+            <Link to="/">
+                Home
+            </Link>
+            <Link to="/rooms">
+                Rooms
+            </Link>
+            
+
           </div>
           <ul className={`topbar-navbar ${navbarOpen ? " showMenu" : ""}`}>
             <li>
               <Link to="/" onClick={toggleNavBar}>
-                <h2>Hjem</h2>
+                <h2>Home</h2>
+              </Link>
+              <hr />
+            </li>
+            <li>
+              <Link to="/rooms" onClick={toggleNavBar}>
+                <h2>Rooms</h2>
               </Link>
               <hr />
             </li>
@@ -89,7 +103,13 @@ const Header = (props) => {
               <Link to="/">
                 <h2>Home</h2>
               </Link>
+
+              <Link to="/rooms">
+                <h2>Rooms</h2>
+              </Link>
+
             </div>
+          
           </div>
           <Menu
             id="simple-menu"
