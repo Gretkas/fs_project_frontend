@@ -19,6 +19,7 @@ function SingleRoom(props) {
     undefined,
     undefined,
   ]);
+
   const [createOwnSectionTitle, setcreateOwnSectionTitle] = useState("");
   const [selectedSection, setSelectedSection] = useState(-2);
   const [isCreatingOwnSection, setCreatingOwnSection] = useState(false);
@@ -28,11 +29,11 @@ function SingleRoom(props) {
   const [TimeSelectionKey, setTimeSelectionKey] = useState(uuidv4());
   const [isReserved, setReserved] = useState(false);
 
+  const { getAvailableTimeTable } = props;
   useEffect(() => {
-    props.getAvailableTimeTable(selectedSectionItems);
-    console.log(props.availableTimeTable);
+    getAvailableTimeTable(selectedSectionItems);
     setTimeSelectionKey(uuidv4());
-  }, [selectedSectionItems]);
+  }, [selectedSectionItems, getAvailableTimeTable]);
 
   useEffect(() => {
     setTimeSelectionKey(uuidv4());
@@ -89,7 +90,7 @@ function SingleRoom(props) {
             variant="contained"
             style={{ background: purple, color: "#FFFFFF" }}
           >
-            RESERVE
+            RESERVER
           </Button>
         </div>
       </div>
@@ -137,7 +138,7 @@ function SingleRoom(props) {
       return (
         <div
           className={selected ? "selectedItem" : "unselectedItem"}
-          key={uuid()}
+          key={uuidv4()}
         >
           {item.name}
         </div>
@@ -187,6 +188,7 @@ function SingleRoom(props) {
               id="outlined-basic"
               label="Tittel"
               variant="outlined"
+              value={createOwnSectionTitle ? createOwnSectionTitle : ""}
               helperText="Beskrivende tittel for din egen seksjon"
               onChange={(event) => setcreateOwnSectionTitle(event.target.value)}
             />
@@ -203,16 +205,19 @@ function SingleRoom(props) {
             !selectedSectionItems.some(
               (selectedItem) => item.itemId === selectedItem.itemId
             )
-          )
+          ) {
             return (
               <div
                 className="unselectedItem"
-                key={uuid()}
+                key={uuidv4()}
                 onClick={() => handleItemSelection(item)}
               >
                 {item.name}
               </div>
             );
+          } else {
+            return "";
+          }
         })}
       </div>
     );
@@ -224,7 +229,7 @@ function SingleRoom(props) {
           return (
             <div
               className="selectedItem"
-              key={uuid()}
+              key={uuidv4()}
               onClick={() => handleItemSelection(item)}
             >
               {item.name}
@@ -250,16 +255,27 @@ function SingleRoom(props) {
   const handleItemSelection = (item) => {
     setSelectedSectionItems((selectedSectionItems) => {
       return selectedSectionItems.includes(item)
-        ? selectedSectionItems.filter((selectedItem) => selectedItem != item)
+        ? selectedSectionItems.filter((selectedItem) => selectedItem !== item)
         : [...selectedSectionItems, item];
     });
   };
 
   const handleReservationPost = async () => {
+    console.log(reservationTime[0]);
     const startDate = new Date(reservationTime[2]);
-    startDate.setHours(reservationTime[0], 0, 0);
+    console.log(startDate);
+    startDate.setHours(
+      reservationTime[0] - startDate.getTimezoneOffset() / 60,
+      0,
+      0
+    );
     const endDate = new Date(reservationTime[2]);
-    endDate.setHours(reservationTime[1], 0, 0);
+    endDate.setHours(
+      reservationTime[1] - startDate.getTimezoneOffset() / 60,
+      0,
+      0
+    );
+    console.log(startDate);
 
     const data = {
       startTime: startDate,

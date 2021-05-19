@@ -4,7 +4,7 @@
  * Managing and rendering timetables of reserved and availible a hours
  */
 
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { DayArray, IDayArray, Day } from "./Day";
 import TimeSelectionUnit, { Position, Status } from "./TimeSelectionUnit";
 import { VisualWeek } from "./Week";
