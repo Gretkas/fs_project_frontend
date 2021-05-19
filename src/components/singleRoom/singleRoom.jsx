@@ -1,4 +1,4 @@
-
+import { Redirect } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {useEffect, useState } from "react";
@@ -26,6 +26,7 @@ function SingleRoom(props) {
   const [selectedSection, setSelectedSection] = useState(-1);
   const [isCreatingOwnSection, setCreatingOwnSection] = useState(false);
   const [selectedSectionItems, setSelectedSectionItems] = useState([]);
+  const [isReserved, setReserved] = useState(false);
 
 
   
@@ -179,7 +180,7 @@ function SingleRoom(props) {
   }
   
 
-  const handleReservationPost = () => {
+  const handleReservationPost = async () => {
     const startDate = new Date(reservationTime[2])
     startDate.setHours(reservationTime[0],0,0)
     const endDate = new Date(reservationTime[2])
@@ -192,7 +193,8 @@ function SingleRoom(props) {
       items: selectedSectionItems,
       type: "RESERVATION"
     }
-    props.postReservation(data)
+    await props.postReservation(data)
+    setReserved(true)
   }
 
   return (
@@ -212,7 +214,9 @@ function SingleRoom(props) {
         </div>
         
       {renderSelection()}
+       {isReserved? <Redirect to="/"/>: "" }
     </div>
+   
   );
 }
 
