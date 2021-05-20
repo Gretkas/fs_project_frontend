@@ -1,26 +1,28 @@
 import {
-    ERROR,
-    NEW_USER
-} from "../constants";
+    GET_USERS,
+    ERROR, NEW_USER
+} from "../constants"
 
 const defaultState = {
-    users: [],
+    users: []
 }
 
-export default function userReducer(state = defaultState, action) {
-
+export default function userReducer(state = defaultState, action){
     switch (action.type) {
-        case NEW_USER:
+        case GET_USERS:
             return {
                 ...state,
-                users: [...state.users, action.payload]
+                users: action.payload
             }
+         case NEW_USER:   
+         return {
+             ...state,
+             users: [...state.users, action.payload]
+         }
         case ERROR:
             return {
-                ...state
-
+            ...state,
             };
-
         default:
             return state;
     }

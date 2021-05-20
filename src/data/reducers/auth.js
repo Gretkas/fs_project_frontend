@@ -3,11 +3,13 @@ import {
     LOGIN,
     ERROR,
     AUTH_USER,
+    AUTH_ADMIN,
     LOGOUT,
     NO_SESSION_COOKIE
   } from "../constants"
 const defaultState = {
   isLoggedIn: null,
+  isAdmin: null,
   user: false,
   userIsLoading: null,
   refreshUserError: null
@@ -26,7 +28,15 @@ export default function authReducer(state = defaultState, action) {
       return {
         ...state,
         user: action.payload,
-        isLoggedIn: true
+        isLoggedIn: true,
+        isAdmin: false
+      }
+    case AUTH_ADMIN:
+      return{
+        ...state,
+        user: action.payload,
+        isLoggedIn: true,
+        isAdmin: true
       }
       
     case LOGOUT:
