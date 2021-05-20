@@ -1,5 +1,5 @@
 import {reservationService} from "../services/reservations"
-import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, POST_RESERVATION_SUCCESS, GET_AVAILABLE_TIMETABLE, ERROR, NEW_RESERVATION} from "../constants"
+import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, POST_RESERVATION_SUCCESS, GET_AVAILABLE_TIMETABLE, ERROR, NEW_RESERVATION, GET_FILTERED_RESERVATIONS} from "../constants"
 import {addError} from "./errors";
 
 export const getReservations = () => async (dispatch) => { 
@@ -111,3 +111,20 @@ export const newReservation = (data) => async (dispatch) => {
     return null;
   }
 }
+
+export const getFilteredReservations = (data) => async (dispatch) => { 
+  try {
+    const res = await reservationService.getFilteredReservations(data);
+    dispatch({
+      type: GET_FILTERED_RESERVATIONS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: ERROR,
+      payload: {
+        error: err,
+      },
+    });
+  }
+};

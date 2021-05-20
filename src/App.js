@@ -10,6 +10,7 @@ import AdminRoute from "./components/routes/adminroute";
 import Admin from './components/admin/admin';
 import AdminUserListContainer from './components/admin/adminUserList/adminUserListContainer';
 import AdminRoomListContainer from './components/admin/adminRoomList/adminRoomListContainer';
+import AdminReservationListContainer from './components/admin/adminReservationList/adminReservationListContainer';
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
@@ -39,7 +40,7 @@ function App(props) {
       <AdminRoute exact path="/admin/rooms/:id/maintenance" component={Admin} isAdmin={props.isAdmin} />
       <AdminRoute exact path="/admin/users" component={AdminUserListContainer} isAdmin={props.isAdmin} />
       <AdminRoute exact path="/admin/users/:id" component={Admin} isAdmin={props.isAdmin} />
-      <AdminRoute exact path="/admin/reservations" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/reservations" component={AdminReservationListContainer} isAdmin={props.isAdmin} />
     
     </BrowserRouter>
   ) : (

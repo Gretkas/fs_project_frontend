@@ -35,13 +35,13 @@ function RoomSearchBar(props) {
         <InputBase
           className={classes.input}
           placeholder="Search..."
-          inputProps={{ "aria-label": "search for rooms" }}
+          inputProps={{ "aria-label": "search" }}
           onChange={(event) => props.handleSearchName(event.target.value)}
-          value={props.roomSearchCriteria.name}
+          value={props.searchCriteria.name}
         />
         <Divider className={classes.divider} orientation="vertical" />
         <IconButton
-          onClick={() => props.searchRooms()}
+          onClick={() => props.search()}
           className={classes.iconButton}
           aria-label="search"
         >

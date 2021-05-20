@@ -1,4 +1,4 @@
-import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, POST_RESERVATION_SUCCESS, GET_AVAILABLE_TIMETABLE,  ERROR, NEW_RESERVATION} from "../constants"
+import {GET_RESERVATIONS, GET_RESERVATION_HISTORY, POST_RESERVATION_SUCCESS, GET_AVAILABLE_TIMETABLE,  ERROR, NEW_RESERVATION, GET_FILTERED_RESERVATIONS} from "../constants"
 
 const defaultReservationTable = [
   [false, false, false, false, false, false, false, false, false, false],
@@ -13,7 +13,8 @@ const defaultReservationTable = [
 const defaultState = {
     reservations: [],
     reservationHistory: [],
-    availableTimeTable: defaultReservationTable
+    availableTimeTable: defaultReservationTable,
+    filteredReservations: []
 }
 
 export default function reservationReducer(state = defaultState, action) {
@@ -39,11 +40,16 @@ export default function reservationReducer(state = defaultState, action) {
           ...state,
           availableTimeTable : action.payload
         }
-        case NEW_RESERVATION:
-            return {
-                ...state,
-                reservations: [...state.reservations, action.payload]
-            }
+      case NEW_RESERVATION:
+        return {
+            ...state,
+            reservations: [...state.reservations, action.payload]
+        }
+      case GET_FILTERED_RESERVATIONS:
+        return {
+          ...state,
+          filteredReservations: action.payload
+        }
       case ERROR:
         return {
           ...state
