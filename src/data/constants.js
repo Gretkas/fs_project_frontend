@@ -23,6 +23,7 @@ export const NEW_RESERVATION = "NEW_RESERVATION";
 
 // USERS
 export const NEW_USER = "NEW_USER";
+export const UPDATE_USER = "UPDATE_USER";
 
 
 

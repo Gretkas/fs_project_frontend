@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
 import AddUserContainer from "./components/admin/users/AddUserContainer";
+import EditUserContainer from "./components/admin/users/EditUserContainer";
 import MaintanenceReservationContainer from "./components/admin/reservations/MaintenanceReservationContainer";
 
 function App(props) {
@@ -99,6 +100,7 @@ function App(props) {
         component={MaintanenceReservationContainer}
         isAdmin={props.isAdmin}
       />
+      <AdminRoute exact path="/admin/new-user" component={AddUserContainer} isAdmin={props.isAdmin} />
     </BrowserRouter>
   ) : (
     ""
