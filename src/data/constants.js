@@ -20,6 +20,7 @@ export const REMOVE_ERROR = "REMOVE_ERROR";
 export const NEW_RESERVATION = "NEW_RESERVATION";
 
 // USERS
+export const NEW_USER = "NEW_USER";
 
 
 

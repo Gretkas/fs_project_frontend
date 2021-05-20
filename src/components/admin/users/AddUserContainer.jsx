@@ -28,11 +28,11 @@ const AddUserContainer = (props) => {
                     onAddUser = {setNewUser}
                 />
 
-                {/*{newUser &&*/}
-                {/*<MaintenanceReservationResult*/}
-                {/*    user={newUser}*/}
-                {/*/>*/}
-                {/*}*/}
+                {newUser &&
+                <Alert severity="success">
+                    <AlertTitle>Added new user</AlertTitle>
+                </Alert>
+                }
 
                 {props.error &&
                 <Alert severity="error">

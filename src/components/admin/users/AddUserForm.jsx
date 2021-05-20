@@ -1,22 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import {newReservation} from "../../../data/actions/reservations";
 import {removeError} from "../../../data/actions/errors";
 import {useForm} from "react-hook-form";
-import ReservationTitle from "./ReservationTitle";
-import ReservationTime from "./ReservationTime";
-import ReservationItems from "./ReservationItems";
-import {Backdrop, CircularProgress} from "@material-ui/core";
+import {
+    Backdrop,
+    CircularProgress,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from "@material-ui/core";
+import {addUser} from "../../../data/actions/users";
+import {format} from "date-fns";
 
 const AddUserForm = (props) => {
-    // todo remove when rooms are implemented
-    const defaultItems = [
-        {itemId: 1, name: "Koke2", roomId: 1},
-        {itemId: 2, name: "Koke3", roomId: 1},
-        {itemId: 3, name: "Koke4", roomId: 1},
-        {itemId: 4, name: "Koke5", roomId: 1},
-        {itemId: 5, name: "Koke", roomId: 1},
-    ]
 
     const {
         register,
@@ -33,31 +31,65 @@ const AddUserForm = (props) => {
         shouldFocusError: true,
         reValidateMode: "onSubmit",
         // shouldUnregister: true, // todo keep ???
-        defaultValues: {
-            items: defaultItems
-        }
     });
+
+    const [role, setRole] = React.useState("USER");
+
+    const handleRoleChange = (event) => {
+        setRole(event.target.value);
+    };
 
     const onSubmit = async (data, e) => {
         e.preventDefault();
 
+        console.log(data)
+
         props.removeError();
 
-        let reserv = await props.newReservation({
-            startTime: data.startTime,
-            endTime: data.endTime,
-            items: data.items,
-            type: "MAINTENANCE"
+        let newUser = await props.addUser({
+            userName: data.userName,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            password: data.password,
+            role: data.role,
+            validUntil: data.validUntil
         })
 
-        props.onNewReservation(reserv);
+        props.onAddUser(newUser);
     };
 
     const onErrors = (errors) => {
         console.log("ERRORS:", errors);
     };
 
-    const prepareMRForm = () => {
+    const registerOptions = {
+        userName: "Required",
+        firstName: "Required",
+        lastName: "Required",
+        email: "Required",
+        phoneNumber: {
+            required: "Required",
+            pattern: {
+                value: /[0-9]{8}/,
+                message: "Digits only",
+            },
+            minLength: {
+                value: 8,
+                message: "8 digits minimum",
+            },
+            maxLength: {
+                value: 8,
+                message: "8 digits maximum",
+            },
+        },
+        password: "Required",
+        role: "Required",
+        validUntil: "Required"
+    };
+
+    const prepareAddUserForm = () => {
 
         return (
             <div>
@@ -66,29 +98,135 @@ const AddUserForm = (props) => {
                     className="Register-form-Container"
                     onSubmit={handleSubmit(onSubmit, onErrors)}
                 >
-                    <ReservationTitle
-                        title="test title"
-                        register={register}
-                        errors={errors}
-                        control={control}
+                    <TextField
+                        id="username"
+                        label="Username"
+                        variant="outlined"
+                        defaultValue="Ilonka"
+                        required
+                        error={errors.userName}
+                        helperText={
+                            errors.userName
+                                ? errors.userName.message
+                                : null
+                        }
+                        {...register("userName", registerOptions.userName)}
                     />
 
-                    <ReservationTime
-                        register={register}
-                        errors={errors}
-                        control={control}
+                    <TextField
+                        id="password"
+                        label="Password"
+                        variant="outlined"
+                        defaultValue="Password1"
+                        required
+                        error={errors.password}
+                        helperText={
+                            errors.password
+                                ? errors.password.message
+                                : null
+                        }
+                        {...register("password", registerOptions.password)}
                     />
 
-                    <ReservationItems
-                        items={defaultItems}
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        getValues={getValues}
+                    <TextField
+                        id="firstName"
+                        label="First Name"
+                        variant="outlined"
+                        defaultValue="Ilona"
+                        required
+                        error={errors.firstName}
+                        helperText={
+                            errors.firstName
+                                ? errors.firstName.message
+                                : null
+                        }
+                        {...register("firstName", registerOptions.firstName)}
                     />
 
-                    <button className="maintenanceFormSubmit" type="submit">
-                        Reserve
+                    <TextField
+                        id="lastName"
+                        label="Last Name"
+                        variant="outlined"
+                        defaultValue="Podliashanyk"
+                        required
+                        error={errors.lastName}
+                        helperText={
+                            errors.lastName
+                                ? errors.lastName.message
+                                : null
+                        }
+                        {...register("lastName", registerOptions.lastName)}
+                    />
+
+                    <TextField
+                        id="email"
+                        label="Email"
+                        variant="outlined"
+                        type="email"
+                        defaultValue="ilonap@ntnu.no"
+                        required
+                        error={errors.email}
+                        helperText={
+                            errors.email
+                                ? errors.email.message
+                                : null
+                        }
+                        {...register("email", registerOptions.email)}
+                    />
+
+                    <TextField
+                        id="phoneNumber"
+                        label="Phone Number"
+                        variant="outlined"
+                        type="tel"
+                        defaultValue="92258172"
+                        required
+                        error={errors.phoneNumber}
+                        helperText={
+                            errors.phoneNumber
+                                ? errors.phoneNumber.message
+                                : null
+                        }
+                        {...register("phoneNumber", registerOptions.phoneNumber)}
+                    />
+
+                    <TextField
+                        id="validUntil"
+                        label="Account Expiration Date"
+                        type="date"
+                        min={format(new Date(), "yyyy-MM-dd")}
+                        // defaultValue={format(new Date(), "yyyy-MM-dd")}
+                        defaultValue="2021-06-25"
+                        required
+                        error={errors.validUntil}
+                        helperText={
+                            errors.validUntil
+                                ? errors.validUntil.message
+                                : null
+                        }
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        {...register("validUntil", registerOptions.validUntil)}
+                    />
+
+                    <FormControl >
+                        <InputLabel shrink>
+                            Role
+                        </InputLabel>
+                        <Select
+                            id="role"
+                            value={role}
+                            onChange={handleRoleChange}
+                            {...register("role", registerOptions.role)}
+                        >
+                            <MenuItem value="USER">User</MenuItem>
+                            <MenuItem value="ADMIN">Admin</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <button type="submit">
+                        Submit
                     </button>
 
                     {isSubmitting &&
@@ -103,7 +241,7 @@ const AddUserForm = (props) => {
         );
     }
 
-    return prepareMRForm();
+    return prepareAddUserForm();
 }
 
-export default connect(null, {newReservation, removeError})(AddUserForm);
+export default connect(null, {addUser, removeError})(AddUserForm);
