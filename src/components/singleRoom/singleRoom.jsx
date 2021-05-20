@@ -50,13 +50,15 @@ function SingleRoom(props) {
   const renderSelection = () => {
     return (
       <div className="roomReservationSelectionComponent">
-        <div
+        <button
+          on
           className={
             selectedSection === -2
               ? "roomReservationSelectedSection"
               : "roomReservationSection"
           }
           onClick={() => handleSectionClick(-2, props.room.items)}
+          alt="Select the whole room"
         >
           <Paper className="roomReservationPaper" elevation={3}>
             <div className="roomReservationSectionHeader">
@@ -73,7 +75,7 @@ function SingleRoom(props) {
               {renderSectionItems(props.room.items, selectedSection === -2)}
             </div>
           </Paper>
-        </div>
+        </button>
 
         {renderSections()}
 
@@ -120,6 +122,7 @@ function SingleRoom(props) {
           variant="contained"
           color="primary"
           disabled={disabledStatus}
+          label="Reserve room"
         >
           RESERVER
         </Button>
@@ -131,12 +134,13 @@ function SingleRoom(props) {
     let elements = [];
     props.room.sections.forEach((section) => {
       elements.push(
-        <div
+        <button
           className={
             selectedSection === section.id
               ? "roomReservationSelectedSection"
               : "roomReservationSection"
           }
+          alt={`Select ${section.name}`}
         >
           <Paper
             className="roomReservationPaper"
@@ -161,7 +165,7 @@ function SingleRoom(props) {
               <Divider flexItem />
             </div>
           </Paper>
-        </div>
+        </button>
       );
     });
     return elements;
@@ -183,7 +187,7 @@ function SingleRoom(props) {
   function CreateOwnSection() {
     if (!isCreatingOwnSection) {
       return (
-        <div className="roomReservationSection">
+        <button className="roomReservationSection">
           <Paper className=" roomReservationPaper" elevation={3}>
             <div
               className="create-own-section"
@@ -201,21 +205,22 @@ function SingleRoom(props) {
               </div>
             </div>
           </Paper>
-        </div>
+        </button>
       );
     } else
       return (
         <Paper className="roomReservationPaper selected" elevation={10}>
           <div className="create-own-section">
-            <div
+            <button
               className="roomReservationSectionHeader"
               onClick={() => setCreatingOwnSection(false)}
+              alt="Create your own section"
             >
               <Typography variant="h4" component="h4">
                 Lag egen seksjon
               </Typography>
               <ArrowDropUpIcon color="primary" />
-            </div>
+            </button>
             <div className="roomReservationCreateOwnSectionItems">
               {renderCreateOwnSectionItems()}
 

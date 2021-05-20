@@ -2,6 +2,7 @@ import { Paper } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import PeopleIcon from "@material-ui/icons/People";
+import Typography from "@material-ui/core/Typography";
 
 function PeopleAmount(props) {
   function onChange(event) {
@@ -14,7 +15,7 @@ function PeopleAmount(props) {
     } else if (event.target.value <= 0) {
       props.setNumberOfpeople({
         error: false,
-        message: "You need to reserve room for atleast one person",
+        message: "You need atleast 1 person",
         amount: 1,
       });
     } else if (
@@ -36,15 +37,11 @@ function PeopleAmount(props) {
   }
 
   return (
-    <Paper className="roomReservationPaper" elevation={3}>
+    <Paper className="roomReservationPaper maxpeople" elevation={3}>
       <Grid container heigth={100} spacing={1} alignItems="center">
-        <Grid item>
-          <PeopleIcon />
-        </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <TextField
             className="amount-of-people"
-            fullWidth
             id="Amount-of-people-input"
             type="number"
             label="Amount"
@@ -54,8 +51,19 @@ function PeopleAmount(props) {
             helperText={props.numberOfPeople.message}
           />
         </Grid>
+        <Grid item>
+          <Grid container spacing={1} alignItems="center">
+            <Grid item>
+              <PeopleIcon />
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1" gutterBottom>
+                Max: {props.maxPeople}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
-      <></>
     </Paper>
   );
 }
