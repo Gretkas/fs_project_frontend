@@ -32,13 +32,33 @@ const getFilteredRooms = async (data) =>{
 
     }
     return res;
-
-
-
 }
 
 
+const getRooms = async () => {
+    try{
+        return (await axios.get( `${API_URL}rooms`));
+    }catch(e){
+        return e;
+    }
+}
+
+const deleteRoom = async (roomId) => {
+    try{
+        await axios.delete( `${API_URL}rooms/${roomId}`).then(
+            response => {
+                return response;
+            }
+        );
+    }
+    catch(e){
+        return e;
+    }
+}
+
 export const roomService = {
   getSingleRoom,
-  getFilteredRooms
+  getFilteredRooms,
+  getRooms, 
+  deleteRoom
 };

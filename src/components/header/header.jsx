@@ -50,12 +50,6 @@ const Header = (props) => {
             </button>
 
 
-            <Link to="/">
-                Home
-            </Link>
-            <Link to="/rooms">
-                Rooms
-            </Link>
             
 
           </div>
@@ -72,6 +66,14 @@ const Header = (props) => {
               </Link>
               <hr />
             </li>
+            {props.isAdmin? 
+            <li>
+              <Link to="/admin" onClick={toggleNavBar}>
+                <h2>Admin</h2>
+              </Link>
+              <hr />
+            </li> :
+            ""}
           </ul>
           <Menu
             id="simple-menu"
@@ -107,6 +109,11 @@ const Header = (props) => {
               <Link to="/rooms">
                 <h2>Rooms</h2>
               </Link>
+              {props.isAdmin? 
+              <Link to="/admin" onClick={toggleNavBar}>
+                <h2>Admin</h2>
+              </Link>:
+            ""}
 
             </div>
           

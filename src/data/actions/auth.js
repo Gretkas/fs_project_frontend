@@ -4,7 +4,8 @@ import {
     ERROR,
     AUTH_USER,
     LOGOUT,
-    NO_SESSION_COOKIE
+    NO_SESSION_COOKIE,
+    AUTH_ADMIN
   } from "../constants"
 
   import {authenticationService} from "../services/auth"
@@ -52,10 +53,18 @@ import {
       try {
         const result = await authenticationService.authUser();
         if(result instanceof Error) throw result;
-        dispatch({
+        if(result.data.role === "ADMIN"){
+          dispatch({
+            type: AUTH_ADMIN,
+            payload: result.data,
+          });
+        }else{
+          dispatch({
           type: AUTH_USER,
           payload: result.data,
         });
+        }
+        
       }catch(e){
         console.log("HEIDER");
         dispatch({

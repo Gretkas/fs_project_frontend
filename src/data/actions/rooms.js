@@ -2,7 +2,8 @@ import {
     
     ERROR,
     GET_SINGLE_ROOM,
-    GET_FILTERED_ROOMS
+    GET_FILTERED_ROOMS,
+    GET_ROOMS
   } from "../constants"
   import {roomService} from "../services/rooms"
  
@@ -44,6 +45,40 @@ import {
         });
       }
     };
+
+
+export const getRooms = () => async (dispatch) => {
+	try{
+		const res = await roomService.getRooms();
+		dispatch({
+			type: GET_ROOMS,
+			payload: res.data,
+		});
+	} catch(err){
+        dispatch({
+            type: ERROR,
+            payload: {
+              error: err,
+            },
+        });
+    }
+}
+
+export const deleteRoom = (userId) => async (dispatch) => {
+  try{
+      await roomService.deleteRoom(userId);
+      dispatch(
+          getRooms()
+      );
+  } catch(err){
+      dispatch({
+          type: ERROR,
+          payload: {
+            error: err,
+          },
+      });
+  }
+}
   
   
   
