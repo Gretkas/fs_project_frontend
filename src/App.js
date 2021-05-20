@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
 
-const isAdmin = true;
+
 function App(props) {
   const { authUser } = props;
   useEffect(() => {
@@ -31,7 +31,7 @@ function App(props) {
         component={RoomContainer}
         isLoggedIn={props.isLoggedIn}
       />
-      <AdminRoute exact path="/admin" component={Admin} isAdmin={isAdmin} />
+      <AdminRoute exact path="/admin" component={Admin} isAdmin={props.isAdmin} />
     </BrowserRouter>
   ) : (
     ""
@@ -40,6 +40,7 @@ function App(props) {
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
+  isAdmin: state.auth.isAdmin,
   user: state.auth.user,
 });
 

@@ -2,6 +2,7 @@
 export const LOGIN = "LOGIN"
 export const ERROR = "ERROR"
 export const AUTH_USER = "AUTH_USER"
+export const AUTH_ADMIN = "AUTH_ADMIN"
 export const LOGOUT = "LOGOUT"
 export const NO_SESSION_COOKIE = "NO_SESSION_COOKIE"
 export const GET_RESERVATIONS = "GET_RESERVATIONS"
