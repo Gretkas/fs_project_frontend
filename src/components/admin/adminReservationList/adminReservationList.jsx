@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import cancelButton from "../../../assets/cancelButton.svg"
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from "react-router-dom";
+import ArrowDropDownCircleIcon from "@material-ui/icons/ArrowDropDownCircle";
 
 function AdminReservationList(props) {
     const renderReservations = () => {
@@ -36,12 +37,30 @@ function AdminReservationList(props) {
               <Table aria-label="tabell med brukere">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell onClick={() => handleSort("id")}>Id</StyledTableCell>
-                    <StyledTableCell onClick={() => handleSort("title")} align="right">Tittel</StyledTableCell>
-                    <StyledTableCell onClick={() => handleSort("startTime")} align="right">Tidsramme</StyledTableCell>
-                    <StyledTableCell onClick={() => handleSort("user")} align="right">Ansvarlig bruker</StyledTableCell>
-                    <StyledTableCell onClick={() => handleSort("user")} align="right">Kontakt epost</StyledTableCell>
-                    <StyledTableCell onClick={() => handleSort("type")} align="right">Type</StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("id")}>
+                        Id
+                        <ArrowDropDownCircleIcon/>
+                    </StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("title")} align="right">
+                        Tittel
+                        <ArrowDropDownCircleIcon/>
+                    </StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("startTime")} align="right">
+                        Tidsramme
+                        <ArrowDropDownCircleIcon/>
+                    </StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("user")} align="right">
+                        Ansvarlig bruker
+                        <ArrowDropDownCircleIcon/>
+                    </StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("user")} align="right">
+                        Kontakt epost
+                        <ArrowDropDownCircleIcon/>
+                    </StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("type")} align="right">
+                        Type
+                        <ArrowDropDownCircleIcon/>
+                    </StyledTableCell>
                     <StyledTableCell align="right">Romnavn</StyledTableCell> 
                     <StyledTableCell align="right"></StyledTableCell>                   
                   </TableRow>
