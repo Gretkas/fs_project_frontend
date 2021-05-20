@@ -85,6 +85,16 @@
   color: white;
   z-index: 1;
 }
+.availible:focus {
+  -webkit-box-shadow: 0px 0px 5px 0px #818181;
+  box-shadow: 0px 0px 5px 0px #818181;
+  transform: scale(1.1);
+  background: #6200ee;
+  color: white;
+  z-index: 1;
+  border-style: none;
+  outline: none;
+}
 .weekday {
   background: #6200ee;
   color: white;
