@@ -30,50 +30,57 @@ export const VisualWeek: FunctionComponent<IVisualWeek> = (
           );
         })}
       </div>
-      <div className="time-selectors">
-        <TextField
-          className={classes.root}
-          required={true}
-          size="small"
-          id="startTime"
-          label="Start"
-          value={props.selection[0] ? props.selection[0] : ""}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <TextField
-          className={classes.root}
-          size="small"
-          required={true}
-          id="endTime"
-          label="End"
-          value={props.selection[1] ? props.selection[1] : ""}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
 
-        <Button
-          size={"medium"}
-          className={classes.root}
-          onClick={() => {
-            if (props.firstSelection) {
-              props.week.onClick(props.firstSelection);
-            }
-          }}
-          variant="outlined"
-          color="primary"
-        >
-          clear
-        </Button>
-      </div>
+      <TextField
+        className={classes.root}
+        required={true}
+        size="small"
+        id="startTime"
+        label="Start"
+        value={props.selection[0] ? props.selection[0] : ""}
+        error={props.selection[0] === undefined ? true : false}
+        helperText={
+          props.selection[0] === undefined ? "pleace choose starting time" : ""
+        }
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <TextField
+        className={classes.root}
+        size="small"
+        required={true}
+        id="endTime"
+        label="End"
+        value={props.selection[1] ? props.selection[1] : ""}
+        error={props.selection[1] === undefined ? true : false}
+        helperText={
+          props.selection[1] === undefined ? "pleace choose ending time" : ""
+        }
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+
+      <Button
+        size={"medium"}
+        className={classes.root}
+        onClick={() => {
+          if (props.firstSelection) {
+            props.week.onClick(props.firstSelection);
+          }
+        }}
+        variant="outlined"
+        color="primary"
+      >
+        clear
+      </Button>
     </>
   );
 };
 
 export interface IVisualWeek {
   week: IDayArray;
-  selection: [number | undefined, number | undefined , Date| undefined];
+  selection: [number | undefined, number | undefined, Date | undefined];
   firstSelection: Position | undefined;
 }

@@ -9,10 +9,13 @@ import { Divider } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import TimeSelectionTable from "../timeselection/TimeSelectionTable.tsx";
-import ArrowDropDownCircleIcon from "@material-ui/icons/ArrowDropDownCircle";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { v4 as uuidv4 } from "uuid";
+import PeopleAmount from "./PeopleAmount";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
-const purple = "#6200EE";
+const purplecolor = "#6200EA";
 function SingleRoom(props) {
   const [reservationTime, setReservationTime] = useState([
     undefined,
@@ -28,6 +31,11 @@ function SingleRoom(props) {
   );
   const [TimeSelectionKey, setTimeSelectionKey] = useState(uuidv4());
   const [isReserved, setReserved] = useState(false);
+  const [numberOfPeople, setNumberOfpeople] = useState({
+    error: true,
+    message: "Please specify how many people",
+    amount: "",
+  });
 
   const { getAvailableTimeTable } = props;
   useEffect(() => {
@@ -56,7 +64,7 @@ function SingleRoom(props) {
                 Hele rommet
               </Typography>
               {selectedSection === -2 ? (
-                <CheckIcon style={{ color: purple }} />
+                <CheckIcon style={{ color: purplecolor }} />
               ) : (
                 <CheckIcon color="disabled" />
               )}
@@ -68,61 +76,87 @@ function SingleRoom(props) {
         </div>
 
         {renderSections()}
+
+        <CreateOwnSection />
+
         <Paper className="roomReservationPaper" elevation={3}>
-          {renderCreateOwnSection()}
-        </Paper>
-
-        <div className="roomReservationPaper">
           <Typography variant="h4" component="h4">
-            Velg tidspunkt:
+            Velg tidspunkt
           </Typography>
-        </div>
 
-        <TimeSelectionTable
-          key={TimeSelectionKey}
-          reservedArray={props.availableTimeTable}
-          reservationTime={reservationTime}
-          setReservationTime={setReservationTime}
+          <TimeSelectionTable
+            key={TimeSelectionKey}
+            reservedArray={props.availableTimeTable}
+            reservationTime={reservationTime}
+            setReservationTime={setReservationTime}
+          />
+        </Paper>
+        <PeopleAmount
+          setNumberOfpeople={setNumberOfpeople}
+          numberOfPeople={numberOfPeople}
+          maxPeople={props.room.maxNumber}
         />
         <div className="roomReservationReserveButton">
-          <Button
-            onClick={() => handleReservationPost()}
-            variant="contained"
-            style={{ background: purple, color: "#FFFFFF" }}
-          >
-            RESERVER
-          </Button>
+          <SubmitButton />
         </div>
       </div>
     );
   };
+
+  function SubmitButton() {
+    let disabledStatus = false;
+
+    if (numberOfPeople.error) {
+      disabledStatus = true;
+    }
+    if (reservationTime[0] === undefined) {
+      disabledStatus = true;
+    }
+
+    return (
+      <ThemeProvider theme={theme}>
+        <Button
+          onClick={() => handleReservationPost()}
+          variant="contained"
+          color="primary"
+          disabled={disabledStatus}
+        >
+          RESERVER
+        </Button>
+      </ThemeProvider>
+    );
+  }
 
   const renderSections = () => {
     let elements = [];
     props.room.sections.forEach((section) => {
       elements.push(
         <div
-          key={uuid()}
           className={
             selectedSection === section.id
               ? "roomReservationSelectedSection"
               : "roomReservationSection"
           }
-          onClick={() => handleSectionClick(section.id, section.items)}
         >
-          <Paper className="roomReservationPaper" elevation={3}>
+          <Paper
+            className="roomReservationPaper"
+            key={uuid()}
+            elevation={selectedSection === section.id ? 10 : 5}
+            onClick={() => handleSectionClick(section.id, section.items)}
+          >
             <div className="roomReservationSectionHeader">
               <Typography variant="h4" component="h4">
                 {section.name}
               </Typography>
               {selectedSection === section.id ? (
-                <CheckIcon style={{ color: purple }} />
+                <CheckIcon style={{ color: purplecolor }} />
               ) : (
                 <CheckIcon color="disabled" />
               )}
             </div>
 
             {renderSectionItems(section.items, selectedSection === section.id)}
+
             <div className="hr">
               <Divider flexItem />
             </div>
@@ -146,56 +180,64 @@ function SingleRoom(props) {
     });
   };
 
-  const renderCreateOwnSection = () => {
+  function CreateOwnSection() {
     if (!isCreatingOwnSection) {
       return (
-        <div
-          className="roomReservationSection"
-          onClick={() => {
-            setCreatingOwnSection(true);
-            setSelectedSectionItems([]);
-            setSelectedSection(-1);
-          }}
-        >
-          <div className="roomReservationSectionHeader">
-            <Typography variant="h4" component="h4">
-              Lag egen seksjon
-            </Typography>
-            <ArrowDropDownCircleIcon />
-          </div>
+        <div className="roomReservationSection">
+          <Paper className=" roomReservationPaper" elevation={3}>
+            <div
+              className="create-own-section"
+              onClick={() => {
+                setCreatingOwnSection(true);
+                setSelectedSectionItems([]);
+                setSelectedSection(-1);
+              }}
+            >
+              <div className="roomReservationSectionHeader">
+                <Typography variant="h4" component="h4">
+                  Lag egen seksjon
+                </Typography>
+                <ArrowDropDownIcon color="primary" />
+              </div>
+            </div>
+          </Paper>
         </div>
       );
     } else
       return (
-        <div className="roomReservationSection">
-          <div
-            className="roomReservationSectionHeader"
-            onClick={() => setCreatingOwnSection(false)}
-          >
-            <Typography variant="h4" component="h4">
-              Lag egen seksjon
-            </Typography>
-            <ArrowDropDownCircleIcon />
-          </div>
-          <div className="roomReservationCreateOwnSectionItems">
-            {renderCreateOwnSectionItems()}
+        <Paper className="roomReservationPaper selected" elevation={10}>
+          <div className="create-own-section">
+            <div
+              className="roomReservationSectionHeader"
+              onClick={() => setCreatingOwnSection(false)}
+            >
+              <Typography variant="h4" component="h4">
+                Lag egen seksjon
+              </Typography>
+              <ArrowDropUpIcon color="primary" />
+            </div>
+            <div className="roomReservationCreateOwnSectionItems">
+              {renderCreateOwnSectionItems()}
 
-            {renderSelectedItems()}
+              {renderSelectedItems()}
+            </div>
+            <div className="roomReservationCreateOwnSectionTitle">
+              <TextField
+                fullWidth
+                id="outlined-basic"
+                label="Tittel"
+                variant="outlined"
+                value={createOwnSectionTitle ? createOwnSectionTitle : ""}
+                helperText="Beskrivende tittel for din egen seksjon"
+                onChange={(event) =>
+                  setcreateOwnSectionTitle(event.target.value)
+                }
+              />
+            </div>
           </div>
-          <div className="roomReservationCreateOwnSectionTitle">
-            <TextField
-              fullWidth
-              id="outlined-basic"
-              label="Tittel"
-              variant="outlined"
-              value={createOwnSectionTitle ? createOwnSectionTitle : ""}
-              helperText="Beskrivende tittel for din egen seksjon"
-              onChange={(event) => setcreateOwnSectionTitle(event.target.value)}
-            />
-          </div>
-        </div>
+        </Paper>
       );
-  };
+  }
 
   const renderCreateOwnSectionItems = () => {
     return (
@@ -308,5 +350,11 @@ function SingleRoom(props) {
     </div>
   );
 }
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: purplecolor },
+  },
+});
 
 export default SingleRoom;

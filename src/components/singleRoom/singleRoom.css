@@ -1,87 +1,117 @@
-:root{
-    --main--color: #6200EE;
+:root {
+  --main--color: #6200ee;
 }
 
-.singleRoom{
-    max-width: 350px;
-    margin: 0 auto;
+.singleRoom {
+  max-width: clamp(350px, 350px, 500px);
+  margin: 0 auto;
+  margin-bottom: 40px;
 }
 
-.roomReservationSelectionComponent{
-    max-width: 350px;
-    margin: 0 auto;
+.roomReservationSelectionComponent {
+  max-width: 350px;
+  margin: 0 auto;
 }
 
-.roomReservationCreateOwnSectionItems{
-    max-width: 350px;
-    
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
+.roomReservationCreateOwnSectionItems {
+  max-width: 350px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-
-
-.createOwnSectionItems{
-    
+.createOwnSectionItems {
 }
 
-.selectedCreateOwnSectionItems{
-    
+.selectedCreateOwnSectionItems {
 }
 
-.roomReservationCreateOwnSectionTitle{
-    margin-top: 10px;
-    max-width: 350px;
+.roomReservationCreateOwnSectionTitle {
+  margin-top: 10px;
+  max-width: 350px;
 }
-.roomReservationSectionHeader{
-    max-width: 350px;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-
+.roomReservationSectionHeader {
+  max-width: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.roomReservationReserveButton{
-    text-align: center;
-}
-
-.roomReservationSelectedSection{
-    margin: 10px auto;
-    max-width: 350px;
-    border: 1px solid var(--main--color);;
-}
-.roomReservationPaper{
-    padding: 10px;
-}
-.roomReservationSection{
-    margin: 10px auto;
-    max-width: 350px;
-    
+.roomReservationReserveButton {
+  text-align: center;
+  margin-top: 30px;
 }
 
-
-
-.roomReservationSectionItems{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.roomReservationSelectedSection {
+  margin: 10px auto;
+  max-width: 350px;
+  border: 1px solid var(--main--color);
+  transition: transform 0.1s ease-in-out;
+  border-radius: 5px;
 }
-.selectedItem{
-    display: flex;
-    align-items: center;
-    padding: 7px;
-    width: fit-content;
-    border-radius: 25px;
-    background-color:var(--main--color) ;
-    color:white;
-    margin: 4px;
+.roomReservationSelectedSection:hover {
+  border: 1px solid var(--main--color);
+  cursor: pointer;
+  transform: scale(1.05);
 }
-.unselectedItem{
-    padding: 7px;
-    margin: 4px;
-    width: fit-content;
-    border-radius: 25px;
-    background-color: #b6bab7;
-    
+.roomReservationPaper {
+  margin-top: 10px;
+  padding: 10px;
+}
+.roomReservationSection {
+  border-radius: 5px;
+  margin: 10px auto;
+  max-width: 350px;
+  transition: transform 0.1s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.create-own-section {
+  cursor: pointer;
+  margin: 10px auto;
+  max-width: 350px;
+}
+.roomReservationSection:hover {
+  margin: 10px auto;
+  cursor: pointer;
+  border: 1px solid var(--main--color);
+  transform: scale(1.05);
+}
+.selected {
+  cursor: pointer;
+  border: 1px solid var(--main--color);
+  transition: transform 0.1s ease-in-out;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  transform: scale(1.05);
 }
 
+.room-reservation-items-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.roomReservationSectionItems {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.selectedItem {
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  width: fit-content;
+  border-radius: 25px;
+  background-color: var(--main--color);
+  color: white;
+  margin: 4px;
+}
+.unselectedItem {
+  padding: 7px;
+  margin: 4px;
+  width: fit-content;
+  border-radius: 25px;
+  background-color: #b6bab7;
+}
+.amount-of-people {
+  height: 100px;
+}
