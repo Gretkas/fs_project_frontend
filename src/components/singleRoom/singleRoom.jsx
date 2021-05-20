@@ -254,13 +254,13 @@ function SingleRoom(props) {
             )
           ) {
             return (
-              <div
+              <button
                 className="unselectedItem"
                 key={uuidv4()}
                 onClick={() => handleItemSelection(item)}
               >
                 {item.name}
-              </div>
+              </button>
             );
           } else {
             return "";
@@ -274,14 +274,14 @@ function SingleRoom(props) {
       <div className="selectedCreateOwnSectionItems">
         {selectedSectionItems.map((item) => {
           return (
-            <div
+            <button
               className="selectedItem"
               key={uuidv4()}
               onClick={() => handleItemSelection(item)}
             >
               {item.name}
               <CheckIcon fontSize="small" style={{ color: "#FFFFFF" }} />
-            </div>
+            </button>
           );
         })}
       </div>

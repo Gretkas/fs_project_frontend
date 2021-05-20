@@ -32,6 +32,7 @@
   justify-content: space-between;
   border: none;
   width: 100%;
+  border: none;
   background-color: white;
   padding: 0;
   cursor: pointer;
@@ -120,6 +121,10 @@
   background-color: var(--main--color);
   color: white;
   margin: 4px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 3px 2px 5px;
 }
 .unselectedItem {
   padding: 7px;
@@ -127,10 +132,46 @@
   width: fit-content;
   border-radius: 25px;
   background-color: #b6bab7;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 3px 2px 5px;
 }
 .amount-of-people {
   height: 80px;
 }
 .maxpeople {
   margin-top: 20px;
+}
+.unselectedItem:focus {
+  transform: scale(1.1);
+  background-color: #b6bab7;
+  color: white;
+  border: none;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 2px 10px;
+}
+.unselectedItem:hover {
+  transform: scale(1.1);
+  background-color: var(--main--color);
+  color: white;
+  border: none;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 2px 10px;
+}
+.selectedItem:focus {
+  transform: scale(1.1);
+  background-color: #b6bab7;
+  color: rgb(24, 24, 24);
+  border: none;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 2px 10px;
+}
+.selectedItem:hover {
+  transform: scale(1.1);
+  background-color: #b6bab7;
+  color: rgb(37, 37, 37);
+  border: none;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 2px 10px;
 }
