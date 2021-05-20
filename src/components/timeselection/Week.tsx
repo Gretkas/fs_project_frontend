@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import { Position } from "./TimeSelectionUnit";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -31,54 +30,51 @@ export const VisualWeek: FunctionComponent<IVisualWeek> = (
           );
         })}
       </div>
-      <Paper className="time-selectors" elevation={5}>
-        <TextField
-          className={classes.root}
-          required={true}
-          size="small"
-          id="startTime"
-          label="Start"
-          value={props.selection[0] ? props.selection[0] : ""}
-          error={props.selection[0] === undefined ? true : false}
-          helperText={
-            props.selection[0] === undefined
-              ? "pleace choose starting time"
-              : ""
-          }
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <TextField
-          className={classes.root}
-          size="small"
-          required={true}
-          id="endTime"
-          label="End"
-          value={props.selection[1] ? props.selection[1] : ""}
-          error={props.selection[1] === undefined ? true : false}
-          helperText={
-            props.selection[1] === undefined ? "pleace choose ending time" : ""
-          }
-          InputProps={{
-            readOnly: true,
-          }}
-        />
 
-        <Button
-          size={"medium"}
-          className={classes.root}
-          onClick={() => {
-            if (props.firstSelection) {
-              props.week.onClick(props.firstSelection);
-            }
-          }}
-          variant="outlined"
-          color="primary"
-        >
-          clear
-        </Button>
-      </Paper>
+      <TextField
+        className={classes.root}
+        required={true}
+        size="small"
+        id="startTime"
+        label="Start"
+        value={props.selection[0] ? props.selection[0] : ""}
+        error={props.selection[0] === undefined ? true : false}
+        helperText={
+          props.selection[0] === undefined ? "pleace choose starting time" : ""
+        }
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <TextField
+        className={classes.root}
+        size="small"
+        required={true}
+        id="endTime"
+        label="End"
+        value={props.selection[1] ? props.selection[1] : ""}
+        error={props.selection[1] === undefined ? true : false}
+        helperText={
+          props.selection[1] === undefined ? "pleace choose ending time" : ""
+        }
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+
+      <Button
+        size={"medium"}
+        className={classes.root}
+        onClick={() => {
+          if (props.firstSelection) {
+            props.week.onClick(props.firstSelection);
+          }
+        }}
+        variant="outlined"
+        color="primary"
+      >
+        clear
+      </Button>
     </>
   );
 };
