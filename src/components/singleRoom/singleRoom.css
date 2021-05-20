@@ -64,6 +64,7 @@
 .roomReservationSectionItems{
     display:flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .selectedItem{
     display: flex;
