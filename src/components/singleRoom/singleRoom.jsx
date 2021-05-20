@@ -11,6 +11,7 @@ import { TextField } from "@material-ui/core";
 import TimeSelectionTable from "../timeselection/TimeSelectionTable.tsx";
 import ArrowDropDownCircleIcon from "@material-ui/icons/ArrowDropDownCircle";
 import { v4 as uuidv4 } from "uuid";
+import PeopleAmount from "./PeopleAmount";
 
 const purple = "#6200EE";
 function SingleRoom(props) {
@@ -28,6 +29,11 @@ function SingleRoom(props) {
   );
   const [TimeSelectionKey, setTimeSelectionKey] = useState(uuidv4());
   const [isReserved, setReserved] = useState(false);
+  const [numberOfPeople, setNumberOfpeople] = useState({
+    error: true,
+    message: "Please specify how many people",
+    amount: undefined,
+  });
 
   const { getAvailableTimeTable } = props;
   useEffect(() => {
@@ -71,31 +77,50 @@ function SingleRoom(props) {
         <Paper className="roomReservationPaper" elevation={3}>
           {renderCreateOwnSection()}
         </Paper>
-
-        <div className="roomReservationPaper">
+        <Paper className="roomReservationPaper" elevation={3}>
           <Typography variant="h4" component="h4">
             Velg tidspunkt:
           </Typography>
-        </div>
 
-        <TimeSelectionTable
-          key={TimeSelectionKey}
-          reservedArray={props.availableTimeTable}
-          reservationTime={reservationTime}
-          setReservationTime={setReservationTime}
+          <TimeSelectionTable
+            key={TimeSelectionKey}
+            reservedArray={props.availableTimeTable}
+            reservationTime={reservationTime}
+            setReservationTime={setReservationTime}
+          />
+        </Paper>
+        <PeopleAmount
+          setNumberOfpeople={setNumberOfpeople}
+          numberOfPeople={numberOfPeople}
+          maxPeople={10}
         />
         <div className="roomReservationReserveButton">
-          <Button
-            onClick={() => handleReservationPost()}
-            variant="contained"
-            style={{ background: purple, color: "#FFFFFF" }}
-          >
-            RESERVER
-          </Button>
+          <SubmitButton />
         </div>
       </div>
     );
   };
+
+  function SubmitButton() {
+    let disabledStatus = false;
+    if (numberOfPeople.error) {
+      disabledStatus = true;
+    }
+    if (reservationTime[0] === undefined) {
+      disabledStatus = true;
+    }
+
+    return (
+      <Button
+        onClick={() => handleReservationPost()}
+        variant="contained"
+        color="primary"
+        disabled={disabledStatus}
+      >
+        RESERVER
+      </Button>
+    );
+  }
 
   const renderSections = () => {
     let elements = [];
