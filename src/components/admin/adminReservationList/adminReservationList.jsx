@@ -40,6 +40,7 @@ function AdminReservationList(props) {
                     <StyledTableCell onClick={() => handleSort("title")} align="right">Tittel</StyledTableCell>
                     <StyledTableCell onClick={() => handleSort("startTime")} align="right">Tidsramme</StyledTableCell>
                     <StyledTableCell onClick={() => handleSort("user")} align="right">Ansvarlig bruker</StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("user")} align="right">Kontakt epost</StyledTableCell>
                     <StyledTableCell onClick={() => handleSort("type")} align="right">Type</StyledTableCell>
                     <StyledTableCell align="right">Romnavn</StyledTableCell> 
                     <StyledTableCell align="right"></StyledTableCell>                   
@@ -58,6 +59,7 @@ function AdminReservationList(props) {
                                 {reservation.user.id}
                             </Link>
                         </StyledTableCell>
+                        <StyledTableCell align="right">{reservation.user.email}</StyledTableCell>
                         <StyledTableCell align="right">{reservation.type}</StyledTableCell>
                         <StyledTableCell align="right">
                         <Link to={`/admin/rooms/${reservation.roomId}`}>
