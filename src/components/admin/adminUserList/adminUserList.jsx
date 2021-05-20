@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import cancelButton from "../../../assets/cancelButton.svg"
 import IconButton from '@material-ui/core/IconButton';
+import { deleteUser } from '../../../data/actions/users';
 
 function AdminUserList(props) {
     const renderUsers = () => {
@@ -31,7 +32,7 @@ function AdminUserList(props) {
               <Table aria-label="tabell med brukere">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>Bruker nummer</StyledTableCell>
+                    <StyledTableCell>Bruker id</StyledTableCell>
                     <StyledTableCell align="right">Brukernavn</StyledTableCell>
                     <StyledTableCell align="right">Rolle</StyledTableCell>
                     <StyledTableCell align="right">
@@ -42,16 +43,16 @@ function AdminUserList(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.users.map((user,index) => (
-                    <TableRow key={index}>
+                  {props.users.map(user => (
+                    <TableRow key={user.id}>
                         <StyledTableCell component="th" scope="row">
-                            {index + 1}
+                            {user.id}
                         </StyledTableCell>
                         <StyledTableCell align="right">{user.userName}</StyledTableCell>
                         <StyledTableCell align="right">{user.role}</StyledTableCell>
                         <StyledTableCell align="right">
                             Slett bruker:
-                            <IconButton aria-label="Slett bruker" onClick={()=>{console.log(index)}}>
+                            <IconButton aria-label="Slett bruker" onClick={()=>{props.deleteUser(user.id)}}>
                                 <img src={cancelButton}/>
                             </IconButton>
                         </StyledTableCell>

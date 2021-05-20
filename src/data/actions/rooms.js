@@ -63,6 +63,22 @@ export const getRooms = () => async (dispatch) => {
         });
     }
 }
+
+export const deleteRoom = (userId) => async (dispatch) => {
+  try{
+      await roomService.deleteRoom(userId);
+      dispatch(
+          getRooms()
+      );
+  } catch(err){
+      dispatch({
+          type: ERROR,
+          payload: {
+            error: err,
+          },
+      });
+  }
+}
   
   
   

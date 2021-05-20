@@ -1,6 +1,6 @@
 import AdminUserList from "./adminUserList";
 import { connect } from "react-redux";
-import { getUsers } from "../../../data/actions/users";
+import { getUsers, deleteUser } from "../../../data/actions/users";
 import { withRouter } from 'react-router';
 import React, { useEffect } from "react";
 
@@ -11,7 +11,7 @@ function AdminUserListContainer(props) {
 
   return (
     <div className="landingContainer">
-      <AdminUserList users={props.users}/>
+      <AdminUserList users={props.users} deleteUser={props.deleteUser}/>
     </div>
   );
 }
@@ -24,6 +24,6 @@ const mapStateToProps = (state) => ({
 
 
 
-export default withRouter(connect(mapStateToProps, { getUsers }, null, {
+export default withRouter(connect(mapStateToProps, { getUsers, deleteUser }, null, {
   forwardRef: true,
 })(AdminUserListContainer));

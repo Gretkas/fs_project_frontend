@@ -32,9 +32,10 @@ function AdminRoomList(props) {
               <Table aria-label="tabell med brukere">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>Rom nummer</StyledTableCell>
-                    <StyledTableCell align="right">Brukernavn</StyledTableCell>
-                    <StyledTableCell align="right">Rolle</StyledTableCell>
+                    <StyledTableCell>Id</StyledTableCell>
+                    <StyledTableCell align="right">Romnavn</StyledTableCell>
+                    <StyledTableCell align="right">Lokasjon</StyledTableCell>
+                    <StyledTableCell align="rigth"></StyledTableCell>
                     <StyledTableCell align="right">
                         <Button variant="contained" color="secondary">
                             Nytt rom
@@ -43,14 +44,21 @@ function AdminRoomList(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.rooms.map((room,index) => (
-                    <TableRow key={index}>
+                  {props.rooms.map((room) => (
+                    <TableRow key={room.id}>
                         <StyledTableCell component="th" scope="row">
-                            {index + 1}
+                            {room.id}
                         </StyledTableCell>
-                        <StyledTableCell>
-                            Slett bruker:
-                            <IconButton aria-label="Slett bruker" onClick={()=>{console.log(index)}}>
+                        <StyledTableCell align="right">{room.name}</StyledTableCell>
+                        <StyledTableCell align="right">{room.location}</StyledTableCell>
+                        <StyledTableCell align="right">
+                          <Button variant="contained" color="secondary">
+                              Rediger rom
+                          </Button>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            Slett rom:
+                            <IconButton aria-label="Slett bruker" onClick={()=>{props.deleteRoom(room.id)}}>
                                 <img src={cancelButton}/>
                             </IconButton>
                         </StyledTableCell>
