@@ -21,7 +21,7 @@ function App(props) {
 
   return props.isLoggedIn !== null ? (
     <BrowserRouter>
-      <Header user={props.user}/>
+      <Header user={props.user} isAdmin={props.isAdmin}/>
       <Route exact path="/login" component={LoginContainer}/>
       <PrivateRoute exact path="/" component={LandingContainer} isLoggedIn={props.isLoggedIn}/>  
       <PrivateRoute exact path="/rooms" component={RoomsContainer} isLoggedIn={props.isLoggedIn}/>    
@@ -32,6 +32,11 @@ function App(props) {
         isLoggedIn={props.isLoggedIn}
       />
       <AdminRoute exact path="/admin" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/rooms/:id" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/rooms/:id/maintenance" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/users" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/users/:id" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/reservations" component={Admin} isAdmin={props.isAdmin} />
     </BrowserRouter>
   ) : (
     ""
