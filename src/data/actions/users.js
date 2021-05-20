@@ -1,8 +1,22 @@
-import {
-    GET_USERS,
-    ERROR
-} from "../constants"
-import { userService } from "../services/users"
+import {userService} from "../services/users";
+import {ERROR, GET_USERS, NEW_USER, UPDATE_USER} from "../constants";
+import {addError} from "./errors";
+
+
+export const addUser = (data) => async (dispatch) => {
+
+    try {
+        const res = await userService.postUser(data)
+        await dispatch({
+            type: NEW_USER,
+            payload: res.data
+        });
+        return res.data;
+    } catch (err) {
+        dispatch(addError(err));
+        return null;
+    }
+}
 
 export const getUsers = () => async (dispatch) => {
     try {
@@ -34,5 +48,31 @@ export const deleteUser = (userId) => async (dispatch) => {
               error: err,
             },
         });
+    }
+}
+
+export const getUser = (userId) => async (dispatch) => {
+
+    try {
+        const res = await userService.getUser(userId)
+        return res.data;
+    } catch (err) {
+        dispatch(addError(err));
+        return null;
+    }
+}
+
+export const updateUser = (userId, data) => async (dispatch) => {
+
+    try {
+        const res = await userService.putUser(userId, data)
+        await dispatch({
+            type: UPDATE_USER,
+            payload: res.data
+        });
+        return res.data;
+    } catch (err) {
+        dispatch(addError(err));
+        return null;
     }
 }
