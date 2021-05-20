@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import cancelButton from "../../../assets/cancelButton.svg"
 import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import {Link} from "react-router-dom";
 
 function AdminUserList(props) {
     const renderUsers = () => {
@@ -49,7 +51,15 @@ function AdminUserList(props) {
                         </StyledTableCell>
                         <StyledTableCell align="right">{user.userName}</StyledTableCell>
                         <StyledTableCell align="right">{user.role}</StyledTableCell>
+
                         <StyledTableCell align="right">
+                            Rediger bruker:
+                            <Link to={`/admin/users/${user.id}`}>
+                                <IconButton color="primary" aria-label="Rediger bruker">
+                                    <EditIcon alt="Rediger bruker"/>
+                                </IconButton>
+                            </Link>
+
                             Slett bruker:
                             <IconButton aria-label="Slett bruker" onClick={()=>{props.deleteUser(user.id)}}>
                                 <img src={cancelButton} alt="Slett bruker"/>
