@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import {removeError} from "../../../data/actions/errors";
-import {useForm} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {
     Backdrop,
     CircularProgress,
-    FormControl,
+    FormControl, FormHelperText,
     InputLabel,
     MenuItem,
     Select,
@@ -20,29 +20,21 @@ const AddUserForm = (props) => {
         register,
         control,
         handleSubmit,
-        getValues,
         formState: {
             errors,
             isSubmitting,
+            isValid
         },
     } = useForm({
         mode: "onBlur",
         criteriaMode: "firstError",
         shouldFocusError: true,
-        reValidateMode: "onSubmit",
-        // shouldUnregister: true, // todo keep ???
+        reValidateMode: "onChange",
+        shouldUnregister: true, // todo keep ???
     });
-
-    const [role, setRole] = React.useState("USER");
-
-    const handleRoleChange = (event) => {
-        setRole(event.target.value);
-    };
 
     const onSubmit = async (data, e) => {
         e.preventDefault();
-
-        console.log(data)
 
         props.removeError();
 
@@ -86,7 +78,13 @@ const AddUserForm = (props) => {
         },
         password: "Required",
         role: "Required",
-        validUntil: "Required"
+        validUntil: {
+            required: "Required",
+            min: {
+                value: format(new Date(), "yyyy-MM-dd"),
+                message: "Only future dates allowed",
+            },
+        }
     };
 
     const prepareAddUserForm = () => {
@@ -98,134 +96,147 @@ const AddUserForm = (props) => {
                     className="Register-form-Container"
                     onSubmit={handleSubmit(onSubmit, onErrors)}
                 >
-                    <TextField
-                        id="username"
-                        label="Username"
-                        variant="outlined"
-                        defaultValue="Ilonka"
-                        required
-                        error={errors.userName}
-                        helperText={
-                            errors.userName
-                                ? errors.userName.message
-                                : null
-                        }
-                        {...register("userName", registerOptions.userName)}
-                    />
+                    <div>
+                        <TextField
+                            id="username"
+                            label="Username"
+                            required
+                            error={errors.userName}
+                            helperText={
+                                errors.userName
+                                    ? errors.userName.message
+                                    : null
+                            }
+                            {...register("userName", registerOptions.userName)}
+                        />
 
-                    <TextField
-                        id="password"
-                        label="Password"
-                        variant="outlined"
-                        defaultValue="Password1"
-                        required
-                        error={errors.password}
-                        helperText={
-                            errors.password
-                                ? errors.password.message
-                                : null
-                        }
-                        {...register("password", registerOptions.password)}
-                    />
+                        <TextField
+                            id="password"
+                            label="Password"
+                            required
+                            error={errors.password}
+                            helperText={
+                                errors.password
+                                    ? errors.password.message
+                                    : null
+                            }
+                            {...register("password", registerOptions.password)}
+                        />
 
-                    <TextField
-                        id="firstName"
-                        label="First Name"
-                        variant="outlined"
-                        defaultValue="Ilona"
-                        required
-                        error={errors.firstName}
-                        helperText={
-                            errors.firstName
-                                ? errors.firstName.message
-                                : null
-                        }
-                        {...register("firstName", registerOptions.firstName)}
-                    />
+                        <TextField
+                            id="firstName"
+                            label="First Name"
+                            required
+                            error={errors.firstName}
+                            helperText={
+                                errors.firstName
+                                    ? errors.firstName.message
+                                    : null
+                            }
+                            {...register("firstName", registerOptions.firstName)}
+                        />
 
-                    <TextField
-                        id="lastName"
-                        label="Last Name"
-                        variant="outlined"
-                        defaultValue="Podliashanyk"
-                        required
-                        error={errors.lastName}
-                        helperText={
-                            errors.lastName
-                                ? errors.lastName.message
-                                : null
-                        }
-                        {...register("lastName", registerOptions.lastName)}
-                    />
+                        <TextField
+                            id="lastName"
+                            label="Last Name"
+                            required
+                            error={errors.lastName}
+                            helperText={
+                                errors.lastName
+                                    ? errors.lastName.message
+                                    : null
+                            }
+                            {...register("lastName", registerOptions.lastName)}
+                        />
 
-                    <TextField
-                        id="email"
-                        label="Email"
-                        variant="outlined"
-                        type="email"
-                        defaultValue="ilonap@ntnu.no"
-                        required
-                        error={errors.email}
-                        helperText={
-                            errors.email
-                                ? errors.email.message
-                                : null
-                        }
-                        {...register("email", registerOptions.email)}
-                    />
+                        <TextField
+                            id="email"
+                            label="Email"
+                            type="email"
+                            required
+                            error={errors.email}
+                            helperText={
+                                errors.email
+                                    ? errors.email.message
+                                    : null
+                            }
+                            {...register("email", registerOptions.email)}
+                        />
 
-                    <TextField
-                        id="phoneNumber"
-                        label="Phone Number"
-                        variant="outlined"
-                        type="tel"
-                        defaultValue="92258172"
-                        required
-                        error={errors.phoneNumber}
-                        helperText={
-                            errors.phoneNumber
-                                ? errors.phoneNumber.message
-                                : null
-                        }
-                        {...register("phoneNumber", registerOptions.phoneNumber)}
-                    />
+                        <TextField
+                            id="phoneNumber"
+                            label="Phone Number"
+                            type="tel"
+                            placeholder="12345678"
+                            required
+                            error={errors.phoneNumber}
+                            helperText={
+                                errors.phoneNumber
+                                    ? errors.phoneNumber.message
+                                    : null
+                            }
+                            {...register("phoneNumber", registerOptions.phoneNumber)}
+                        />
 
-                    <TextField
-                        id="validUntil"
-                        label="Account Expiration Date"
-                        type="date"
-                        min={format(new Date(), "yyyy-MM-dd")}
-                        // defaultValue={format(new Date(), "yyyy-MM-dd")}
-                        defaultValue="2021-06-25"
-                        required
-                        error={errors.validUntil}
-                        helperText={
-                            errors.validUntil
-                                ? errors.validUntil.message
-                                : null
-                        }
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        {...register("validUntil", registerOptions.validUntil)}
-                    />
+                        <Controller
+                            render={({field}) => {
+                                return(
+                                    <TextField
+                                        {...field}
+                                        id="validUntil"
+                                        label="Account Expiration Date"
+                                        type="date"
+                                        value={field.value}
+                                        required
+                                        error={errors.validUntil}
+                                        helperText={
+                                            errors.validUntil
+                                                ? errors.validUntil.message
+                                                : null
+                                        }
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+                                );
+                            }}
+                            name="validUntil"
+                            rules={registerOptions.validUntil}
+                            defaultValue={`${new Date().getFullYear()}-08-31`}
+                            control={control}
+                        />
 
-                    <FormControl >
-                        <InputLabel shrink>
-                            Role
-                        </InputLabel>
-                        <Select
-                            id="role"
-                            value={role}
-                            onChange={handleRoleChange}
-                            {...register("role", registerOptions.role)}
+                        <FormControl
+                            error={errors.role}
+                            required
                         >
-                            <MenuItem value="USER">User</MenuItem>
-                            <MenuItem value="ADMIN">Admin</MenuItem>
-                        </Select>
-                    </FormControl>
+                            <InputLabel shrink>
+                                Role
+                            </InputLabel>
 
-                    <button type="submit">
+                            <Controller
+                                render={({field}) => {
+                                    return(
+                                        <Select value={field.value}>
+                                            <MenuItem value="USER">User</MenuItem>
+                                            <MenuItem value="ADMIN">Admin</MenuItem>
+                                        </Select>
+                                    );
+                                }}
+                                name="role"
+                                rules={registerOptions.role}
+                                defaultValue="USER"
+                                control={control}
+                            />
+
+                            {errors.role &&
+                            <FormHelperText>{errors.role.message}</FormHelperText>
+                            }
+                        </FormControl>
+                    </div>
+
+
+                    <button disabled={!isValid} type="submit">
                         Submit
                     </button>
 
