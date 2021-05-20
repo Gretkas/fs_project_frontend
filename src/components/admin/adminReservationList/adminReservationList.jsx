@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 function AdminReservationList(props) {
     const renderReservations = () => {
-
+        console.log(props.reservations)
         const StyledTableCell = withStyles((theme) => ({
             head: {
                 background: "#6200EE",
@@ -25,17 +25,22 @@ function AdminReservationList(props) {
             },
         }))(TableCell);
           
-
+        const handleSort = (value) =>{
+            props.setSortby(value)
+            props.setSortDirection(sortDirection => {
+                return sortDirection === "ASC" ? "DESC" : "ASC"
+            })
+        }
         return (
             <TableContainer component={Paper}>
               <Table aria-label="tabell med brukere">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>Id</StyledTableCell>
-                    <StyledTableCell align="right">Tittel</StyledTableCell>
-                    <StyledTableCell align="right">Tidsramme</StyledTableCell>
-                    <StyledTableCell align="right">Brukerepost</StyledTableCell>
-                    <StyledTableCell align="right">Type</StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("id")}>Id</StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("title")} align="right">Tittel</StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("startTime")} align="right">Tidsramme</StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("user")} align="right">Ansvarlig bruker</StyledTableCell>
+                    <StyledTableCell onClick={() => handleSort("type")} align="right">Type</StyledTableCell>
                     <StyledTableCell align="right">Romnavn</StyledTableCell> 
                     <StyledTableCell align="right"></StyledTableCell>                   
                   </TableRow>
@@ -50,7 +55,7 @@ function AdminReservationList(props) {
                         <StyledTableCell align="right">{reservation.startTime} - {reservation.endTime}</StyledTableCell>
                         <StyledTableCell align="right">
                             <Link to={`/admin/users/${reservation.user.id}`}>
-                                {reservation.user.email}
+                                {reservation.user.id}
                             </Link>
                         </StyledTableCell>
                         <StyledTableCell align="right">{reservation.type}</StyledTableCell>

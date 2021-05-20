@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getFilteredReservations, cancelReservation } from "../../../data/actions/reservations";
+import { getFilteredReservations,cancelSuccess, cancelReservation } from "../../../data/actions/reservations";
 import { withRouter } from 'react-router';
 import React, { useEffect, useState } from "react";
 import SearchBar from "../../searchBar/searchBar"
@@ -13,12 +13,22 @@ function AdminUserListContainer(props) {
 
   const [page, setPage] = useState(0);
   const [reservationSearchCriteria, setReservationSearchCriteria] = useState({
-    name: "",
+    title: "",
+    showPreviousReservations: false
   });
+
+  const [sortDirection, setSortDirection] = useState("ASC");
+  const [sortby, setSortby] = useState("startTime");
   useEffect(() => {
-    executeSearch()
+    if(props.cancelledReservation){
+      
+      props.cancelSuccess()
+    }else{
+      executeSearch()
+    }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, reservationSearchCriteria]) 
+  }, [page, reservationSearchCriteria, sortDirection, sortby, props.cancelledReservation]) 
 
   
   
@@ -28,8 +38,8 @@ function AdminUserListContainer(props) {
       reservationPage: {
         pageNumber: page,
         pageSize: PAGE_SIZE,
-        sortDirection: "ASC",
-        sortBy: "name",
+        sortDirection: sortDirection,
+        sortBy: sortby,
       },
     });
   };
@@ -46,12 +56,12 @@ function AdminUserListContainer(props) {
     });
   };
 
-  const handleSearchName = (newName) => {
+  const handleSearchName = (newTitle) => {
     setPage((page) => {
       return 0;
     });
     setReservationSearchCriteria((reservationSearchCriteria) => {
-      return { ...reservationSearchCriteria, name: newName };
+      return { ...reservationSearchCriteria, title: newTitle };
     });
   };
 
@@ -61,7 +71,7 @@ function AdminUserListContainer(props) {
   return props.reservations.content ? (
     <div className="reservationsContainer">
       <SearchBar handleSearchName={handleSearchName} search={searchReservations} searchCriteria={reservationSearchCriteria}/>
-      <AdminReservationList reservations={props.reservations.content} cancelReservation={props.cancelReservation}/>
+      <AdminReservationList reservations={props.reservations.content} cancelReservation={props.cancelReservation} setSortby={setSortby} setSortDirection={setSortDirection}/>
       <Paginator handlePageClick={handlePageClick} content={props.reservations}/>
     </div>
   ) : "";
@@ -69,11 +79,12 @@ function AdminUserListContainer(props) {
 
 const mapStateToProps = (state) => ({
   reservations: state.reservations.filteredReservations,
+  cancelledReservation: state.reservations.canceled
 });
 
 
 
 
-export default withRouter(connect(mapStateToProps, { getFilteredReservations, cancelReservation }, null, {
+export default withRouter(connect(mapStateToProps, { getFilteredReservations, cancelSuccess, cancelReservation }, null, {
   forwardRef: true,
 })(AdminUserListContainer));

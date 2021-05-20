@@ -4,7 +4,7 @@ import Reservations from './reservations';
 function Landing(props) {
   return (
     <div className="App">
-      <Reservations reservations={props.reservations}/>
+      <Reservations cancelReservation={props.cancelReservation} reservations={props.reservations}/>
     </div>
   );
 }
