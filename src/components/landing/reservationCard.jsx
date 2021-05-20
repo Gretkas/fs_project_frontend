@@ -15,7 +15,7 @@ function ReservationCard(props) {
         <p className="reservationCardDate">{props.reservation.startTime.split("T")[1].substring(0,2)} - {props.reservation.endTime.split("T")[1].substring(0,2)} {props.reservation.endTime.split("T")[0]}</p>
         <p className="reservationCardSectionName">{props.reservation.title}</p>
         <IconButton className="reservationCardCancelButton" aria-label="Slett reservasjon" onClick={()=>{props.cancelReservation(props.reservation.id);}}>
-          <img src={cancelButton}/>
+          <img src={cancelButton} alt="Slett reservasjon"/>
         </IconButton>        
     </div>
     <Divider className="hr"/>

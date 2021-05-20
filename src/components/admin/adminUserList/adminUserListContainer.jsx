@@ -5,9 +5,10 @@ import { withRouter } from 'react-router';
 import React, { useEffect } from "react";
 
 function AdminUserListContainer(props) {
+  const {getUsers} = props
   useEffect(() => {
-    props.getUsers()    
-  }, []) 
+    getUsers()    
+  }, [getUsers]) 
 
   return (
     <div className="landingContainer">

@@ -4,16 +4,13 @@ import {
     ERROR,
     AUTH_USER,
     LOGOUT,
-    NO_SESSION_COOKIE
+    NO_SESSION_COOKIE,
+    AUTH_ADMIN
   } from "../constants"
 
   import {authenticationService} from "../services/auth"
  
-  
-  const mapErrorMessage = (err) => {
-    return (err.response && err.response.data && err.response.data.description) ?
-        err.response.data.description : "Noe gikk galt";
-  }
+
   
   export const login = (data) => async (dispatch) => { 
       try {
@@ -38,7 +35,7 @@ import {
     export const logout = () => async (dispatch) => { 
       try {
       
-        const res = await authenticationService.logout();
+        await authenticationService.logout();
         dispatch({
           type: LOGOUT,
         });
@@ -56,10 +53,18 @@ import {
       try {
         const result = await authenticationService.authUser();
         if(result instanceof Error) throw result;
-        dispatch({
+        if(result.data.role === "ADMIN"){
+          dispatch({
+            type: AUTH_ADMIN,
+            payload: result.data,
+          });
+        }else{
+          dispatch({
           type: AUTH_USER,
           payload: result.data,
         });
+        }
+        
       }catch(e){
         console.log("HEIDER");
         dispatch({

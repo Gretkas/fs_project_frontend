@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import cancelButton from "../../../assets/cancelButton.svg"
 import IconButton from '@material-ui/core/IconButton';
-import { deleteUser } from '../../../data/actions/users';
 
 function AdminUserList(props) {
     const renderUsers = () => {
@@ -53,7 +52,7 @@ function AdminUserList(props) {
                         <StyledTableCell align="right">
                             Slett bruker:
                             <IconButton aria-label="Slett bruker" onClick={()=>{props.deleteUser(user.id)}}>
-                                <img src={cancelButton}/>
+                                <img src={cancelButton} alt="Slett bruker"/>
                             </IconButton>
                         </StyledTableCell>
                     </TableRow>

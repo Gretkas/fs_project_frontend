@@ -5,9 +5,10 @@ import { withRouter } from 'react-router';
 import React, { useEffect } from "react";
 
 function AdminRoomListContainer(props) {
+  const {getRooms} = props;
   useEffect(() => {
-    props.getRooms()    
-  }, []) 
+    getRooms()    
+  }, [getRooms]) 
 
   return (
     <div className="landingContainer">

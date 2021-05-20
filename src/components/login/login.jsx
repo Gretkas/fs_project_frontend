@@ -47,6 +47,7 @@ function Login(props) {
                 <input
                   className="loginFormInput loginFormInputEmail"
                   placeholder="Epost@Epost.no"
+                  defaultValue="admin"
                   {...register("email")}
                 />
                 {/* include validation with required or other standard HTML validation rules */}
@@ -54,6 +55,7 @@ function Login(props) {
                   className="loginFormInput loginFormInputPassword"
                   type="password"
                   id="password"
+                  defaultValue="admin"
                   placeholder="Password"
                   {...register("password", { required: true })}
                 />

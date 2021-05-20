@@ -2,8 +2,8 @@ import {
     
     ERROR,
     GET_SINGLE_ROOM,
-    GET_ROOMS,
-    GET_FILTERED_ROOMS
+    GET_FILTERED_ROOMS,
+    GET_ROOMS
   } from "../constants"
   import {roomService} from "../services/rooms"
  

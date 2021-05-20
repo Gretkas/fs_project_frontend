@@ -59,7 +59,7 @@ function AdminRoomList(props) {
                         <StyledTableCell align="right">
                             Slett rom:
                             <IconButton aria-label="Slett bruker" onClick={()=>{props.deleteRoom(room.id)}}>
-                                <img src={cancelButton}/>
+                                <img src={cancelButton} alt="Slett bruker"/>
                             </IconButton>
                         </StyledTableCell>
                     </TableRow>
