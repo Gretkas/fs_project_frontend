@@ -53,9 +53,8 @@ function AdminReservationList(props) {
                         Ansvarlig bruker
                         <ArrowDropDownCircleIcon/>
                     </StyledTableCell>
-                    <StyledTableCell onClick={() => handleSort("user")} align="right">
+                    <StyledTableCell align="right">
                         Kontakt epost
-                        <ArrowDropDownCircleIcon/>
                     </StyledTableCell>
                     <StyledTableCell onClick={() => handleSort("type")} align="right">
                         Type
