@@ -21,5 +21,8 @@ export const REMOVE_ERROR = "REMOVE_ERROR";
 // RESERVATION
 export const NEW_RESERVATION = "NEW_RESERVATION";
 
+// USERS
+export const NEW_USER = "NEW_USER";
+
 
 

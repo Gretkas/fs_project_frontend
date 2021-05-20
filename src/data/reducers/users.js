@@ -1,6 +1,6 @@
 import {
     GET_USERS,
-    ERROR
+    ERROR, NEW_USER
 } from "../constants"
 
 const defaultState = {
@@ -14,6 +14,11 @@ export default function userReducer(state = defaultState, action){
                 ...state,
                 users: action.payload
             }
+         case NEW_USER:   
+         return {
+             ...state,
+             users: [...state.users, action.payload]
+         }
         case ERROR:
             return {
             ...state,
