@@ -10,11 +10,11 @@ function AdminRoomListContainer(props) {
     getRooms()    
   }, [getRooms]) 
 
-  return (
+  return props.rooms ? (
     <div className="landingContainer">
       <AdminRoomList rooms={props.rooms} deleteRoom={props.deleteRoom}/>
     </div>
-  );
+  ) : (<p>Ingen rom</p>);
 }
 
 const mapStateToProps = (state) => ({

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { getFilteredRooms } from "../../data/actions/rooms";
 import { withRouter } from 'react-router';
 import React, { useEffect, useState } from "react";
-import SearchBar from "./searchBar/searchBar"
-import Paginator from "./pagination/roomsPaginator"
+import SearchBar from "../searchBar/searchBar"
+import Paginator from "../pagination/paginator"
 
 const PAGE_SIZE = 8;
 
@@ -59,9 +59,9 @@ function RoomsContainer(props) {
 
   return props.rooms.content ? (
     <div className="roomsContainer">
-      <SearchBar handleSearchName={handleSearchName} searchRooms={searchRooms} roomSearchCriteria={roomSearchCriteria}/>
+      <SearchBar handleSearchName={handleSearchName} search={searchRooms} searchCriteria={roomSearchCriteria}/>
       <Rooms rooms={props.rooms.content}/>
-      <Paginator handlePageClick={handlePageClick} rooms={props.rooms}/>
+      <Paginator handlePageClick={handlePageClick} content={props.rooms}/>
     </div>
   ) : "";
 }
