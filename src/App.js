@@ -7,7 +7,9 @@ import RoomsContainer from "./components/rooms/roomsContainer";
 import RoomContainer from "./components/singleRoom/roomContainer";
 import PrivateRoute from "./components/routes/privateroute";
 import AdminRoute from "./components/routes/adminroute";
-import Admin from "./components/admin/admin";
+import Admin from './components/admin/admin';
+import AdminUserListContainer from './components/admin/adminUserList/adminUserListContainer';
+import AdminRoomListContainer from './components/admin/adminRoomList/adminRoomListContainer';
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
@@ -32,11 +34,13 @@ function App(props) {
         isLoggedIn={props.isLoggedIn}
       />
       <AdminRoute exact path="/admin" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/rooms" component={AdminRoomListContainer} isAdmin={props.isAdmin}/>
       <AdminRoute exact path="/admin/rooms/:id" component={Admin} isAdmin={props.isAdmin} />
       <AdminRoute exact path="/admin/rooms/:id/maintenance" component={Admin} isAdmin={props.isAdmin} />
-      <AdminRoute exact path="/admin/users" component={Admin} isAdmin={props.isAdmin} />
+      <AdminRoute exact path="/admin/users" component={AdminUserListContainer} isAdmin={props.isAdmin} />
       <AdminRoute exact path="/admin/users/:id" component={Admin} isAdmin={props.isAdmin} />
       <AdminRoute exact path="/admin/reservations" component={Admin} isAdmin={props.isAdmin} />
+    
     </BrowserRouter>
   ) : (
     ""
