@@ -40,7 +40,7 @@ function AdminRoomList(props) {
                     <StyledTableCell align="rigth"></StyledTableCell>
                       <StyledTableCell align="rigth"></StyledTableCell>
                     <StyledTableCell align="right">
-                        <Link to="/admin/rooms/create">
+                        <Link to="/admin/new-room">
                             <Button variant="contained" color="secondary">
                                 Nytt rom
                             </Button>
