@@ -56,9 +56,38 @@ const deleteRoom = async (roomId) => {
     }
 }
 
+const putRoom = (roomId, data) => {
+    return new Promise((resolve, reject) => {
+        return axios.put(`${API_URL}rooms/${roomId}`, data)
+            .then(res => {
+                return resolve(res)
+            })
+            .catch(err => {
+                console.log({...err})
+                return reject({...err})
+            });
+    })
+}
+
+const getRoom = (roomId) => {
+    return new Promise((resolve, reject) => {
+        return axios.get(`${API_URL}rooms/${roomId}`)
+            .then(res => {
+                console.log(res)
+                return resolve(res)
+            })
+            .catch(err => {
+                console.log({...err})
+                return reject({...err})
+            });
+    })
+}
+
 export const roomService = {
   getSingleRoom,
   getFilteredRooms,
   getRooms, 
-  deleteRoom
+  deleteRoom,
+    putRoom,
+    getRoom,
 };

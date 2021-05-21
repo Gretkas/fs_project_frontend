@@ -1,10 +1,10 @@
 import {
-    
+
     ERROR,
     GET_SINGLE_ROOM,
     GET_ROOMS,
-    GET_FILTERED_ROOMS
-  } from "../constants"
+    GET_FILTERED_ROOMS, UPDATE_ROOM
+} from "../constants"
 
 
   const defaultState = {
@@ -31,6 +31,11 @@ export default function reservationReducer(state = defaultState, action) {
             ...state,
             filteredRooms : action.payload
         };
+        case UPDATE_ROOM:
+            return {
+                ...state,
+                rooms: state.rooms.map(room => room.id === action.payload.id ? {...action.payload} : room)
+            }
       case ERROR:
         return {
           ...state,

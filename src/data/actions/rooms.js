@@ -1,11 +1,12 @@
 import {
-    
+
     ERROR,
     GET_SINGLE_ROOM,
     GET_FILTERED_ROOMS,
-    GET_ROOMS
-  } from "../constants"
+    GET_ROOMS, UPDATE_ROOM
+} from "../constants"
   import {roomService} from "../services/rooms"
+import {addError} from "./errors";
  
   
   
@@ -78,6 +79,21 @@ export const deleteRoom = (userId) => async (dispatch) => {
           },
       });
   }
+}
+
+export const updateRoom = (roomId, data) => async (dispatch) => {
+
+    try {
+        const res = await roomService.putRoom(roomId, data)
+        await dispatch({
+            type: UPDATE_ROOM,
+            payload: res.data
+        });
+        return res.data;
+    } catch (err) {
+        dispatch(addError(err));
+        return null;
+    }
 }
   
   
