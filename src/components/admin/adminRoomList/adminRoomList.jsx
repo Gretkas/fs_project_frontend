@@ -40,9 +40,11 @@ function AdminRoomList(props) {
                     <StyledTableCell align="rigth"></StyledTableCell>
                       <StyledTableCell align="rigth"></StyledTableCell>
                     <StyledTableCell align="right">
-                        <Button variant="contained" color="secondary">
-                            Nytt rom
-                        </Button>
+                        <Link to="/admin/rooms/create">
+                            <Button variant="contained" color="secondary">
+                                Nytt rom
+                            </Button>
+                        </Link>
                     </StyledTableCell>
                   </TableRow>
                 </TableHead>

@@ -83,6 +83,19 @@ const getRoom = (roomId) => {
     })
 }
 
+const postRoom = (data) => {
+    return new Promise((resolve, reject) => {
+        return axios.post(`${API_URL}rooms`, data)
+            .then(res => {
+                return resolve(res)
+            })
+            .catch(err => {
+                console.log({...err})
+                return reject({...err})
+            });
+    })
+}
+
 export const roomService = {
   getSingleRoom,
   getFilteredRooms,
@@ -90,4 +103,5 @@ export const roomService = {
   deleteRoom,
     putRoom,
     getRoom,
+    postRoom,
 };

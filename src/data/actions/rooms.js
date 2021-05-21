@@ -95,6 +95,17 @@ export const updateRoom = (roomId, data) => async (dispatch) => {
         return null;
     }
 }
+
+export const createRoom = (data) => async (dispatch) => {
+
+    try {
+        const res = await roomService.postRoom(data)
+        return res.data;
+    } catch (err) {
+        dispatch(addError(err));
+        return null;
+    }
+}
   
   
   
