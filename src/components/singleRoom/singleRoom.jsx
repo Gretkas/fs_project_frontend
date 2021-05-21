@@ -14,7 +14,6 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { v4 as uuidv4 } from "uuid";
 import PeopleAmount from "./PeopleAmount";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { isForInStatement } from "typescript";
 
 const purplecolor = "#6200EA";
 function SingleRoom(props) {
