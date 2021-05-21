@@ -79,29 +79,10 @@ function App(props) {
       />
       <AdminRoute
         exact
-        path="/admin/users/:id"
-        component={Admin}
-        isAdmin={props.isAdmin}
-      />
-      <AdminRoute
-        exact
-        path="/admin/reservations"
-        component={Admin}
-        isAdmin={props.isAdmin}
-      />
-      <AdminRoute
-        exact
-        path="/admin/new-user"
-        component={AddUserContainer}
-        isAdmin={props.isAdmin}
-      />
-      <AdminRoute
-        exact
         path="/admin/maintenance"
         component={MaintanenceReservationContainer}
         isAdmin={props.isAdmin}
       />
-
       <AdminRoute
         exact
         path="/admin/new-user"
