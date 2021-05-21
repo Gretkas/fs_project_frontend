@@ -45,7 +45,7 @@ Brukeren har kun muligheten for å sende “actions”. Enten vil brukeren gjør
 
 Et viktig prinsipp for react-redux er immutabilitet i data, siden de begge bruker shallow equality checking. For at oppdateringsmodellen i React skal fungere effektivt, kan den ikke konstant sjekke hvordan dataen den er bundet til ser ut. Når en dispatch blir sendt til en reducer, vil den sjekke hvilken type det er, og enten returnere samme dataobjekt hvis det ikke trengs noen endringer, eller et nytt dataobjekt med endringer. Dette kan da sjekkes opp mot det originale dataobjektet ved hjelp av shallow equality checking, som er veldig effektivt når dataobjektene blir store. På denne måten trenger ikke systemet å lete etter endringer i data. Brukere vil få en umiddelbar oppdatering straks nye data er globalt tilgjengelig i applikasjonen. I tillegg gjør denne prosessen det enklere å holde styr på hva som gjør endringer i global data, noe som er tryggere.
 
-Den overordnede arkitekturen teamet har fulgt på frontend er en MVP(Model-view-presentrer). I dette følger det at model(redux+services) står for datahåndtering i applikasjonen, presenter(Containers) inneholder logikk for hva som skal vises til brukeren og view(react) styrer hvordan dette skal vises til brukeren. (Fra fullstack prosjekt)
+Den overordnede arkitekturen teamet har fulgt på frontend er en MVP(Model-view-presentrer). I dette følger det at model(redux+services) står for datahåndtering i applikasjonen, presenter(Containers) inneholder logikk for hva som skal vises til brukeren og view(react) styrer hvordan dette skal vises til brukeren. (Fra systemutviklingsprosjekt)
 
 ## Videre arbeid
 
