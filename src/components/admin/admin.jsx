@@ -5,23 +5,27 @@ import { Link } from "react-router-dom";
 function Admin() {
   	return (
 		<div className="App">
-			Tilgang til admins brukernavn her??
-			
-			<Link to="/admin/users">
-				<Button variant="contained" color="secondary">
-					Brukere
-				</Button>
-			</Link>
-			<Link to="/admin/rooms">
-				<Button variant="contained" color="secondary">
-					Rom
-				</Button>
-			</Link>
-			<Link to="/admin/reservations">
-				<Button variant="contained" color="secondary">
-					Reservasjoner
-				</Button>
-			</Link>
+			<div className="adminButtonDiv">	
+				<Link to="/admin/users">
+					<Button variant="contained" color="secondary" className="adminButtonMainPage">
+						Brukere
+					</Button>
+				</Link>
+			</div>	
+			<div className="adminButtonDiv">	
+				<Link to="/admin/rooms">
+					<Button variant="contained" color="secondary" className="adminButtonMainPage">
+						Rom
+					</Button>
+				</Link>
+			</div>
+			<div className="adminButtonDiv">
+				<Link to="/admin/reservations">
+					<Button variant="contained" color="secondary" className="adminButtonMainPage">
+						Reservasjoner
+					</Button>
+				</Link>
+			</div>
 		</div>
   	);
 }
