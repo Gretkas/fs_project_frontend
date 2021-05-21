@@ -1,109 +1,112 @@
 import React from "react";
 import { connect } from "react-redux";
-import {newReservation} from "../../../data/actions/reservations";
-import {removeError} from "../../../data/actions/errors";
-import {useForm} from "react-hook-form";
+import { newReservation } from "../../../data/actions/reservations";
+import { removeError } from "../../../data/actions/errors";
+import { useForm } from "react-hook-form";
 import ReservationTitle from "./ReservationTitle";
 import ReservationTime from "./ReservationTime";
 import ReservationItems from "./ReservationItems";
-import {Backdrop, CircularProgress} from "@material-ui/core";
+import { Backdrop, CircularProgress } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import "./maintenance.css";
 
 const MaintenanceReservationForm = (props) => {
-    // todo remove when rooms are implemented
-    const defaultItems = [
-        {itemId: 1, name: "Koke2", roomId: 1},
-        {itemId: 2, name: "Koke3", roomId: 1},
-        {itemId: 3, name: "Koke4", roomId: 1},
-        {itemId: 4, name: "Koke5", roomId: 1},
-        {itemId: 5, name: "Koke", roomId: 1},
-    ]
+  // todo remove when rooms are implemented
+  const defaultItems = [
+    { itemId: 1, name: "Koke2", roomId: 1 },
+    { itemId: 2, name: "Koke3", roomId: 1 },
+    { itemId: 3, name: "Koke4", roomId: 1 },
+    { itemId: 4, name: "Koke5", roomId: 1 },
+    { itemId: 5, name: "Koke", roomId: 1 },
+  ];
 
-    const {
-        register,
-        control,
-        handleSubmit,
-        getValues,
-        formState: {
-            errors,
-            isSubmitting,
-        },
-    } = useForm({
-        mode: "onBlur",
-        criteriaMode: "firstError",
-        shouldFocusError: true,
-        reValidateMode: "onSubmit",
-        // shouldUnregister: true, // todo keep ???
-        defaultValues: {
-            items: defaultItems
-        }
+  const {
+    register,
+    control,
+    handleSubmit,
+    getValues,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    mode: "onBlur",
+    criteriaMode: "firstError",
+    shouldFocusError: true,
+    reValidateMode: "onSubmit",
+    // shouldUnregister: true, // todo keep ???
+    defaultValues: {
+      items: defaultItems,
+    },
+  });
+
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+
+    props.removeError();
+
+    let reserv = await props.newReservation({
+      startTime: data.startTime,
+      endTime: data.endTime,
+      items: data.items,
+      type: "MAINTENANCE",
     });
 
-    const onSubmit = async (data, e) => {
-        e.preventDefault();
+    props.onNewReservation(reserv);
+  };
 
-        props.removeError();
+  const onErrors = (errors) => {
+    console.log("ERRORS:", errors);
+  };
 
-        let reserv = await props.newReservation({
-            startTime: data.startTime,
-            endTime: data.endTime,
-            items: data.items,
-            type: "MAINTENANCE"
-        })
+  const prepareMRForm = () => {
+    return (
+      <div>
+        <form
+          id="registerForm"
+          className="Register-form-Container"
+          onSubmit={handleSubmit(onSubmit, onErrors)}
+        >
+          <ReservationTitle
+            title="test title"
+            register={register}
+            errors={errors}
+            control={control}
+          />
 
-        props.onNewReservation(reserv);
-    };
+          <ReservationTime
+            register={register}
+            errors={errors}
+            control={control}
+          />
 
-    const onErrors = (errors) => {
-        console.log("ERRORS:", errors);
-    };
+          <ReservationItems
+            items={defaultItems}
+            register={register}
+            errors={errors}
+            control={control}
+            getValues={getValues}
+          />
 
-    const prepareMRForm = () => {
+          <Button
+            variant="contained"
+            color="primary"
+            className="maintenanceFormSubmit"
+            type="submit"
+          >
+            Reserve
+          </Button>
 
-        return (
-            <div>
-                <form
-                    id="registerForm"
-                    className="Register-form-Container"
-                    onSubmit={handleSubmit(onSubmit, onErrors)}
-                >
-                    <ReservationTitle
-                        title="test title"
-                        register={register}
-                        errors={errors}
-                        control={control}
-                    />
+          {isSubmitting && (
+            <Backdrop open>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          )}
+        </form>
+      </div>
+    );
+  };
 
-                    <ReservationTime
-                        register={register}
-                        errors={errors}
-                        control={control}
-                    />
+  return prepareMRForm();
+};
 
-                    <ReservationItems
-                        items={defaultItems}
-                        register={register}
-                        errors={errors}
-                        control={control}
-                        getValues={getValues}
-                    />
-
-                    <button className="maintenanceFormSubmit" type="submit">
-                        Reserve
-                    </button>
-
-                    {isSubmitting &&
-                    <Backdrop open>
-                        <CircularProgress color="inherit" />
-                    </Backdrop>
-                    }
-                </form>
-
-            </div>
-
-        );
-    }
-
-    return prepareMRForm();
-}
-
-export default connect(null, {newReservation, removeError})(MaintenanceReservationForm);
+export default connect(null, { newReservation, removeError })(
+  MaintenanceReservationForm
+);
