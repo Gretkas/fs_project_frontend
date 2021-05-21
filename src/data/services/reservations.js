@@ -92,6 +92,24 @@ const postMaintenanceReservation = (data) => {
     })
 }
 
+const getFilteredReservations = async (data) =>{
+    let res;
+    
+    try{
+        res = await axios({
+            method: 'POST',
+            url: `${API_URL}reservations/filter`,
+            data:{                 
+                reservationSearchCriteria: data.reservationSearchCriteria,                 
+                reservationPage: data.reservationPage        
+             },
+            })
+
+    }catch(err){
+
+    }
+    return res;
+}
 
 
 
@@ -103,4 +121,5 @@ export const reservationService = {
   postReservation,
   getAvailableTimeTable,
   postMaintenanceReservation,
+  getFilteredReservations
 };

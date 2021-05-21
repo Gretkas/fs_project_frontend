@@ -1,12 +1,12 @@
 //fra sys2
 import Pagination from "@material-ui/lab/Pagination";
-import "./roomsPaginator.css";
+import "./paginator.css";
 const renderPaginator = (props) => {
   return (
     <>
       <div className="pagination-container">
         <Pagination
-          count={props.rooms.totalPages}
+          count={props.content.totalPages}
           onChange={props.handlePageClick}
         />
       </div>

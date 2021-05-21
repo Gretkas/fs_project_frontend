@@ -1,5 +1,5 @@
 import {userService} from "../services/users";
-import {ERROR, GET_USER, GET_USERS, NEW_USER, UPDATE_USER} from "../constants";
+import {ERROR, GET_USERS, NEW_USER, UPDATE_USER} from "../constants";
 import {addError} from "./errors";
 
 

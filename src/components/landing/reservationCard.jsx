@@ -1,9 +1,7 @@
 import './reservationCard.css';
 import cancelButton from "../../assets/cancelButton.svg"
 import { Divider } from '@material-ui/core';
-import { withRouter } from 'react-router';
-import { connect } from "react-redux";
-import { cancelReservation } from "../../data/actions/reservations";
+
 import IconButton from '@material-ui/core/IconButton';
 
 function ReservationCard(props) {
@@ -23,6 +21,4 @@ function ReservationCard(props) {
   );
 }
 
-export default withRouter(connect(null, { cancelReservation }, null, {
-  forwardRef: true,
-})(ReservationCard));
+export default ReservationCard;

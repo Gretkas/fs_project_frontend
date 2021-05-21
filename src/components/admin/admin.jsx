@@ -17,6 +17,11 @@ function Admin() {
 					Rom
 				</Button>
 			</Link>
+			<Link to="/admin/reservations">
+				<Button variant="contained" color="secondary">
+					Reservasjoner
+				</Button>
+			</Link>
 		</div>
   	);
 }
