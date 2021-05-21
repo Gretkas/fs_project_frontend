@@ -16,6 +16,7 @@ import {updateRoom} from "../../../data/actions/rooms";
 import Typography from "@material-ui/core/Typography";
 import EditRoomComponent from "./EditRoomComponent";
 import EditItemsComponent from "./EditItemsComponent";
+import EditSectionsComponent from "./EditSectionsComponent";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -147,9 +148,22 @@ const EditRoomForm = (props) => {
 
                     <div className={classes.paper}>
                         <Typography component="h3" variant="h5">
-                            Rediger Seksjoner og Utstyr
+                            Rediger Utstyr
                         </Typography>
                         <EditItemsComponent
+                            room={room}
+                            items={items}
+                            control={control}
+                            errors={errors}
+                            getValues={getValues}
+                        />
+                    </div>
+
+                    <div className={classes.paper}>
+                        <Typography component="h3" variant="h5">
+                            Rediger Seksjoner
+                        </Typography>
+                        <EditSectionsComponent
                             room={room}
                             sections={sections}
                             items={items}
