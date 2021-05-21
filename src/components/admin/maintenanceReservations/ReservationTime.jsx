@@ -6,7 +6,7 @@ import { format } from "date-fns";
 const prepareReservationTime = (props) => {
   return (
     <div className="single-activity-date cardish">
-      <h2>Date and Time</h2>
+      <h2>Dato og tid</h2>
       <div className="create-activity-dato-start">
         <Controller
           render={({ field }) => {

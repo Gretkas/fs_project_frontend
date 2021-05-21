@@ -10,7 +10,7 @@ const prepareReservationTitle = (props) => {
       render={({ field }) => {
         return (
           <>
-            <h2>Title</h2>
+            <h2>Maintenance</h2>
             <TextField
               className="ReservationTitle"
               {...field}
@@ -34,7 +34,6 @@ const prepareReservationTitle = (props) => {
       }}
       name="title"
       control={props.control}
-      defaultValue={props.title}
       rules={{
         required: "Title is required",
       }}

@@ -29,10 +29,10 @@ const ReservationItems = (props) => {
   const prepareReservationItems = () => {
     return (
       <div>
-        <h2>Items</h2>
+        <h2>Utstyr</h2>
 
         <FormControl component="fieldset" error={props.errors.items}>
-          <FormHelperText>Select items to be reserved</FormHelperText>
+          <FormHelperText>Velg tingene som skal reserveres</FormHelperText>
 
           {props.errors.items && (
             <FormHelperText>{props.errors.items.message}</FormHelperText>

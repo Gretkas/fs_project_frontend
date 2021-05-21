@@ -7,16 +7,16 @@ import RoomsContainer from "./components/rooms/roomsContainer";
 import RoomContainer from "./components/singleRoom/roomContainer";
 import PrivateRoute from "./components/routes/privateroute";
 import AdminRoute from "./components/routes/adminroute";
-import Admin from './components/admin/admin';
-import AdminUserListContainer from './components/admin/adminUserList/adminUserListContainer';
-import AdminRoomListContainer from './components/admin/adminRoomList/adminRoomListContainer';
-import AdminReservationListContainer from './components/admin/adminReservationList/adminReservationListContainer';
+import Admin from "./components/admin/admin";
+import AdminUserListContainer from "./components/admin/adminUserList/adminUserListContainer";
+import AdminRoomListContainer from "./components/admin/adminRoomList/adminRoomListContainer";
+import AdminReservationListContainer from "./components/admin/adminReservationList/adminReservationListContainer";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
 import AddUserContainer from "./components/admin/users/AddUserContainer";
 import EditUserContainer from "./components/admin/users/EditUserContainer";
-import MaintanenceReservationContainer from "./components/admin/reservations/MaintenanceReservationContainer";
+import MaintanenceReservationContainer from "./components/admin/maintenanceReservations/MaintenanceReservationContainer";
 
 function App(props) {
   const { authUser } = props;
@@ -101,7 +101,25 @@ function App(props) {
         component={MaintanenceReservationContainer}
         isAdmin={props.isAdmin}
       />
-      <AdminRoute exact path="/admin/new-user" component={AddUserContainer} isAdmin={props.isAdmin} />
+
+      <AdminRoute
+        exact
+        path="/admin/new-user"
+        component={AddUserContainer}
+        isAdmin={props.isAdmin}
+      />
+      <AdminRoute
+        exact
+        path="/admin/users/:id"
+        component={EditUserContainer}
+        isAdmin={props.isAdmin}
+      />
+      <AdminRoute
+        exact
+        path="/admin/reservations"
+        component={AdminReservationListContainer}
+        isAdmin={props.isAdmin}
+      />
     </BrowserRouter>
   ) : (
     ""
