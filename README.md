@@ -55,4 +55,5 @@ Den overordnede arkitekturen teamet har fulgt på frontend er en MVP(Model-view-
 - Popup før man sletter ting
 - Mer tanke på fargedesign
 - Bedre utforming for større skjermer
+- Implementer logg ut knapp på frontend (ferdig implementert på backend)
 
