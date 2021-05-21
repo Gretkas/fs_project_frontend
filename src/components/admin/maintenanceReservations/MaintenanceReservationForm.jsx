@@ -12,11 +12,8 @@ import Button from "@material-ui/core/Button";
 import "./maintenance.css";
 
 const MaintenanceReservationForm = (props) => {
-
-  
-
   const { getSingleRoom } = props;
-   useEffect(() => {
+  useEffect(() => {
     
     getSingleRoom(window.location.href.split("/")[window.location.href.split("/").length - 2]);
   }, [getSingleRoom]);
@@ -35,7 +32,7 @@ const MaintenanceReservationForm = (props) => {
     reValidateMode: "onSubmit",
     // shouldUnregister: true, // todo keep ???
     defaultValues: {
-      items: props.room.items,
+      items: props.room ? props.room.items : [],
     },
   });
 
@@ -81,7 +78,7 @@ const MaintenanceReservationForm = (props) => {
           />
 
           <ReservationItems
-            items={props.room.items}
+            items={props.room ? props.room.items : []}
             register={register}
             errors={errors}
             control={control}
