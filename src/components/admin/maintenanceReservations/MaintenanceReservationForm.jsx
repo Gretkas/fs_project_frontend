@@ -1,6 +1,7 @@
-import React from "react";
+import {useEffect} from "react";
 import { connect } from "react-redux";
 import { newReservation } from "../../../data/actions/reservations";
+import {getSingleRoom} from "../../../data/actions/rooms"
 import { removeError } from "../../../data/actions/errors";
 import { useForm } from "react-hook-form";
 import ReservationTitle from "./ReservationTitle";
@@ -11,14 +12,15 @@ import Button from "@material-ui/core/Button";
 import "./maintenance.css";
 
 const MaintenanceReservationForm = (props) => {
-  // todo remove when rooms are implemented
-  const defaultItems = [
-    { itemId: 1, name: "Koke2", roomId: 1 },
-    { itemId: 2, name: "Koke3", roomId: 1 },
-    { itemId: 3, name: "Koke4", roomId: 1 },
-    { itemId: 4, name: "Koke5", roomId: 1 },
-    { itemId: 5, name: "Koke", roomId: 1 },
-  ];
+
+  
+
+  const { getSingleRoom } = props;
+   useEffect(() => {
+    
+    getSingleRoom(window.location.href.split("/")[window.location.href.split("/").length - 2]);
+  }, [getSingleRoom]);
+
 
   const {
     register,
@@ -33,7 +35,7 @@ const MaintenanceReservationForm = (props) => {
     reValidateMode: "onSubmit",
     // shouldUnregister: true, // todo keep ???
     defaultValues: {
-      items: defaultItems,
+      items: props.room.items,
     },
   });
 
@@ -43,6 +45,7 @@ const MaintenanceReservationForm = (props) => {
     props.removeError();
 
     let reserv = await props.newReservation({
+      title: data.title,
       startTime: data.startTime,
       endTime: data.endTime,
       items: data.items,
@@ -78,7 +81,7 @@ const MaintenanceReservationForm = (props) => {
           />
 
           <ReservationItems
-            items={defaultItems}
+            items={props.room.items}
             register={register}
             errors={errors}
             control={control}
@@ -107,6 +110,12 @@ const MaintenanceReservationForm = (props) => {
   return prepareMRForm();
 };
 
-export default connect(null, { newReservation, removeError })(
+const mapStateToProps = (state) => ({
+  room: state.rooms.singleRoom,
+});
+
+
+
+export default connect(mapStateToProps, { newReservation, getSingleRoom, removeError })(
   MaintenanceReservationForm
 );

@@ -105,9 +105,10 @@ export const cancelReservation = (reservationId) => async (dispatch) => {
 }
 
 export const newReservation = (data) => async (dispatch) => {
-
+  console.log(data)
   try {
     const res = await reservationService.postMaintenanceReservation(data)
+    
     await dispatch({
       type: NEW_RESERVATION,
       payload: res.data

@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import {addUser} from "../../../data/actions/users";
 import {format} from "date-fns";
+import Button from "@material-ui/core/Button";
 
 const AddUserForm = (props) => {
 
@@ -236,9 +237,9 @@ const AddUserForm = (props) => {
                     </div>
 
 
-                    <button disabled={!isValid} type="submit">
+                    <Button variant="contained" color="primary" disabled={!isValid} type="submit">
                         Submit
-                    </button>
+                    </Button>
 
                     {isSubmitting &&
                     <Backdrop open>
