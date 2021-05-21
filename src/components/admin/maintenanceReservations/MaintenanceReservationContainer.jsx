@@ -2,50 +2,48 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import MaintenanceReservationForm from "./MaintenanceReservationForm";
 import MaintenanceReservationResult from "./MaintenanceReservationResult";
-import {removeError} from "../../../data/actions/errors";
-import {Alert, AlertTitle} from "@material-ui/lab";
+import { removeError } from "../../../data/actions/errors";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 const mapStateToProps = (state) => {
-    return {
-        user: state.auth.user,
-        error: state.errors.message,
-    };
+  return {
+    user: state.auth.user,
+    error: state.errors.message,
+  };
 };
 
 const MaintenanceReservationContainer = (props) => {
-    const [newReservation, setNewReservation] = useState(null);
+  const [newReservation, setNewReservation] = useState(null);
 
-    useEffect(() => {
-        // before unmount
-        return () => {
-            setNewReservation(null);
-        };
-    }, []);
+  useEffect(() => {
+    // before unmount
+    return () => {
+      setNewReservation(null);
+    };
+  }, []);
 
-    const prepareMRContainer = () => {
-        return (
-            <div>
-                <MaintenanceReservationForm
-                    onNewReservation = {setNewReservation}
-                />
+  const prepareMRContainer = () => {
+    return (
+      <div>
+        <MaintenanceReservationForm onNewReservation={setNewReservation} />
 
-                {newReservation &&
-                <MaintenanceReservationResult
-                    reservation={newReservation}
-                />
-                }
+        {newReservation && (
+          <MaintenanceReservationResult reservation={newReservation} />
+        )}
 
-                {props.error &&
-                <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    {props.error}
-                </Alert>
-                }
-            </div>
-        );
-    }
+        {props.error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {props.error}
+          </Alert>
+        )}
+      </div>
+    );
+  };
 
-    return prepareMRContainer();
-}
+  return prepareMRContainer();
+};
 
-export default connect(mapStateToProps, {removeError})(MaintenanceReservationContainer);
+export default connect(mapStateToProps, { removeError })(
+  MaintenanceReservationContainer
+);

@@ -93,7 +93,7 @@
   transform: scale(1.05);
   outline: none;
 }
-.selected {
+.selected-section {
   cursor: pointer;
   border: 1px solid var(--main--color);
   transition: transform 0.1s ease-in-out;

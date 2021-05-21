@@ -24,6 +24,7 @@ function SingleRoom(props) {
   ]);
 
   const [createOwnSectionTitle, setcreateOwnSectionTitle] = useState("");
+  const [sectionTitle, setSectionTitle] = useState("Hele Rommet");
   const [selectedSection, setSelectedSection] = useState(-2);
   const [isCreatingOwnSection, setCreatingOwnSection] = useState(false);
   const [selectedSectionItems, setSelectedSectionItems] = useState(
@@ -51,13 +52,14 @@ function SingleRoom(props) {
     return (
       <div className="roomReservationSelectionComponent">
         <button
-          on
           className={
             selectedSection === -2
               ? "roomReservationSelectedSection"
               : "roomReservationSection"
           }
-          onClick={() => handleSectionClick(-2, props.room.items)}
+          onClick={() =>
+            handleSectionClick(-2, props.room.items, "Hele rommet")
+          }
           alt="Select the whole room"
         >
           <Paper className="roomReservationPaper" elevation={3}>
@@ -79,7 +81,7 @@ function SingleRoom(props) {
 
         {renderSections()}
 
-        <CreateOwnSection />
+        {CreateOwnSection()}
 
         <Paper className="roomReservationPaper" elevation={3}>
           <Typography variant="h4" component="h4">
@@ -98,14 +100,13 @@ function SingleRoom(props) {
           numberOfPeople={numberOfPeople}
           maxPeople={props.room.maxNumber}
         />
-        <div className="roomReservationReserveButton">
-          <SubmitButton />
-        </div>
+
+        <SubmitButton />
       </div>
     );
   };
 
-  function SubmitButton() {
+  function SubmitButton(props) {
     let disabledStatus = false;
 
     if (numberOfPeople.error) {
@@ -114,18 +115,25 @@ function SingleRoom(props) {
     if (reservationTime[0] === undefined) {
       disabledStatus = true;
     }
+    if (isCreatingOwnSection) {
+      if (createOwnSectionTitle === "" && !createOwnSectionTitle) {
+        disabledStatus = true;
+      }
+    }
 
     return (
       <ThemeProvider theme={theme}>
-        <Button
-          onClick={() => handleReservationPost()}
-          variant="contained"
-          color="primary"
-          disabled={disabledStatus}
-          label="Reserve room"
-        >
-          RESERVER
-        </Button>
+        <div className="roomReservationReserveButton">
+          <Button
+            onClick={() => handleReservationPost()}
+            variant="contained"
+            color="primary"
+            disabled={disabledStatus}
+            label="Reserve room"
+          >
+            RESERVER
+          </Button>
+        </div>
       </ThemeProvider>
     );
   }
@@ -141,12 +149,14 @@ function SingleRoom(props) {
               : "roomReservationSection"
           }
           alt={`Select ${section.name}`}
+          onClick={() =>
+            handleSectionClick(section.id, section.items, section.name)
+          }
         >
           <Paper
             className="roomReservationPaper"
             key={uuid()}
             elevation={selectedSection === section.id ? 10 : 5}
-            onClick={() => handleSectionClick(section.id, section.items)}
           >
             <div className="roomReservationSectionHeader">
               <Typography variant="h4" component="h4">
@@ -187,16 +197,16 @@ function SingleRoom(props) {
   function CreateOwnSection() {
     if (!isCreatingOwnSection) {
       return (
-        <button className="roomReservationSection">
+        <button
+          onClick={() => {
+            setCreatingOwnSection(true);
+            setSelectedSectionItems([]);
+            setSelectedSection(-1);
+          }}
+          className="roomReservationSection"
+        >
           <Paper className=" roomReservationPaper" elevation={3}>
-            <div
-              className="create-own-section"
-              onClick={() => {
-                setCreatingOwnSection(true);
-                setSelectedSectionItems([]);
-                setSelectedSection(-1);
-              }}
-            >
+            <div className="create-own-section">
               <div className="roomReservationSectionHeader">
                 <Typography variant="h4" component="h4">
                   Lag egen seksjon
@@ -209,7 +219,7 @@ function SingleRoom(props) {
       );
     } else
       return (
-        <Paper className="roomReservationPaper selected" elevation={10}>
+        <Paper className="roomReservationPaper selected-section" elevation={10}>
           <div className="create-own-section">
             <button
               className="roomReservationSectionHeader"
@@ -229,10 +239,12 @@ function SingleRoom(props) {
             <div className="roomReservationCreateOwnSectionTitle">
               <TextField
                 fullWidth
+                error={createOwnSectionTitle ? false : true}
                 id="outlined-basic"
                 label="Tittel"
                 variant="outlined"
-                value={createOwnSectionTitle ? createOwnSectionTitle : ""}
+                required
+                value={createOwnSectionTitle}
                 helperText="Beskrivende tittel for din egen seksjon"
                 onChange={(event) =>
                   setcreateOwnSectionTitle(event.target.value)
@@ -295,7 +307,8 @@ function SingleRoom(props) {
     setSelectedSectionItems((selectedSectionItems) => {
       return selectedSection === id ? [] : items;
     });
-    setcreateOwnSectionTitle(name);
+    setSectionTitle(name);
+    setcreateOwnSectionTitle("");
     setCreatingOwnSection(false);
   };
 
@@ -308,9 +321,8 @@ function SingleRoom(props) {
   };
 
   const handleReservationPost = async () => {
-    console.log(reservationTime[0]);
     const startDate = new Date(reservationTime[2]);
-    console.log(startDate);
+
     startDate.setHours(
       reservationTime[0] - startDate.getTimezoneOffset() / 60,
       0,
@@ -322,13 +334,15 @@ function SingleRoom(props) {
       0,
       0
     );
-    console.log(startDate);
 
+    console.log(createOwnSectionTitle);
     const data = {
       startTime: startDate,
       endTime: endDate,
       items: selectedSectionItems,
       type: "RESERVATION",
+      title:
+        createOwnSectionTitle === "" ? sectionTitle : createOwnSectionTitle,
     };
     await props.postReservation(data);
     setReserved(true);
