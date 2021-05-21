@@ -1,0 +1,107 @@
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(40px, 50px));
+  grid-template-rows: repeat(11, minmax(40px, 50px));
+  overflow: hidden;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+}
+.time-selection-time-unit {
+  height: clamp(40px, 50px, 50px);
+  width: clamp(40px, 50px, 50px);
+  list-style: none;
+}
+.time-selection-time-unit p {
+  border: none;
+  width: 100%;
+  height: 1rem;
+  text-align: center;
+  line-height: 1em;
+}
+.time-selection-time-unit-button {
+  background-color: white;
+  border: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.time-selection-day {
+  width: clamp(40px, 50px, 50px);
+  width: max-content;
+  text-align: center;
+  list-style: none;
+  margin: auto;
+}
+.time-selection-list-row {
+  margin: 0;
+  padding: 0;
+  list-style: noe;
+  height: clamp(40px, 50px, 50px);
+  width: clamp(40px, 50px, 50px);
+}
+.reserved {
+  color: rgba(149, 149, 149, 0.5);
+
+  transform: none;
+  transition: none;
+}
+.reserved:after,
+.reserved:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(149, 149, 149, 0.5);
+}
+.reserved:before {
+  transform: rotate(45deg);
+}
+.reserved:after {
+  transform: rotate(-45deg);
+}
+.selected {
+  background: #6200ee;
+  color: white;
+  z-index: 1;
+}
+
+.availible {
+  cursor: pointer;
+  transition: color 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+  transition: box-shadow 0.2s ease-out;
+}
+.availible:hover {
+  -webkit-box-shadow: 0px 0px 5px 0px #818181;
+  box-shadow: 0px 0px 5px 0px #818181;
+  transform: scale(1.1);
+  background: #6200ee;
+  color: white;
+  z-index: 1;
+}
+.availible:focus {
+  -webkit-box-shadow: 0px 0px 5px 0px #818181;
+  box-shadow: 0px 0px 5px 0px #818181;
+  transform: scale(1.1);
+  background: #6200ee;
+  color: white;
+  z-index: 1;
+  border-style: none;
+  outline: none;
+}
+.weekday {
+  background: #6200ee;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.time-selectors {
+  margin: 20px auto;
+  max-width: 350px;
+}

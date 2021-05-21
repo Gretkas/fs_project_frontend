@@ -1,9 +1,10 @@
 import './landing.css';
+import Reservations from './reservations';
 
-function Landing() {
+function Landing(props) {
   return (
     <div className="App">
-      Hello
+      <Reservations cancelReservation={props.cancelReservation} reservations={props.reservations}/>
     </div>
   );
 }
