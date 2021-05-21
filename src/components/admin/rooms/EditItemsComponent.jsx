@@ -1,4 +1,3 @@
-import React from "react";
 import {FormControl, FormHelperText, Grid, TextField} from "@material-ui/core";
 import {Controller} from "react-hook-form";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,7 +7,7 @@ import { v4 as uuid } from "uuid";
 import AddIcon from '@material-ui/icons/Add';
 
 const EditItemsComponent = (props) => {
-    const {room, sections, items, errors} = props;
+    const {errors} = props;
 
     const appendSection = (section) => {
         const {sections: currentSections} = props.getValues();
@@ -51,13 +50,13 @@ const EditItemsComponent = (props) => {
         return currentItems?.filter(i => i.itemId !== item.itemId);
     }
 
-    const isItemInSection = (item) => {
+    /*const isItemInSection = (item) => {
         const {sections: currentSections} = props.getValues();
         const itemsInSections = currentSections?.reduce((a, s) => (s.items), [])
         if (itemsInSections.length <= 0) return false;
 
         return itemsInSections?.filter(i => i.itemId === item.itemId).length > 0
-    }
+    }*/
 
         const prepareEditItemsComponent = () => {
         return(

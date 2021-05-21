@@ -1,11 +1,11 @@
-import React from "react";
+
 import { connect } from "react-redux";
 import {removeError} from "../../../data/actions/errors";
 import {useForm, Controller} from "react-hook-form";
 import {
-    Backdrop, Box, Checkbox,
+    Backdrop,
     CircularProgress, Container, CssBaseline,
-    FormControl, FormControlLabel, FormHelperText, Grid,
+    FormControl, FormHelperText, Grid,
     InputLabel, Link, makeStyles,
     MenuItem,
     Select,
@@ -14,7 +14,6 @@ import {
 import {updateUser} from "../../../data/actions/users";
 import {format} from "date-fns";
 import Button from "@material-ui/core/Button";
-import {Copyright} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -43,7 +42,6 @@ const EditUserForm = (props) => {
     const {user, userId, onUpdateUser} = props
 
     const {
-        register,
         control,
         handleSubmit,
         formState: {

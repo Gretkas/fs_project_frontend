@@ -1,4 +1,3 @@
-import React from "react";
 import {FormControl, FormHelperText, Grid, TextField} from "@material-ui/core";
 import {Controller} from "react-hook-form";
 import IconButton from "@material-ui/core/IconButton";
@@ -51,13 +50,13 @@ const NewItemsComponent = (props) => {
         return currentItems?.filter(i => i.itemId !== item.itemId);
     }
 
-    const isItemInSection = (item) => {
+    /*const isItemInSection = (item) => {
         const {sections: currentSections} = props.getValues();
         const itemsInSections = currentSections?.reduce((a, s) => (s.items), [])
         if (itemsInSections.length <= 0) return false;
 
         return itemsInSections?.filter(i => i.itemId === item.itemId).length > 0
-    }
+    }*/
 
     const prepareNewItemsComponent = () => {
         return(

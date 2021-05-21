@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {removeError} from "../../../../data/actions/errors";
 import {Alert, AlertTitle} from "@material-ui/lab";
-import {CssBaseline, Link, Paper, Toolbar, useTheme} from "@material-ui/core";
+import {CssBaseline, Link, Toolbar} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import NewRoomForm from "./NewRoomForm";
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NewRoomContainer = (props) => {
     const classes = useStyles();
-    const theme = useTheme();
+
 
     const [createdRoom, setCreatedRoom] = useState(null);
 

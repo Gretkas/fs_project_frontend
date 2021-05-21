@@ -1,15 +1,12 @@
-import React from "react";
+
 import { connect } from "react-redux";
 import {removeError} from "../../../../data/actions/errors";
 import {useForm} from "react-hook-form";
 import {
-    Backdrop, Box, Checkbox,
+    Backdrop, 
     CircularProgress, Container, CssBaseline,
-    FormControl, FormControlLabel, FormHelperText, Grid,
-    InputLabel, Link, makeStyles,
-    MenuItem,
-    Select,
-    TextField
+     makeStyles,
+ 
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -47,7 +44,7 @@ const NewRoomForm = (props) => {
     const items = []
 
     const {
-        register,
+    
         control,
         handleSubmit,
         getValues,
@@ -95,7 +92,7 @@ const NewRoomForm = (props) => {
         console.log("ERRORS:", errors);
     };
 
-    const registerOptions = {
+    /*const registerOptions = {
         roomName: "Påkrevd",
         maxNumber: { required: "Påkrevd", min: { value: 1, message: "Må være større enn 0"}},
         location: "Påkrevd",
@@ -124,7 +121,7 @@ const NewRoomForm = (props) => {
         //         message: "Only future dates allowed",
         //     },
         // }
-    };
+    };*/
 
     const prepareNewRoomForm = () => {
 
