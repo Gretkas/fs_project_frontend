@@ -1,28 +1,57 @@
-import './reservationCard.css';
-import cancelButton from "../../assets/cancelButton.svg"
-import { Divider } from '@material-ui/core';
-import { withRouter } from 'react-router';
-import { connect } from "react-redux";
-import { cancelReservation } from "../../data/actions/reservations";
-import IconButton from '@material-ui/core/IconButton';
+import "./reservationCard.css";
+import cancelButton from "../../assets/cancelButton.svg";
+import { Paper } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+
+import IconButton from "@material-ui/core/IconButton";
 
 function ReservationCard(props) {
-
   return (
-    <div className="reservationCardContainer">
+    <Paper className="reservationCardContainer" elevation={5}>
       <div className="reservationCard">
-        <p className="reservationCardRoomName">{props.reservation.roomName}</p>
-        <p className="reservationCardDate">{props.reservation.startTime.split("T")[1].substring(0,2)} - {props.reservation.endTime.split("T")[1].substring(0,2)} {props.reservation.endTime.split("T")[0]}</p>
-        <p className="reservationCardSectionName">{props.reservation.title}</p>
-        <IconButton className="reservationCardCancelButton" aria-label="Slett reservasjon" onClick={()=>{props.cancelReservation(props.reservation.id);}}>
-          <img src={cancelButton} alt="Slett reservasjon"/>
-        </IconButton>        
-    </div>
-    <Divider className="hr"/>
-   </div>
+        <Typography
+          className="reservationCardRoomName"
+          variant="h6"
+          gutterBottom
+        >
+          {props.reservation.roomName}
+        </Typography>
+        <div className="reservationCardDate">
+          <Typography
+            className="reservationCardSectionName"
+            variant="body2"
+            gutterBottom
+          >
+            Klokken: {props.reservation.startTime.split("T")[1].substring(0, 2)}{" "}
+            - {props.reservation.endTime.split("T")[1].substring(0, 2)}{" "}
+          </Typography>
+          <Typography
+            className="reservationCardSectionName"
+            variant="body2"
+            gutterBottom
+          >
+            Dato: {props.reservation.endTime.split("T")[0]}
+          </Typography>
+        </div>
+        <Typography
+          className="reservationCardSectionName"
+          variant="body1"
+          gutterBottom
+        >
+          Seksjon: {props.reservation.title}
+        </Typography>
+        <IconButton
+          className="reservationCardCancelButton"
+          aria-label="Slett reservasjon"
+          onClick={() => {
+            props.cancelReservation(props.reservation.id);
+          }}
+        >
+          <img src={cancelButton} alt="Slett reservasjon" />
+        </IconButton>
+      </div>
+    </Paper>
   );
 }
 
-export default withRouter(connect(null, { cancelReservation }, null, {
-  forwardRef: true,
-})(ReservationCard));
+export default ReservationCard;
