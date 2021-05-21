@@ -34,3 +34,12 @@ For state Management bruker vi Redux og redux-thunks for å håndtere side-effec
 ## Axios
 For å håndtere og sende HTTP Requests bruker vi Axios.
 
+## Videre arbeid
+
+- Mer sofistikert adminpanel
+- Bedre tilbakemelding til brukere
+- Forhindre admin at hen kan slette seg selv??
+- Popup før man sletter ting
+- Mer tanke på fargedesign
+- Bedre utforming for større skjermer
+
