@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import cancelButton from "../../../assets/cancelButton.svg"
 import IconButton from '@material-ui/core/IconButton';
+import {Link} from "react-router-dom";
+import EditIcon from "@material-ui/icons/Edit";
 
 function AdminRoomList(props) {
     const renderRooms = () => {
@@ -36,10 +38,13 @@ function AdminRoomList(props) {
                     <StyledTableCell align="right">Romnavn</StyledTableCell>
                     <StyledTableCell align="right">Lokasjon</StyledTableCell>
                     <StyledTableCell align="rigth"></StyledTableCell>
+                      <StyledTableCell align="rigth"></StyledTableCell>
                     <StyledTableCell align="right">
-                        <Button variant="contained" color="secondary">
-                            Nytt rom
-                        </Button>
+                        <Link to="/admin/new-room">
+                            <Button variant="contained" color="secondary">
+                                Nytt rom
+                            </Button>
+                        </Link>
                     </StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -52,14 +57,24 @@ function AdminRoomList(props) {
                         <StyledTableCell align="right">{room.name}</StyledTableCell>
                         <StyledTableCell align="right">{room.location}</StyledTableCell>
                         <StyledTableCell align="right">
-                          <Button variant="contained" color="secondary">
-                              Rediger rom
-                          </Button>
+                            <Link to={`/admin/rooms/${room.id}/maintenance`}>
+                                <Button variant="contained" color="secondary">
+                                    Ny vedlikehold
+                                </Button>
+                            </Link>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            Rediger rom:
+                            <Link to={`/admin/rooms/${room.id}`}>
+                                <IconButton color="primary" aria-label="Rediger rom">
+                                    <EditIcon alt="Rediger rom"/>
+                                </IconButton>
+                            </Link>
                         </StyledTableCell>
                         <StyledTableCell align="right">
                             Slett rom:
-                            <IconButton aria-label="Slett bruker" onClick={()=>{props.deleteRoom(room.id)}}>
-                                <img src={cancelButton} alt="Slett bruker"/>
+                            <IconButton aria-label="Slett rom" onClick={()=>{props.deleteRoom(room.id)}}>
+                                <img src={cancelButton} alt="Slett rom"/>
                             </IconButton>
                         </StyledTableCell>
                     </TableRow>

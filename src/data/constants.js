@@ -28,5 +28,9 @@ export const CANCEL_SUCCESS = "CANCEL_SUCCESS"
 export const NEW_USER = "NEW_USER";
 export const UPDATE_USER = "UPDATE_USER";
 
+// ROOMS
+export const NEW_ROOM = "NEW_ROOM";
+export const UPDATE_ROOM = "UPDATE_ROOM";
+
 
 

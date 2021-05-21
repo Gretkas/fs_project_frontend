@@ -37,9 +37,11 @@ function AdminUserList(props) {
                     <StyledTableCell align="right">Brukernavn</StyledTableCell>
                     <StyledTableCell align="right">Rolle</StyledTableCell>
                     <StyledTableCell align="right">
-                        <Button variant="contained" color="secondary">
-                            Ny bruker
-                        </Button>
+                        
+                            <Link to="/admin/new-user">
+                                 <Button variant="contained" color="secondary">Ny bruker </Button>
+                                 </Link>
+                        
                     </StyledTableCell>
                   </TableRow>
                 </TableHead>

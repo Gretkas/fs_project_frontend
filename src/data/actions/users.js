@@ -1,6 +1,7 @@
-import { userService } from "../services/users";
-import { ERROR, GET_USERS, NEW_USER, UPDATE_USER } from "../constants";
-import { addError } from "./errors";
+import {userService} from "../services/users";
+import {ERROR, GET_USERS, NEW_USER, UPDATE_USER} from "../constants";
+import {addError} from "./errors";
+
 
 export const addUser = (data) => async (dispatch) => {
   try {

@@ -16,7 +16,10 @@ import { connect } from "react-redux";
 import { authUser } from "./data/actions/auth";
 import AddUserContainer from "./components/admin/users/AddUserContainer";
 import EditUserContainer from "./components/admin/users/EditUserContainer";
-import MaintanenceReservationContainer from "./components/admin/maintenanceReservations/MaintenanceReservationContainer";
+import EditRoomContainer from "./components/admin/rooms/EditRoomContainer";
+import MaintenanceReservationContainer from "./components/admin/maintenanceReservations/MaintenanceReservationContainer";
+import NewRoomContainer from "./components/admin/rooms/newRoom/NewRoomContainer";
+
 
 function App(props) {
   const { authUser } = props;
@@ -59,16 +62,22 @@ function App(props) {
         component={AdminRoomListContainer}
         isAdmin={props.isAdmin}
       />
+      <AdminRoute 
+        exact 
+        path="/admin/new-room" 
+        component={NewRoomContainer} 
+        isAdmin={props.isAdmin} 
+      />
       <AdminRoute
         exact
         path="/admin/rooms/:id"
-        component={Admin}
+        component={EditRoomContainer}
         isAdmin={props.isAdmin}
       />
       <AdminRoute
         exact
         path="/admin/rooms/:id/maintenance"
-        component={Admin}
+        component={MaintenanceReservationContainer}
         isAdmin={props.isAdmin}
       />
       <AdminRoute
@@ -80,7 +89,7 @@ function App(props) {
       <AdminRoute
         exact
         path="/admin/maintenance"
-        component={MaintanenceReservationContainer}
+        component={MaintenanceReservationContainer}
         isAdmin={props.isAdmin}
       />
       <AdminRoute
